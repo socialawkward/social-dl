@@ -436,6 +436,26 @@ chmod +x social-dl-uninstaller.desktop
 
 ---
 
+## 🔧 Development Notes
+
+Du entwickelst selbst mit Bash und GitHub API? Schau dir unsere [Development Notes](DEVELOPMENT-NOTES.md) an!
+
+**Was du dort findest:**
+- 💡 **Häufige Fallstricke** und deren Lösungen
+- 📦 **GitHub API** für große Dateien (>100KB)
+- 🐚 **Bash Best Practices** (set -e, stdout/stderr, etc.)
+- 🎨 **GUI-Entwicklung** mit Zenity
+- 📝 **Base64 Self-Contained Scripts**
+
+**Alle Probleme dokumentiert mit:**
+- ❌ Was nicht funktioniert (und warum)
+- ✅ Was funktioniert (mit Code-Beispielen)
+- 💡 Warum es funktioniert
+
+Diese Notes dokumentieren echte Probleme aus der Entwicklung und helfen dir, die gleichen Fehler zu vermeiden!
+
+---
+
 ## 📦 Paket-Struktur
 
 ```
@@ -449,6 +469,7 @@ social-dl/
 ├── Makefile                        # Build-System
 ├── README.md                       # Diese Datei (Deutsch)
 ├── README.en.md                    # English documentation
+├── DEVELOPMENT-NOTES.md            # Entwickler-Dokumentation
 └── LICENSE                         # MIT License
 ```
 
