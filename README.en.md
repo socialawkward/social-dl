@@ -434,6 +434,26 @@ chmod +x social-dl-uninstaller.desktop
 
 ---
 
+## 🔧 Development Notes
+
+Developing with Bash and GitHub API yourself? Check out our [Development Notes](DEVELOPMENT-NOTES.md)!
+
+**What you'll find:**
+- 💡 **Common pitfalls** and their solutions
+- 📦 **GitHub API** handling for large files (>100KB)
+- 🐚 **Bash best practices** (set -e, stdout/stderr, etc.)
+- 🎨 **GUI development** with Zenity
+- 📝 **Base64 self-contained scripts**
+
+**All problems documented with:**
+- ❌ What doesn't work (and why)
+- ✅ What works (with code examples)
+- 💡 Why it works
+
+These notes document real problems from development and help you avoid the same mistakes!
+
+---
+
 ## 📦 Package Structure
 
 ```
@@ -446,7 +466,8 @@ social-dl/
 ├── social-dl-uninstaller.desktop   # Desktop icon uninstaller
 ├── Makefile                        # Build system
 ├── README.md                       # German documentation
-├── README_en.md                    # This file (English)
+├── README.en.md                    # This file (English)
+├── DEVELOPMENT-NOTES.md            # Developer documentation
 └── LICENSE                         # MIT License
 ```
 
