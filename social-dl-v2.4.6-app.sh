@@ -91,34 +91,34 @@ show_menu() {
         # Deutsches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.4.6" \
-            --width=360 --height=580 \
+            --width=420 --height=520 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Universal Social Media Downloader</small>" \
             --column="ID" --column="Option" --column="Beschreibung" \
-            "1" "📥 Installieren" "Social-DL auf diesem System installieren" \
-            "2" "🗑️  Deinstallieren" "Social-DL von diesem System entfernen" \
-            "3" "📖 README (DE)" "Deutsche Dokumentation anzeigen" \
-            "4" "📘 README (EN)" "Englische Dokumentation anzeigen" \
-            "5" "🚀 Ausführen" "Social-DL jetzt starten (Test)" \
-            "6" "ℹ️  Info" "Über Social-DL & Credits" \
-            "7" "🌐 English" "Switch to English language" \
+            "1" "📥 Installieren" "Auf diesem System installieren" \
+            "2" "🗑️  Deinstallieren" "Von diesem System entfernen" \
+            "3" "📖 README (DE)" "Deutsche Dokumentation" \
+            "4" "📘 README (EN)" "Englische Dokumentation" \
+            "5" "🚀 Ausführen" "Social-DL jetzt starten" \
+            "6" "ℹ️  Info" "Über Social-DL" \
+            "7" "🌐 English" "Switch language" \
             "8" "❌ Beenden" "Programm schließen" \
             --hide-column=1 --print-column=1 2>/dev/null)
     else
         # Englisches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.4.6" \
-            --width=360 --height=580 \
+            --width=420 --height=520 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Universal Social Media Downloader</small>" \
             --column="ID" --column="Option" --column="Description" \
-            "1" "📥 Install" "Install Social-DL on this system" \
-            "2" "🗑️  Uninstall" "Remove Social-DL from this system" \
-            "3" "📖 README (DE)" "Show German documentation" \
-            "4" "📘 README (EN)" "Show English documentation" \
-            "5" "🚀 Run now" "Start Social-DL now (Test)" \
-            "6" "ℹ️  Info" "About Social-DL & Credits" \
-            "7" "🌐 Deutsch" "Auf Deutsch wechseln" \
+            "1" "📥 Install" "Install on this system" \
+            "2" "🗑️  Uninstall" "Remove from this system" \
+            "3" "📖 README (DE)" "German documentation" \
+            "4" "📘 README (EN)" "English documentation" \
+            "5" "🚀 Run now" "Start Social-DL now" \
+            "6" "ℹ️  Info" "About Social-DL" \
+            "7" "🌐 Deutsch" "Sprache wechseln" \
             "8" "❌ Exit" "Close program" \
             --hide-column=1 --print-column=1 2>/dev/null)
     fi
