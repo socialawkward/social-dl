@@ -10,11 +10,29 @@ Lade Videos und Audio von Instagram, Twitter/X, YouTube, Reddit und TikTok mit e
 
 ## 🚀 Quick Install
 
-### 🖱️ Grafische Installation (empfohlen – kein Terminal!)
+### 📱 Mobile App (All-in-One, NEU!)
 
-1. **Download** das komplette Paket
-2. **Doppelklick** auf `social-dl-installer.desktop`
-3. **Fertig!** Nutze das Programm aus dem Anwendungsmenü
+**Die einfachste Methode - alles in einer Datei:**
+
+1. **Download:** `social-dl-v2.4.6-app.sh` von [Releases](https://github.com/socialawkward/social-dl/releases)
+2. **Ausführbar machen:** `chmod +x social-dl-v2.4.6-app.sh`
+3. **Starten:**
+   - **Mit Icon:** Doppelklick auf `social-dl-v2.4.6-app.desktop`
+   - **Direkt:** `./social-dl-v2.4.6-app.sh`
+
+**Features der Mobile App:**
+- 📱 Smartphone-inspiriertes Design
+- 🌍 DE/EN Sprachumschaltung
+- 📥 Installation/Deinstallation per Klick
+- 📖 READMEs direkt anzeigbar
+- 🚀 Direkt ausführbar (Test-Modus)
+
+### 🖱️ Grafische Installation (klassisch)
+
+1. **Download** das komplette Paket (`social-dl-v2.4.6.tar.gz`)
+2. **Entpacken:** `tar -xzf social-dl-v2.4.6.tar.gz`
+3. **Doppelklick** auf `social-dl-installer.desktop`
+4. **Fertig!** Nutze das Programm aus dem Anwendungsmenü
 
 **Hinweis:** Benötigt `zenity` (meist vorinstalliert)
 ```bash
@@ -37,6 +55,7 @@ make install-local
 
 ## ✨ Features
 
+- 📱 **Mobile App** - All-in-One GUI mit Smartphone-Design (NEU in 2.4.6!)
 - ⚡ **Quick Mode** - 1 Tastendruck für beste Qualität (NEU in 2.4.6!)
 - 🔄 **Zurück-Funktion** - Jederzeit zum Hauptmenü zurück (NEU in 2.4.6!)
 - 🎬 **Video-Downloads** in wählbarer Qualität (Best/1080p/720p/480p)
@@ -439,6 +458,15 @@ social-dl/
 
 ### Version 2.4.6 (2026-01-08)
 
+**📱 Mobile App (All-in-One):**
+- ✅ **Self-contained App:** Alle Dateien in einer einzigen ausführbaren Datei
+- ✅ **Smartphone-Design:** Modernes GUI mit Zwei-Spalten-Layout
+- ✅ **Multilingual:** DE/EN Sprachumschaltung per Klick
+- ✅ **Desktop-Launcher:** .desktop Datei mit Multimedia-Icon
+- ✅ **Installation per Klick:** Install/Uninstall direkt aus der App
+- ✅ **Integrierte Docs:** READMEs direkt im GUI anzeigbar
+- ✅ **Test-Modus:** Social-DL direkt ausführbar ohne Installation
+
 **⚡ Quick Mode:**
 - ✅ **1-Klick-Download:** Drücke `1` (oder Enter) für beste Qualität ohne weitere Fragen
 - ✅ **Standard-Modus:** Quick Mode ist Standard - am schnellsten für 95% der Downloads
@@ -451,6 +479,10 @@ social-dl/
 - ✅ **Drastisch weniger Eingaben:** Von 3 Fragen zu 1 Tastendruck
 - ✅ **Erweitert-Modus:** Volle Kontrolle weiterhin verfügbar (Option 2)
 - ✅ **Intelligenter Flow:** Quick für Alltag, Erweitert für Spezialfälle
+
+**📦 Distribution:**
+- ✅ **Automatisiertes Packaging:** Upload-Script erstellt tar.gz + App automatisch
+- ✅ **GitHub Releases:** Automatische Release-Erstellung mit Assets
 
 ### Version 2.4.3 (2026-01-08)
 
