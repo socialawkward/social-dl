@@ -154,7 +154,7 @@ EOF
 Name=Social Media Downloader
 Comment=Download videos/audio from Instagram, YouTube, Twitter, Reddit, TikTok
 Exec=bash -c 'source $HOME/.local/bin/.social-dl-lang 2>/dev/null; $HOME/.local/bin/$SCRIPT_NAME'
-Icon=browser-download
+Icon=applications-multimedia
 Terminal=true
 Type=Application
 Categories=Network;AudioVideo;
@@ -217,7 +217,7 @@ else
 Name=Social Media Downloader
 Comment=Download videos/audio from Instagram, YouTube, Twitter, Reddit, TikTok
 Exec=bash -c 'source /usr/local/bin/.social-dl-lang 2>/dev/null; /usr/local/bin/$SCRIPT_NAME'
-Icon=browser-download
+Icon=applications-multimedia
 Terminal=true
 Type=Application
 Categories=Network;AudioVideo;
