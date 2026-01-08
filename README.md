@@ -37,6 +37,8 @@ make install-local
 
 ## ✨ Features
 
+- ⚡ **Quick Mode** - 1 Tastendruck für beste Qualität (NEU in 2.4.6!)
+- 🔄 **Zurück-Funktion** - Jederzeit zum Hauptmenü zurück (NEU in 2.4.6!)
 - 🎬 **Video-Downloads** in wählbarer Qualität (Best/1080p/720p/480p)
 - 🎵 **Audio-Only Downloads** als MP3 **mit eingebettetem Thumbnail** (Cover-Art)
 - 📋 **Clipboard-Integration** (automatische URL-Erkennung)
@@ -435,6 +437,21 @@ social-dl/
 
 ## 📝 Changelog
 
+### Version 2.4.6 (2026-01-08)
+
+**⚡ Quick Mode:**
+- ✅ **1-Klick-Download:** Drücke `1` (oder Enter) für beste Qualität ohne weitere Fragen
+- ✅ **Standard-Modus:** Quick Mode ist Standard - am schnellsten für 95% der Downloads
+
+**🔄 Zurück-Funktion:**
+- ✅ **2x Zurück-Option:** Nach Audio/Video-Wahl und nach Qualitäts-Wahl
+- ✅ **Flexible Navigation:** Jederzeit zurück ins Hauptmenü ohne Neustart
+
+**🎯 User Experience:**
+- ✅ **Drastisch weniger Eingaben:** Von 3 Fragen zu 1 Tastendruck
+- ✅ **Erweitert-Modus:** Volle Kontrolle weiterhin verfügbar (Option 2)
+- ✅ **Intelligenter Flow:** Quick für Alltag, Erweitert für Spezialfälle
+
 ### Version 2.4.3 (2026-01-08)
 
 **🐛 Kritische Bugfixes:**
@@ -511,6 +528,6 @@ Dieses Tool ist für den **persönlichen, legalen Gebrauch** gedacht.
 
 ---
 
-**Version:** 2.4.3  
+**Version:** 2.4.6  
 **Letzte Aktualisierung:** 08. Januar 2026  
 **Status:** Production-Ready 🎉
