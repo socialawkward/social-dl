@@ -37,6 +37,8 @@ make install-local
 
 ## ✨ Features
 
+- ⚡ **Quick Mode** - 1 keystroke for best quality (NEW in 2.4.6!)
+- 🔄 **Back Function** - Return to main menu anytime (NEW in 2.4.6!)
 - 🎬 **Video Downloads** in selectable quality (Best/1080p/720p/480p)
 - 🎵 **Audio-Only Downloads** as MP3 **with embedded thumbnail** (cover art)
 - 📋 **Clipboard Integration** (automatic URL detection)
@@ -48,8 +50,6 @@ make install-local
 - 📁 **Automatic Log Rotation** (with 3 backups)
 - 🛡️ **Security-Hardened** (URL sanitization, timeouts)
 - 🐟 **Multi-Shell Support** (Bash, Zsh, Fish)
-- 🔄 **Version Check** (`--check-update`)
-- 🧹 **Tracking Parameter Removal** (utm_source, fbclid, igsh, etc.)
 - 🌍 **Multilingual** (German/English)
 - 📦 **Reddit CDN Support** (direct download for preview.redd.it, v.redd.it, i.redd.it)
 - 🐦 **Twitter/X Optimized** (special handling for videos with/without audio)
@@ -435,6 +435,21 @@ social-dl/
 
 ## 📝 Changelog
 
+### Version 2.4.6 (2026-01-08)
+
+**⚡ Quick Mode:**
+- ✅ **1-Click Download:** Press `1` (or Enter) for best quality without further questions
+- ✅ **Default Mode:** Quick Mode is default - fastest for 95% of downloads
+
+**🔄 Back Function:**
+- ✅ **2x Back Option:** After audio/video choice and after quality selection
+- ✅ **Flexible Navigation:** Return to main menu anytime without restart
+
+**🎯 User Experience:**
+- ✅ **Drastically fewer inputs:** From 3 questions to 1 keystroke
+- ✅ **Advanced Mode:** Full control still available (Option 2)
+- ✅ **Intelligent Flow:** Quick for everyday, Advanced for special cases
+
 ### Version 2.4.3 (2026-01-08)
 
 **🐛 Critical Bugfixes:**
@@ -511,6 +526,6 @@ This tool is intended for **personal, legal use**.
 
 ---
 
-**Version:** 2.4.3  
+**Version:** 2.4.6  
 **Last Update:** January 08, 2026  
 **Status:** Production-Ready 🎉
