@@ -2,14 +2,14 @@
 
 # Improved Instagram/Twitter/YouTube/Reddit/TikTok Video/Audio Downloader
 # Features: Clipboard detection, duplicate check, atomic counter, optional Shotcut editing
-# Version: 2.4 (Quick Wins + Version Check)
+# Version: 2.4.3
 
 set -o errexit
 set -o nounset
 set -o pipefail
 
 # Version Info
-SCRIPT_VERSION="2.4"
+SCRIPT_VERSION="2.4.3"
 GITHUB_REPO="socialawkward/social-dl"
 
 # Language Detection
@@ -282,29 +282,30 @@ check_version() {
         echo ""
         
         local latest_version
-if command -v curl >/dev/null 2>&1; then
-    latest_version=$(curl -s "https://api.github.com/repos/$GITHUB_REPO/releases/latest" | grep '"tag_name"' | sed -E 's/.*"v?([0-9.]+)".*/\1/')
-elif command -v wget >/dev/null 2>&1; then
-    latest_version=$(wget -qO- "https://api.github.com/repos/$GITHUB_REPO/releases/latest" | grep '"tag_name"' | sed -E 's/.*"v?([0-9.]+)".*/\1/')
-else
-    echo "❌ $(msg "version_error"): curl/wget nicht gefunden"
-    return 1
-fi
+        if command -v curl >/dev/null 2>&1; then
+            latest_version=$(curl -s "https://api.github.com/repos/$GITHUB_REPO/releases/latest" | grep '"tag_name"' | sed -E 's/.*"v?([0-9.]+)".*/\1/')
+        elif command -v wget >/dev/null 2>&1; then
+            latest_version=$(wget -qO- "https://api.github.com/repos/$GITHUB_REPO/releases/latest" | grep '"tag_name"' | sed -E 's/.*"v?([0-9.]+)".*/\1/')
+        else
+            echo "❌ $(msg "version_error"): curl/wget nicht gefunden"
+            return 1
+        fi
 
-if [ -z "$latest_version" ]; then
-    echo "❌ $(msg "version_error")"
-    return 1
-fi
+        if [ -z "$latest_version" ]; then
+            echo "❌ $(msg "version_error")"
+            return 1
+        fi
 
-echo "$(msg "version_latest") $latest_version"
-echo ""
+        echo "$(msg "version_latest") $latest_version"
+        echo ""
 
-if [ "$SCRIPT_VERSION" = "$latest_version" ]; then
-    echo "✅ $(msg "version_uptodate")"
-else
-    echo "🆕 $(msg "version_available")"
-    echo " $(msg "version_download") https://github.com/$GITHUB_REPO/releases/latest"
-fi
+        if [ "$SCRIPT_VERSION" = "$latest_version" ]; then
+            echo "✅ $(msg "version_uptodate")"
+        else
+            echo "🆕 $(msg "version_available")"
+            echo " $(msg "version_download") https://github.com/$GITHUB_REPO/releases/latest"
+        fi
+    fi
 }
 
 # Help anzeigen
@@ -315,6 +316,7 @@ Social-DL v$SCRIPT_VERSION - Universal Social Media Downloader
 $(msg "help_usage")
   $0                    # $([ "$SCRIPT_LANG" = "de" ] && echo "URL aus Zwischenablage" || echo "URL from clipboard")
   $0 <URL>              # $([ "$SCRIPT_LANG" = "de" ] && echo "Direkte URL" || echo "Direct URL")
+  $0 --batch <file>     # $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download aus Datei" || echo "Batch download from file")
   $0 --help             # $([ "$SCRIPT_LANG" = "de" ] && echo "Diese Hilfe" || echo "This help")
   $0 --version          # $([ "$SCRIPT_LANG" = "de" ] && echo "Version anzeigen" || echo "Show version")
   $0 --check-update     # $([ "$SCRIPT_LANG" = "de" ] && echo "Nach Updates suchen" || echo "Check for updates")
@@ -324,6 +326,7 @@ $(msg "help_examples")
   $0 https://youtube.com/watch?v=...
   $0 https://instagram.com/p/...
   $0 https://twitter.com/user/status/...
+  $0 --batch urls.txt   # $([ "$SCRIPT_LANG" = "de" ] && echo "Mehrere URLs aus Datei" || echo "Multiple URLs from file")
 
 $(msg "help_platforms")
   • Instagram   (Stories, Reels, Posts)
@@ -338,6 +341,7 @@ $(msg "help_features")
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Shotcut-Integration für Bearbeitung" || echo "Shotcut integration for editing")
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Audio-Extraktion als MP3" || echo "Audio extraction as MP3")
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Mehrere Qualitätsoptionen" || echo "Multiple quality options")
+  • $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download (5 parallele Downloads)" || echo "Batch download (5 parallel downloads)")
 
 $(msg "help_dependencies")
   $(msg "help_required"):
@@ -364,11 +368,162 @@ $([ "$SCRIPT_LANG" = "de" ] && echo "Dateien werden gespeichert in:" || echo "Fi
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Audio:" || echo "Audio:")  ~/Downloads/Audio/
 
 $([ "$SCRIPT_LANG" = "de" ] && echo "Log-Datei:" || echo "Log file:") ~/.social-dl.log
+
+$([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download:" || echo "Batch download:")
+  $([ "$SCRIPT_LANG" = "de" ] && echo "Erstelle eine Textdatei mit URLs (eine pro Zeile):" || echo "Create a text file with URLs (one per line):")
+  
+  # urls.txt
+  https://youtube.com/watch?v=abc123
+  https://instagram.com/p/xyz789/
+  https://twitter.com/user/status/456
+  
+  $([ "$SCRIPT_LANG" = "de" ] && echo "Dann:" || echo "Then:") $0 --batch urls.txt
+  $([ "$SCRIPT_LANG" = "de" ] && echo "→ Lädt alle URLs mit 5 parallelen Downloads" || echo "→ Downloads all URLs with 5 parallel downloads")
 EOF
     exit 0
 }
 
-# Tools prüfen
+# Parameter ZUERST prüfen (vor Tool-Check!)
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+    show_help
+fi
+
+if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
+    check_version
+    exit 0
+fi
+
+if [[ "${1:-}" == "--check-update" || "${1:-}" == "-u" ]]; then
+    check_version --check-update
+    exit 0
+fi
+
+# Batch-Download
+if [[ "${1:-}" == "--batch" || "${1:-}" == "-b" ]]; then
+    BATCH_FILE="${2:-}"
+    
+    if [ -z "$BATCH_FILE" ]; then
+        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Fehler: Keine Datei angegeben!" || echo "Error: No file specified!")" >&2
+        echo "$([ "$SCRIPT_LANG" = "de" ] && echo "Verwendung:" || echo "Usage:") $0 --batch <file>" >&2
+        exit 1
+    fi
+    
+    if [ ! -f "$BATCH_FILE" ]; then
+        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Fehler: Datei nicht gefunden:" || echo "Error: File not found:") $BATCH_FILE" >&2
+        exit 1
+    fi
+    
+    # Batch-Download Funktion aufrufen
+    SCRIPT_PATH="$0"
+    MAX_PARALLEL=5
+    
+    echo ""
+    echo "📦 $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download gestartet" || echo "Batch download started")"
+    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Datei:" || echo "File:") $BATCH_FILE"
+    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Parallele Downloads:" || echo "Parallel downloads:") $MAX_PARALLEL"
+    echo ""
+    
+    # Zähle URLs
+    TOTAL_URLS=$(grep -c "^https\?://" "$BATCH_FILE" || echo "0")
+    echo "📊 $([ "$SCRIPT_LANG" = "de" ] && echo "Gefundene URLs:" || echo "Found URLs:") $TOTAL_URLS"
+    echo ""
+    
+    if [ "$TOTAL_URLS" -eq 0 ]; then
+        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Keine gültigen URLs gefunden!" || echo "No valid URLs found!")" >&2
+        exit 1
+    fi
+    
+    # Einmalige Konfiguration für alle Downloads
+    echo "⚙️  $([ "$SCRIPT_LANG" = "de" ] && echo "Konfiguration für ALLE Downloads:" || echo "Configuration for ALL downloads:")"
+    echo ""
+    
+    # Audio oder Video?
+    if confirm "$(msg "msg_audio_question")"; then
+        BATCH_TYPE="audio"
+        BATCH_QUALITY=""
+    else
+        BATCH_TYPE="video"
+        
+        # Qualität wählen
+        echo ""
+        echo "$(msg "msg_quality_select")"
+        echo "  [1] $(msg "msg_quality_best")"
+        echo "  [2] 1080p max"
+        echo "  [3] 720p max"
+        echo "  [4] 480p ($(msg "msg_quality_small"))"
+        read -r -p "$(msg "msg_quality_prompt") " -n 1 BATCH_QUALITY
+        echo ""
+        BATCH_QUALITY="${BATCH_QUALITY:-1}"
+    fi
+    
+    echo ""
+    echo "✅ $([ "$SCRIPT_LANG" = "de" ] && echo "Konfiguration gespeichert!" || echo "Configuration saved!")"
+    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Typ:" || echo "Type:") $BATCH_TYPE"
+    if [ "$BATCH_TYPE" = "video" ]; then
+        echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Qualität:" || echo "Quality:") $BATCH_QUALITY"
+    fi
+    echo ""
+    echo "🚀 $([ "$SCRIPT_LANG" = "de" ] && echo "Starte Downloads..." || echo "Starting downloads...")"
+    echo ""
+    
+    # Export für Child-Prozesse
+    export SOCIAL_DL_BATCH_MODE=1
+    export SOCIAL_DL_BATCH_TYPE="$BATCH_TYPE"
+    export SOCIAL_DL_BATCH_QUALITY="$BATCH_QUALITY"
+    
+    # Job-Control aktivieren
+    set +m  # Deaktiviere Job-Control-Meldungen
+    
+    ACTIVE_JOBS=0
+    COMPLETED=0
+    FAILED=0
+    
+    while IFS= read -r url || [ -n "$url" ]; do
+        # Überspringe leere Zeilen und Kommentare
+        [[ -z "$url" || "$url" =~ ^[[:space:]]*# ]] && continue
+        
+        # Überspringe Zeilen die nicht mit http beginnen
+        [[ ! "$url" =~ ^https?:// ]] && continue
+        
+        # Warte wenn zu viele Jobs laufen
+        while [ "$ACTIVE_JOBS" -ge "$MAX_PARALLEL" ]; do
+            # Zähle laufende Background-Jobs
+            ACTIVE_JOBS=$(jobs -r | wc -l)
+            sleep 0.5
+        done
+        
+        # Log-Datei für diesen Download
+        BATCH_LOG="/tmp/social-dl-batch-$$.log"
+        
+        # Starte Download im Hintergrund
+        (
+            if "$SCRIPT_PATH" "$url" >>"$BATCH_LOG" 2>&1; then
+                echo "✅ $([ "$SCRIPT_LANG" = "de" ] && echo "Fertig:" || echo "Done:") ${url:0:60}..."
+            else
+                echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Fehler:" || echo "Failed:") ${url:0:60}..."
+                echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Siehe Log:" || echo "See log:") $BATCH_LOG"
+            fi
+        ) &
+        
+        ACTIVE_JOBS=$((ACTIVE_JOBS + 1))
+        
+    done < "$BATCH_FILE"
+    
+    # Warte auf alle Jobs
+    echo ""
+    echo "⏳ $([ "$SCRIPT_LANG" = "de" ] && echo "Warte auf laufende Downloads..." || echo "Waiting for running downloads...")"
+    wait
+    
+    echo ""
+    echo "🎉 $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download abgeschlossen!" || echo "Batch download completed!")"
+    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Gesamt:" || echo "Total:") $TOTAL_URLS"
+    echo ""
+    
+    exit 0
+fi
+
+
+# Tools prüfen (nur wenn wir tatsächlich downloaden wollen)
 MISSING_TOOLS=()
 for tool in yt-dlp timeout; do
     if ! command -v "$tool" >/dev/null 2>&1; then
@@ -417,13 +572,16 @@ notify() {
 sanitize_url() {
     local url="$1"
 
+    # Prüfe auf nicht-druckbare Zeichen (Kontrolleichen, etc.)
     if [[ "$url" =~ [^[:print:]] ]]; then
         echo "$(msg "error_invalid_url")" >&2
         notify "Video-Download" "$(msg "notif_invalid_url")"
         return 1
     fi
 
-    local dangerous_chars='[;&|`$<>(){}]'
+    # Prüfe auf gefährliche Shell-Zeichen (aber nicht &, das ist in URLs normal)
+    # & ist in URLs für Query-Parameter legitim (z.B. ?id=123&source=web)
+    local dangerous_chars='[;|`$<>(){}]'
     if [[ "$url" =~ $dangerous_chars ]]; then
         echo "$(msg "error_dangerous_chars")" >&2
         echo "URL: $url" >&2
@@ -436,8 +594,19 @@ sanitize_url() {
 
 clean_url() {
     local url="$1"
-    url=$(echo "$url" | sed -E 's/(\?|&)(utm_[^&]*|fbclid=[^&]*|gclid=[^&]*|msclkid=[^&]*|mc_[^&]*)//g')
-    url=$(echo "$url" | sed 's/\?&/\?/g' | sed 's/\?$//')
+    
+    # Entferne Tracking-Parameter
+    url=$(echo "$url" | sed -E 's/(\?|&)(utm_[^&]*|fbclid=[^&]*|gclid=[^&]*|msclkid=[^&]*|mc_[^&]*|igsh=[^&]*|igshid=[^&]*)//g')
+    
+    # Bereinige übrig gebliebene ? und & am Ende
+    url=$(echo "$url" | sed -E 's/[?&]$//')
+    
+    # Wandle ?& in ? um (falls erstes Parameter entfernt wurde)
+    url=$(echo "$url" | sed -E 's/\?&/?/')
+    
+    # Wandle /& in /? um (falls alle Parameter vor & entfernt wurden)
+    url=$(echo "$url" | sed -E 's/\/&/\/?/')
+    
     echo "$url"
 }
 
@@ -459,21 +628,6 @@ rotate_log() {
         touch "$LOG_FILE"
     fi
 }
-
-# Parameter
-if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
-    show_help
-fi
-
-if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
-    check_version
-    exit 0
-fi
-
-if [[ "${1:-}" == "--check-update" || "${1:-}" == "-u" ]]; then
-    check_version --check-update
-    exit 0
-fi
 
 # Link
 LINK="${1:-}"
@@ -507,6 +661,16 @@ if [[ ! "$LINK" =~ ^https?:// ]]; then
     exit 1
 fi
 
+# Prüfe ob URL mit ? aber ohne = endet (Zeichen dass Parameter fehlen)
+if [[ "$LINK" =~ \?[^=]*$ ]]; then
+    echo "" >&2
+    echo "⚠️  $([ "$SCRIPT_LANG" = "de" ] && echo "HINWEIS: URL scheint unvollständig zu sein!" || echo "WARNING: URL appears incomplete!")" >&2
+    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "URLs mit '&' müssen in Anführungszeichen:" || echo "URLs with '&' must be quoted:")" >&2
+    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Richtig:" || echo "Correct:") $0 \"<URL>\"" >&2
+    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Beispiel:" || echo "Example:") $0 \"https://instagram.com/reel/ABC/?utm_source=ig\"" >&2
+    echo "" >&2
+fi
+
 if ! sanitize_url "$LINK"; then
     exit 1
 fi
@@ -524,14 +688,25 @@ fi
 
 # Quelle erkennen
 SOURCE=""
+DIRECT_DOWNLOAD=0
+
 if [[ "$LINK" == *"instagram.com"* ]]; then
     SOURCE="Insta"
 elif [[ "$LINK" == *"twitter.com"* || "$LINK" == *"x.com"* ]]; then
     SOURCE="Twitter"
 elif [[ "$LINK" == *"youtube.com"* || "$LINK" == *"youtu.be"* ]]; then
     SOURCE="YouTube"
-elif [[ "$LINK" == *"reddit.com"* ]]; then
+elif [[ "$LINK" == *"reddit.com"* || "$LINK" == *"redd.it"* ]]; then
     SOURCE="Reddit"
+    
+    # Spezialfall: Direkte Reddit CDN-Links (preview.redd.it, i.redd.it, v.redd.it)
+    # Diese sind direkte Medien-URLs und sollten direkt geladen werden
+    if [[ "$LINK" =~ (preview|i|v)\.redd\.it ]]; then
+        DIRECT_DOWNLOAD=1
+        echo "" >&2
+        echo "ℹ️  $([ "$SCRIPT_LANG" = "de" ] && echo "Direkter Reddit-Medien-Link erkannt - verwende direkten Download." || echo "Direct Reddit media link detected - using direct download.")" >&2
+        echo "" >&2
+    fi
 elif [[ "$LINK" == *"tiktok.com"* ]]; then
     SOURCE="TikTok"
 else
@@ -555,25 +730,44 @@ fi
 } 200>"$LOG_LOCK"
 
 # Audio oder Video?
-echo ""
-if confirm "$(msg "msg_audio_question")"; then
-    DOWNLOAD_TYPE="audio"
-    TARGET_DIR="$AUDIO_DIR"
-    FILE_EXT="mp3"
+if [ "${SOCIAL_DL_BATCH_MODE:-0}" -eq 1 ]; then
+    # Batch-Modus: Nutze vorkonfigurierte Einstellungen
+    DOWNLOAD_TYPE="${SOCIAL_DL_BATCH_TYPE}"
+    QUALITY_CHOICE="${SOCIAL_DL_BATCH_QUALITY:-1}"
+    
+    if [ "$DOWNLOAD_TYPE" = "audio" ]; then
+        TARGET_DIR="$AUDIO_DIR"
+        FILE_EXT="mp3"
+    else
+        TARGET_DIR="$DOWNLOAD_DIR"
+        FILE_EXT="mp4"
+    fi
+    
+    # Kein Shotcut im Batch-Mode
+    EDIT=no
+    EDIT_BACKGROUND=no
 else
-    DOWNLOAD_TYPE="video"
-    TARGET_DIR="$DOWNLOAD_DIR"
-    FILE_EXT="mp4"
-fi
-
-# Bearbeiten
-EDIT=no
-EDIT_BACKGROUND=no
-if [ "$DOWNLOAD_TYPE" = "video" ] && [ "$HAS_SHOTCUT" -eq 1 ]; then
-    if confirm "$(msg "msg_edit_question")"; then
-        EDIT=yes
-        if confirm "$(msg "msg_edit_background")"; then
-            EDIT_BACKGROUND=yes
+    # Normaler Modus: Interaktive Fragen
+    echo ""
+    if confirm "$(msg "msg_audio_question")"; then
+        DOWNLOAD_TYPE="audio"
+        TARGET_DIR="$AUDIO_DIR"
+        FILE_EXT="mp3"
+    else
+        DOWNLOAD_TYPE="video"
+        TARGET_DIR="$DOWNLOAD_DIR"
+        FILE_EXT="mp4"
+    fi
+    
+    # Bearbeiten
+    EDIT=no
+    EDIT_BACKGROUND=no
+    if [ "$DOWNLOAD_TYPE" = "video" ] && [ "$HAS_SHOTCUT" -eq 1 ]; then
+        if confirm "$(msg "msg_edit_question")"; then
+            EDIT=yes
+            if confirm "$(msg "msg_edit_background")"; then
+                EDIT_BACKGROUND=yes
+            fi
         fi
     fi
 fi
@@ -587,17 +781,22 @@ if [ "$DOWNLOAD_TYPE" = "audio" ]; then
     # QUICK WIN 1: Audio-Thumbnail hinzugefügt
     YTDLP_EXTRA_ARGS="-x --audio-format mp3 --audio-quality 0 --embed-thumbnail"
 else
-    echo ""
-    echo "$(msg "msg_quality_select")"
-    echo "  [1] $(msg "msg_quality_best")"
-    echo "  [2] 1080p max"
-    echo "  [3] 720p max"
-    echo "  [4] 480p ($(msg "msg_quality_small"))"
-    read -r -p "$(msg "msg_quality_prompt") " -n 1 QUALITY_CHOICE
-    echo ""
-
-    QUALITY_CHOICE="${QUALITY_CHOICE:-1}"
-
+    # Qualitätswahl
+    if [ "${SOCIAL_DL_BATCH_MODE:-0}" -eq 0 ]; then
+        # Normaler Modus: Frage nach Qualität
+        echo ""
+        echo "$(msg "msg_quality_select")"
+        echo "  [1] $(msg "msg_quality_best")"
+        echo "  [2] 1080p max"
+        echo "  [3] 720p max"
+        echo "  [4] 480p ($(msg "msg_quality_small"))"
+        read -r -p "$(msg "msg_quality_prompt") " -n 1 QUALITY_CHOICE
+        echo ""
+        
+        QUALITY_CHOICE="${QUALITY_CHOICE:-1}"
+    fi
+    # Im Batch-Mode ist QUALITY_CHOICE bereits gesetzt
+    
     case "$QUALITY_CHOICE" in
         1) FORMAT_STRING="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" ;;
         2) FORMAT_STRING="bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[height<=1080][ext=mp4]/best" ;;
@@ -614,6 +813,19 @@ fi
 if [[ "$SOURCE" == "TikTok" ]] && [ "$DOWNLOAD_TYPE" = "video" ]; then
     YTDLP_EXTRA_ARGS="$YTDLP_EXTRA_ARGS --remux-video mp4"
     FORMAT_STRING="best"
+fi
+
+# Twitter/X - spezielles Handling wegen oft fehlenden Audio-Streams
+if [[ "$SOURCE" == "Twitter" ]] && [ "$DOWNLOAD_TYPE" = "video" ]; then
+    # Twitter liefert oft Videos ohne Audio oder mit speziellen Formaten
+    # Verwende einfacheren Format-String der auch nur-Video erlaubt
+    case "$QUALITY_CHOICE" in
+        1) FORMAT_STRING="best" ;;
+        2) FORMAT_STRING="best[height<=1080]" ;;
+        3) FORMAT_STRING="best[height<=720]" ;;
+        4) FORMAT_STRING="best[height<=480]" ;;
+        *) FORMAT_STRING="best" ;;
+    esac
 fi
 
 # Counter
@@ -647,11 +859,11 @@ YTDLP_ARGS=(
     --no-playlist
     --restrict-filenames
     -N 4
-    --add-metadata
     --progress
     -f "$FORMAT_STRING"
     --no-warnings
-    -o "$TEMP_FILE"
+    --no-mtime
+    -o "${TEMP_FILE}.%(ext)s"
 )
 
 if [ -n "$YTDLP_EXTRA_ARGS" ]; then
@@ -664,29 +876,96 @@ YTDLP_ARGS+=("$LINK")
 echo "⏬ $(msg "msg_download_starting")"
 echo ""
 
-if ! timeout "$DOWNLOAD_TIMEOUT" yt-dlp "${YTDLP_ARGS[@]}"; then
-    echo ""
-    echo "❌ $(msg "error_download_failed")" >&2
-    notify "$(msg "notif_failed")" "$SOURCE ($DOWNLOAD_TYPE)"
-    exit 1
+# Direkter Download für Reddit CDN-Links
+if [ "$DIRECT_DOWNLOAD" -eq 1 ]; then
+    # Bestimme Dateiendung aus URL oder format-Parameter
+    if [[ "$LINK" =~ format=([^&]+) ]]; then
+        FILE_EXT="${BASH_REMATCH[1]}"
+    elif [[ "$LINK" =~ \.([a-z0-9]+)(\?|$) ]]; then
+        FILE_EXT="${BASH_REMATCH[1]}"
+    fi
+    
+    FULLPATH="$TARGET_DIR/${TIMESTAMP}-${SOURCE}-${COUNTER_PAD}.${FILE_EXT}"
+    
+    echo "📥 $([ "$SCRIPT_LANG" = "de" ] && echo "Lade direkt herunter..." || echo "Downloading directly...")"
+    
+    if command -v curl >/dev/null 2>&1; then
+        if ! curl -L --progress-bar -o "$FULLPATH" "$LINK"; then
+            echo "" >&2
+            echo "❌ $(msg "error_download_failed")" >&2
+            notify "$(msg "notif_failed")" "$SOURCE ($DOWNLOAD_TYPE)"
+            exit 1
+        fi
+    elif command -v wget >/dev/null 2>&1; then
+        if ! wget --show-progress -O "$FULLPATH" "$LINK"; then
+            echo "" >&2
+            echo "❌ $(msg "error_download_failed")" >&2
+            notify "$(msg "notif_failed")" "$SOURCE ($DOWNLOAD_TYPE)"
+            exit 1
+        fi
+    else
+        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Fehler: Weder curl noch wget gefunden!" || echo "Error: Neither curl nor wget found!")" >&2
+        exit 1
+    fi
+    
+    # Überspringe yt-dlp und gehe direkt zur Erfolgs-Meldung
+    SKIP_YTDLP=1
+else
+    SKIP_YTDLP=0
+fi
+
+# Normaler yt-dlp Download
+if [ "$SKIP_YTDLP" -eq 0 ]; then
+    if ! timeout "$DOWNLOAD_TIMEOUT" yt-dlp "${YTDLP_ARGS[@]}"; then
+        echo ""
+        echo "❌ $(msg "error_download_failed")" >&2
+        notify "$(msg "notif_failed")" "$SOURCE ($DOWNLOAD_TYPE)"
+        exit 1
+    fi
 fi
 
 echo ""
 
-# Temp-File verschieben
-shopt -s nullglob
-TEMP_FILES=("$TARGET_DIR/${TEMP_PATTERN}".*)
-shopt -u nullglob
-
-if [ ${#TEMP_FILES[@]} -gt 0 ] && [ -s "${TEMP_FILES[0]}" ]; then
-    DOWNLOADED_FILE="${TEMP_FILES[0]}"
-    mv "$DOWNLOADED_FILE" "$FULLPATH"
-else
-    echo "❌ $(msg "error_file_empty")" >&2
-    echo "   $(msg "msg_searching") $TARGET_DIR/${TEMP_PATTERN}.*" >&2
-    ls -lh "$TARGET_DIR/${TEMP_PATTERN}".* 2>/dev/null || echo "   $(msg "msg_not_found")" >&2
-    notify "$(msg "notif_corrupt")" "$SOURCE ($DOWNLOAD_TYPE)"
-    exit 1
+# Temp-File verschieben (nur bei yt-dlp Downloads)
+if [ "$SKIP_YTDLP" -eq 0 ]; then
+    shopt -s nullglob
+    # Suche nach Dateien mit UND ohne Endung
+    TEMP_FILES=("$TARGET_DIR/${TEMP_PATTERN}"*)
+    shopt -u nullglob
+    
+    # Debug: Zeige gefundene Dateien
+    if [ ${#TEMP_FILES[@]} -eq 0 ]; then
+        echo "🔍 Debug: Suche nach Dateien..." >&2
+        echo "   Pattern: $TARGET_DIR/${TEMP_PATTERN}*" >&2
+        echo "   Gefundene Dateien im Verzeichnis:" >&2
+        ls -lah "$TARGET_DIR/" | tail -5 >&2
+    fi
+    
+    if [ ${#TEMP_FILES[@]} -gt 0 ] && [ -s "${TEMP_FILES[0]}" ]; then
+        DOWNLOADED_FILE="${TEMP_FILES[0]}"
+        
+        # Bestimme die richtige Dateiendung
+        ACTUAL_EXT="${DOWNLOADED_FILE##*.}"
+        if [ "$ACTUAL_EXT" = "$DOWNLOADED_FILE" ] || [ -z "$ACTUAL_EXT" ]; then
+            # Keine Endung gefunden, behalte gewünschte Endung
+            mv "$DOWNLOADED_FILE" "$FULLPATH"
+        else
+            # Datei hat bereits eine Endung
+            if [ "$ACTUAL_EXT" != "$FILE_EXT" ]; then
+                # Andere Endung als erwartet, verwende die tatsächliche
+                NEW_FILENAME="${TIMESTAMP}-${SOURCE}-${COUNTER_PAD}.${ACTUAL_EXT}"
+                FULLPATH="$TARGET_DIR/$NEW_FILENAME"
+                echo "ℹ️  $([ "$SCRIPT_LANG" = "de" ] && echo "Verwende Dateiformat:" || echo "Using file format:") .$ACTUAL_EXT" >&2
+            fi
+            mv "$DOWNLOADED_FILE" "$FULLPATH"
+        fi
+    else
+        echo "❌ $(msg "error_file_empty")" >&2
+        echo "   $(msg "msg_searching") $TARGET_DIR/${TEMP_PATTERN}*" >&2
+        ls -lh "$TARGET_DIR/${TEMP_PATTERN}"* 2>/dev/null || echo "   $(msg "msg_not_found")" >&2
+        notify "$(msg "notif_corrupt")" "$SOURCE ($DOWNLOAD_TYPE)"
+        exit 1
+    fi
 fi
 
 # Erfolg

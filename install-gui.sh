@@ -161,6 +161,11 @@ Categories=Network;AudioVideo;
 Keywords=download;video;instagram;youtube;twitter;reddit;tiktok;
 EOF
     chmod 644 "$HOME/.local/share/applications/$SCRIPT_NAME.desktop"
+    
+    # Desktop-Database aktualisieren
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
+    fi
 
     echo "90"
     echo "# $(t "configuring_path")"
@@ -219,6 +224,11 @@ Categories=Network;AudioVideo;
 Keywords=download;video;instagram;youtube;twitter;reddit;tiktok;
 EOF
             chmod 644 '/usr/share/applications/$SCRIPT_NAME.desktop'
+            
+            # Desktop-Database aktualisieren
+            if command -v update-desktop-database >/dev/null 2>&1; then
+                update-desktop-database /usr/share/applications 2>/dev/null || true
+            fi
         " || exit 1
     else
         zenity --error \

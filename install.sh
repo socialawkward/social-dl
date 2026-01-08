@@ -208,6 +208,12 @@ Categories=Network;AudioVideo;
 Keywords=download;video;instagram;youtube;twitter;reddit;tiktok;
 EOF
     chmod 644 "$desktop_file"
+    
+    # Desktop-Database aktualisieren
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database /usr/share/applications 2>/dev/null || true
+    fi
+    
     show_progress_done
 
     echo ""
@@ -217,6 +223,10 @@ EOF
     echo -e "  ${GREEN}$SCRIPT_NAME${NC}                    # Clipboard-URL verwenden"
     echo -e "  ${GREEN}$SCRIPT_NAME <URL>${NC}              # Direkte URL"
     echo -e "  ${GREEN}$SCRIPT_NAME --help${NC}             # Hilfe anzeigen"
+    echo ""
+    echo -e "${CYAN}Anwendungsleiste:${NC}"
+    echo -e "  Das Programm erscheint als '${GREEN}Social Media Downloader${NC}'"
+    echo -e "  ${YELLOW}Falls nicht sichtbar:${NC} Logout/Login oder Desktop neu starten"
 }
 
 install_local() {
@@ -253,6 +263,12 @@ Categories=Network;AudioVideo;
 Keywords=download;video;instagram;youtube;twitter;reddit;tiktok;
 EOF
     chmod 644 "$desktop_file"
+    
+    # Desktop-Database aktualisieren
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database "$desktop_dir" 2>/dev/null || true
+    fi
+    
     show_progress_done
 
     # Prüfe und konfiguriere PATH automatisch
@@ -330,6 +346,10 @@ EOF
     echo -e "  ${GREEN}$SCRIPT_NAME${NC}                    # Clipboard-URL verwenden"
     echo -e "  ${GREEN}$SCRIPT_NAME <URL>${NC}              # Direkte URL"
     echo -e "  ${GREEN}$SCRIPT_NAME --help${NC}             # Hilfe anzeigen"
+    echo ""
+    echo -e "${CYAN}Anwendungsleiste:${NC}"
+    echo -e "  Das Programm erscheint als '${GREEN}Social Media Downloader${NC}'"
+    echo -e "  ${YELLOW}Falls nicht sichtbar:${NC} Logout/Login oder Desktop neu starten"
 }
 
 post_install_test() {

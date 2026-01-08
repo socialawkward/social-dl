@@ -1,6 +1,6 @@
 # 📥 Social-DL
 
-> **[English version](README.en.md) available**
+> **[English version](README_en.md) available**
 
 **Universal Video & Audio Downloader für Social Media Plattformen**
 
@@ -49,15 +49,19 @@ make install-local
 - 🛡️ **Security-Hardened** (URL-Sanitization, Timeouts)
 - 🐟 **Multi-Shell Support** (Bash, Zsh, Fish)
 - 🔄 **Version-Check** (`--check-update`)
+- 🧹 **Tracking-Parameter-Entfernung** (utm_source, fbclid, igsh, etc.)
+- 🌍 **Mehrsprachig** (Deutsch/Englisch)
+- 📦 **Reddit CDN Support** (direkter Download für preview.redd.it, v.redd.it, i.redd.it)
+- 🐦 **Twitter/X Optimiert** (spezielle Behandlung für Videos mit/ohne Audio)
 
 ### Unterstützte Plattformen
 
 | Plattform | Video | Audio | Besonderheiten |
 |-----------|-------|-------|----------------|
 | Instagram | ✅ | ✅ | Stories, Reels, Posts |
-| Twitter/X | ✅ | ✅ | Tweets, Spaces |
+| Twitter/X | ✅ | ✅ | Tweets, Spaces, Videos mit/ohne Audio |
 | YouTube   | ✅ | ✅ | Videos, Shorts (keine Playlists) |
-| Reddit    | ✅ | ✅ | v.redd.it, Gfycat |
+| Reddit    | ✅ | ✅ | Posts, CDN-Links (v.redd.it, preview.redd.it) |
 | TikTok    | ✅ | ✅ | Beste verfügbare Quelle (oft ohne Wasserzeichen) |
 
 ---
@@ -74,23 +78,24 @@ make install-local
 - `xclip` oder `wl-paste` (Clipboard-Support)
 - `notify-send` (Desktop-Benachrichtigungen)
 - `shotcut` (Video-Bearbeitung)
+- `curl` oder `wget` (für Reddit CDN-Links)
 
 #### Abhängigkeiten installieren
 
 **Arch/Manjaro/CachyOS:**
 ```bash
-sudo pacman -S yt-dlp zenity xclip wl-clipboard libnotify shotcut
+sudo pacman -S yt-dlp zenity xclip wl-clipboard libnotify shotcut curl
 ```
 
 **Debian/Ubuntu/Mint:**
 ```bash
 sudo apt update
-sudo apt install yt-dlp zenity xclip wl-clipboard libnotify-bin shotcut
+sudo apt install yt-dlp zenity xclip wl-clipboard libnotify-bin shotcut curl
 ```
 
 **Fedora:**
 ```bash
-sudo dnf install yt-dlp zenity xclip wl-clipboard libnotify shotcut
+sudo dnf install yt-dlp zenity xclip wl-clipboard libnotify shotcut curl
 ```
 
 ---
@@ -169,8 +174,8 @@ rm ~/.social-dl.log*  # Optional: Logs
 # URL aus Zwischenablage verwenden:
 social-dl
 
-# Direkte URL angeben:
-social-dl https://youtube.com/watch?v=...
+# Direkte URL angeben (WICHTIG: URLs mit & in Quotes!):
+social-dl "https://youtube.com/watch?v=ABC&utm_source=share"
 
 # Hilfe anzeigen:
 social-dl --help
@@ -181,6 +186,20 @@ social-dl --version
 # Nach Updates suchen:
 social-dl --check-update
 ```
+
+### ⚠️ WICHTIG: URLs mit Parametern
+
+URLs die `&` enthalten **müssen in Anführungszeichen** gesetzt werden:
+
+```bash
+# ✅ RICHTIG:
+social-dl "https://instagram.com/reel/ABC/?utm_source=ig&igsh=XYZ"
+
+# ❌ FALSCH (Shell schneidet URL bei & ab):
+social-dl https://instagram.com/reel/ABC/?utm_source=ig&igsh=XYZ
+```
+
+**Alternative:** Nutze die Clipboard-Funktion (kopiere URL mit Strg+C, dann einfach `social-dl` eingeben)
 
 ### Workflow
 
@@ -197,27 +216,45 @@ social-dl --check-update
 
 **YouTube-Video herunterladen:**
 ```bash
-social-dl https://youtube.com/watch?v=dQw4w9WgXcQ
+social-dl "https://youtube.com/watch?v=dQw4w9WgXcQ"
 # → Video wählen → Qualität 1 → Download mit Progress
 ```
 
 **Instagram-Audio extrahieren (mit Cover):**
 ```bash
-social-dl https://instagram.com/p/...
+social-dl "https://instagram.com/p/ABC123/"
 # → Audio wählen → MP3-Download mit eingebettetem Thumbnail
+```
+
+**Twitter-Video (auch ohne Audio):**
+```bash
+social-dl "https://x.com/user/status/123456789"
+# → Funktioniert mit Videos mit und ohne Audio
+```
+
+**Reddit-Post:**
+```bash
+social-dl "https://reddit.com/r/funny/comments/abc123/"
+# → Lädt Video aus Reddit-Post
+```
+
+**Reddit CDN-Link (direkter Download):**
+```bash
+social-dl "https://preview.redd.it/xyz.gif?format=mp4"
+# → Direkter Download, richtige Dateiendung
 ```
 
 **TikTok ohne Wasserzeichen:**
 ```bash
-social-dl https://tiktok.com/@user/video/123
+social-dl "https://tiktok.com/@user/video/123"
 # → Video wird ohne Wasserzeichen geladen
 ```
 
 **Parallele Downloads:**
 ```bash
-social-dl URL1 &
-social-dl URL2 &
-social-dl URL3 &
+social-dl "URL1" &
+social-dl "URL2" &
+social-dl "URL3" &
 # Alle 3 laufen parallel, Counter bleibt korrekt!
 ```
 
@@ -229,7 +266,9 @@ social-dl URL3 &
 ~/Downloads/
 ├── Videos/
 │   ├── 2026-01-08_14-30-15-YouTube-001.mp4
-│   └── 2026-01-08_14-31-22-TikTok-002.mp4
+│   ├── 2026-01-08_14-31-22-TikTok-002.mp4
+│   ├── 2026-01-08_14-32-10-Twitter-003.ts
+│   └── 2026-01-08_14-33-05-Reddit-004.mp4
 └── Audio/
     └── 2026-01-08_14-35-10-YouTube-001.mp3
 
@@ -243,7 +282,7 @@ social-dl URL3 &
 ```
 YYYY-MM-DD_HH-MM-SS-PLATFORM-XXX.ext
 │         │         │          │   │
-│         │         │          │   └─ Dateityp
+│         │         │          │   └─ Dateityp (mp4, ts, mp3, etc.)
 │         │         │          └───── Counter
 │         │         └──────────────── Plattform
 │         └────────────────────────── Uhrzeit
@@ -254,7 +293,7 @@ YYYY-MM-DD_HH-MM-SS-PLATFORM-XXX.ext
 
 ## ⚙️ Konfiguration
 
-Bearbeite `~/.local/bin/social-dl` (Zeilen 12–16):
+Bearbeite `~/.local/bin/social-dl` (Zeilen 243–247):
 
 ```bash
 DOWNLOAD_DIR="$HOME/Downloads/Videos"  # Video-Ordner
@@ -299,9 +338,43 @@ sudo apt install wl-clipboard
 sudo apt install xclip
 ```
 
-**Lösung 2:** URL direkt angeben
+**Lösung 2:** URL direkt angeben (in Quotes!)
 ```bash
-social-dl https://youtube.com/watch?v=...
+social-dl "https://youtube.com/watch?v=..."
+```
+
+### "URL enthält potentiell gefährliche Zeichen"
+
+**Problem:** Du verwendest URLs mit `&` ohne Anführungszeichen.
+
+**Lösung:**
+```bash
+# ✅ RICHTIG:
+social-dl "https://instagram.com/reel/ABC/?utm_source=ig&igsh=XYZ"
+
+# ODER: Clipboard nutzen
+# URL kopieren (Strg+C), dann:
+social-dl
+```
+
+### Twitter: "Error opening output files"
+
+Dieses Problem wurde in v2.4.3 behoben. Stelle sicher, dass du die neueste Version installiert hast:
+```bash
+social-dl --version  # Sollte 2.4.3 oder höher sein
+```
+
+### Reddit CDN-Link: Datei ist kaputt
+
+Dieses Problem wurde in v2.4.3 behoben. Reddit CDN-Links (`preview.redd.it`, `v.redd.it`, `i.redd.it`) werden jetzt direkt heruntergeladen mit korrekter Dateiendung.
+
+**Tipp:** Für beste Ergebnisse verwende den Reddit-Post-Link statt des direkten CDN-Links:
+```bash
+# Besser:
+social-dl "https://reddit.com/r/funny/comments/abc123/"
+
+# Funktioniert auch (aber weniger Metadaten):
+social-dl "https://preview.redd.it/xyz.gif?format=mp4"
 ```
 
 ### "~/.local/bin nicht im PATH"
@@ -317,6 +390,17 @@ source ~/.bashrc
 # Zsh:
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
+```
+
+### Desktop-Icon wird nicht angezeigt
+
+```bash
+# Desktop-Database aktualisieren:
+update-desktop-database ~/.local/share/applications
+
+# Falls immer noch nicht sichtbar:
+killall -3 gnome-shell  # GNOME
+# ODER: Logout/Login
 ```
 
 ### Desktop-Icon wird nicht ausgeführt
@@ -343,15 +427,56 @@ social-dl/
 ├── social-dl-uninstaller.desktop   # Desktop-Icon Uninstaller
 ├── Makefile                        # Build-System
 ├── README.md                       # Diese Datei (Deutsch)
-├── README.en.md                    # English documentation
+├── README_en.md                    # English documentation
 └── LICENSE                         # MIT License
 ```
 
 ---
 
+## 📝 Changelog
+
+### Version 2.4.3 (2026-01-08)
+
+**🐛 Kritische Bugfixes:**
+- ✅ **Syntax-Fehler behoben:** Fehlende `fi` in check_version() Funktion
+- ✅ **URL-Validierung korrigiert:** `&` aus dangerous_chars entfernt
+- ✅ **Tool-Prüfung verschoben:** --help und --version funktionieren ohne yt-dlp
+- ✅ **Desktop-Entry Fix:** update-desktop-database wird automatisch aufgerufen
+- ✅ **Twitter/X Postprocessing-Fehler:** Entfernt `--add-metadata`
+- ✅ **Twitter/X Dateiendungs-Problem:** Explizites Output-Template
+- ✅ **Reddit CDN-Support:** Direkter Download mit korrekter Dateiendung
+
+**✨ Neue Features:**
+- ✅ **Reddit CDN-Links:** preview.redd.it, v.redd.it, i.redd.it
+- ✅ **Twitter-spezifische Behandlung:** Videos mit/ohne Audio
+- ✅ **Intelligente Dateiendungs-Erkennung:** Automatische Format-Erkennung
+- ✅ **Debug-Ausgabe:** Besseres Troubleshooting
+
+**🔧 Verbesserungen:**
+- ✅ Erweiterte URL-Bereinigung (igsh, igshid)
+- ✅ Bessere Fehlermeldungen
+- ✅ Verbesserte Installer
+- ✅ Umfassende Dokumentation
+
+### Version 2.4 (2026-01-07)
+
+**✨ Features:**
+- ✅ Audio-Downloads mit eingebettetem Thumbnail
+- ✅ Version-Check Feature
+- ✅ Mehrsprachigkeit (Deutsch/Englisch)
+- ✅ Tracking-Parameter-Entfernung
+
+---
+
 ## 🤝 Mitwirken
 
-Contributions sind willkommen! Siehe [README.en.md](README.en.md) für Details.
+Contributions sind willkommen!
+
+1. Fork das Repository
+2. Erstelle einen Feature-Branch
+3. Commit deine Änderungen
+4. Push zum Branch
+5. Öffne einen Pull Request
 
 ---
 
@@ -365,9 +490,9 @@ MIT License – siehe [LICENSE](LICENSE) Datei.
 
 ## 🙏 Credits
 
-Entwickelt mit ❤️ basierend auf meinem Feedback und meinen Wünschen:
+Entwickelt mit ❤️:
 - **Grok** (Basis & Features)
-- **Claude** (Security & Production-Ready)
+- **Claude** (Security & Production-Ready)  
 - **Perplexity** (Edge-Cases & Optimierungen)
 
 **Powered by:**
@@ -386,6 +511,6 @@ Dieses Tool ist für den **persönlichen, legalen Gebrauch** gedacht.
 
 ---
 
-**Version:** 2.4  
-**Letzte Aktualisierung:** Januar 2026  
+**Version:** 2.4.3  
+**Letzte Aktualisierung:** 08. Januar 2026  
 **Status:** Production-Ready 🎉
