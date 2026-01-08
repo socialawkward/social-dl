@@ -201,7 +201,7 @@ install_system() {
 Name=Social Media Downloader
 Comment=Download videos/audio from Instagram, YouTube, Twitter, Reddit, TikTok
 Exec=/usr/local/bin/$SCRIPT_NAME
-Icon=browser-download
+Icon=applications-multimedia
 Terminal=true
 Type=Application
 Categories=Network;AudioVideo;
@@ -256,7 +256,7 @@ install_local() {
 Name=Social Media Downloader
 Comment=Download videos/audio from Instagram, YouTube, Twitter, Reddit, TikTok
 Exec=$HOME/.local/bin/$SCRIPT_NAME
-Icon=browser-download
+Icon=applications-multimedia
 Terminal=true
 Type=Application
 Categories=Network;AudioVideo;
