@@ -1,6 +1,6 @@
 # 📥 Social-DL
 
-> **[English version](README_en.md) available**
+> **[English version](README.en.md) available**
 
 **Universal Video & Audio Downloader für Social Media Plattformen**
 
@@ -427,7 +427,7 @@ social-dl/
 ├── social-dl-uninstaller.desktop   # Desktop-Icon Uninstaller
 ├── Makefile                        # Build-System
 ├── README.md                       # Diese Datei (Deutsch)
-├── README_en.md                    # English documentation
+├── README.en.md                    # English documentation
 └── LICENSE                         # MIT License
 ```
 
