@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Social-DL Uninstaller
+Name[de]=Social-DL Deinstallieren
+Name[en]=Uninstall Social-DL
+Comment=Uninstall Social Media Video/Audio Downloader
+Comment[de]=Social Media Video/Audio Downloader deinstallieren
+Comment[en]=Uninstall Social Media Video/Audio Downloader
+Exec=bash -c 'cd "$(dirname "%k")" && ./uninstall-gui.sh'
+Icon=edit-delete
+Terminal=false
+Categories=System;Settings;
+Keywords=uninstall;remove;delete;social-dl;
+StartupNotify=true
