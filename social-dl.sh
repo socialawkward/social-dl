@@ -2,14 +2,14 @@
 
 # Improved Instagram/Twitter/YouTube/Reddit/TikTok Video/Audio Downloader
 # Features: Clipboard detection, duplicate check, atomic counter, optional Shotcut editing
-# Version: 2.4.3
+# Version: 2.4.6
 
 set -o errexit
 set -o nounset
 set -o pipefail
 
 # Version Info
-SCRIPT_VERSION="2.4.3"
+SCRIPT_VERSION="2.4.6"
 GITHUB_REPO="socialawkward/social-dl"
 
 # Language Detection
@@ -316,7 +316,6 @@ Social-DL v$SCRIPT_VERSION - Universal Social Media Downloader
 $(msg "help_usage")
   $0                    # $([ "$SCRIPT_LANG" = "de" ] && echo "URL aus Zwischenablage" || echo "URL from clipboard")
   $0 <URL>              # $([ "$SCRIPT_LANG" = "de" ] && echo "Direkte URL" || echo "Direct URL")
-  $0 --batch <file>     # $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download aus Datei" || echo "Batch download from file")
   $0 --help             # $([ "$SCRIPT_LANG" = "de" ] && echo "Diese Hilfe" || echo "This help")
   $0 --version          # $([ "$SCRIPT_LANG" = "de" ] && echo "Version anzeigen" || echo "Show version")
   $0 --check-update     # $([ "$SCRIPT_LANG" = "de" ] && echo "Nach Updates suchen" || echo "Check for updates")
@@ -326,7 +325,6 @@ $(msg "help_examples")
   $0 https://youtube.com/watch?v=...
   $0 https://instagram.com/p/...
   $0 https://twitter.com/user/status/...
-  $0 --batch urls.txt   # $([ "$SCRIPT_LANG" = "de" ] && echo "Mehrere URLs aus Datei" || echo "Multiple URLs from file")
 
 $(msg "help_platforms")
   • Instagram   (Stories, Reels, Posts)
@@ -341,7 +339,6 @@ $(msg "help_features")
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Shotcut-Integration für Bearbeitung" || echo "Shotcut integration for editing")
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Audio-Extraktion als MP3" || echo "Audio extraction as MP3")
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Mehrere Qualitätsoptionen" || echo "Multiple quality options")
-  • $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download (5 parallele Downloads)" || echo "Batch download (5 parallel downloads)")
 
 $(msg "help_dependencies")
   $(msg "help_required"):
@@ -368,17 +365,6 @@ $([ "$SCRIPT_LANG" = "de" ] && echo "Dateien werden gespeichert in:" || echo "Fi
   • $([ "$SCRIPT_LANG" = "de" ] && echo "Audio:" || echo "Audio:")  ~/Downloads/Audio/
 
 $([ "$SCRIPT_LANG" = "de" ] && echo "Log-Datei:" || echo "Log file:") ~/.social-dl.log
-
-$([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download:" || echo "Batch download:")
-  $([ "$SCRIPT_LANG" = "de" ] && echo "Erstelle eine Textdatei mit URLs (eine pro Zeile):" || echo "Create a text file with URLs (one per line):")
-  
-  # urls.txt
-  https://youtube.com/watch?v=abc123
-  https://instagram.com/p/xyz789/
-  https://twitter.com/user/status/456
-  
-  $([ "$SCRIPT_LANG" = "de" ] && echo "Dann:" || echo "Then:") $0 --batch urls.txt
-  $([ "$SCRIPT_LANG" = "de" ] && echo "→ Lädt alle URLs mit 5 parallelen Downloads" || echo "→ Downloads all URLs with 5 parallel downloads")
 EOF
     exit 0
 }
@@ -398,129 +384,6 @@ if [[ "${1:-}" == "--check-update" || "${1:-}" == "-u" ]]; then
     exit 0
 fi
 
-# Batch-Download
-if [[ "${1:-}" == "--batch" || "${1:-}" == "-b" ]]; then
-    BATCH_FILE="${2:-}"
-    
-    if [ -z "$BATCH_FILE" ]; then
-        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Fehler: Keine Datei angegeben!" || echo "Error: No file specified!")" >&2
-        echo "$([ "$SCRIPT_LANG" = "de" ] && echo "Verwendung:" || echo "Usage:") $0 --batch <file>" >&2
-        exit 1
-    fi
-    
-    if [ ! -f "$BATCH_FILE" ]; then
-        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Fehler: Datei nicht gefunden:" || echo "Error: File not found:") $BATCH_FILE" >&2
-        exit 1
-    fi
-    
-    # Batch-Download Funktion aufrufen
-    SCRIPT_PATH="$0"
-    MAX_PARALLEL=5
-    
-    echo ""
-    echo "📦 $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download gestartet" || echo "Batch download started")"
-    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Datei:" || echo "File:") $BATCH_FILE"
-    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Parallele Downloads:" || echo "Parallel downloads:") $MAX_PARALLEL"
-    echo ""
-    
-    # Zähle URLs
-    TOTAL_URLS=$(grep -c "^https\?://" "$BATCH_FILE" || echo "0")
-    echo "📊 $([ "$SCRIPT_LANG" = "de" ] && echo "Gefundene URLs:" || echo "Found URLs:") $TOTAL_URLS"
-    echo ""
-    
-    if [ "$TOTAL_URLS" -eq 0 ]; then
-        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Keine gültigen URLs gefunden!" || echo "No valid URLs found!")" >&2
-        exit 1
-    fi
-    
-    # Einmalige Konfiguration für alle Downloads
-    echo "⚙️  $([ "$SCRIPT_LANG" = "de" ] && echo "Konfiguration für ALLE Downloads:" || echo "Configuration for ALL downloads:")"
-    echo ""
-    
-    # Audio oder Video?
-    if confirm "$(msg "msg_audio_question")"; then
-        BATCH_TYPE="audio"
-        BATCH_QUALITY=""
-    else
-        BATCH_TYPE="video"
-        
-        # Qualität wählen
-        echo ""
-        echo "$(msg "msg_quality_select")"
-        echo "  [1] $(msg "msg_quality_best")"
-        echo "  [2] 1080p max"
-        echo "  [3] 720p max"
-        echo "  [4] 480p ($(msg "msg_quality_small"))"
-        read -r -p "$(msg "msg_quality_prompt") " -n 1 BATCH_QUALITY
-        echo ""
-        BATCH_QUALITY="${BATCH_QUALITY:-1}"
-    fi
-    
-    echo ""
-    echo "✅ $([ "$SCRIPT_LANG" = "de" ] && echo "Konfiguration gespeichert!" || echo "Configuration saved!")"
-    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Typ:" || echo "Type:") $BATCH_TYPE"
-    if [ "$BATCH_TYPE" = "video" ]; then
-        echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Qualität:" || echo "Quality:") $BATCH_QUALITY"
-    fi
-    echo ""
-    echo "🚀 $([ "$SCRIPT_LANG" = "de" ] && echo "Starte Downloads..." || echo "Starting downloads...")"
-    echo ""
-    
-    # Export für Child-Prozesse
-    export SOCIAL_DL_BATCH_MODE=1
-    export SOCIAL_DL_BATCH_TYPE="$BATCH_TYPE"
-    export SOCIAL_DL_BATCH_QUALITY="$BATCH_QUALITY"
-    
-    # Job-Control aktivieren
-    set +m  # Deaktiviere Job-Control-Meldungen
-    
-    ACTIVE_JOBS=0
-    COMPLETED=0
-    FAILED=0
-    
-    while IFS= read -r url || [ -n "$url" ]; do
-        # Überspringe leere Zeilen und Kommentare
-        [[ -z "$url" || "$url" =~ ^[[:space:]]*# ]] && continue
-        
-        # Überspringe Zeilen die nicht mit http beginnen
-        [[ ! "$url" =~ ^https?:// ]] && continue
-        
-        # Warte wenn zu viele Jobs laufen
-        while [ "$ACTIVE_JOBS" -ge "$MAX_PARALLEL" ]; do
-            # Zähle laufende Background-Jobs
-            ACTIVE_JOBS=$(jobs -r | wc -l)
-            sleep 0.5
-        done
-        
-        # Log-Datei für diesen Download
-        BATCH_LOG="/tmp/social-dl-batch-$$.log"
-        
-        # Starte Download im Hintergrund
-        (
-            if "$SCRIPT_PATH" "$url" >>"$BATCH_LOG" 2>&1; then
-                echo "✅ $([ "$SCRIPT_LANG" = "de" ] && echo "Fertig:" || echo "Done:") ${url:0:60}..."
-            else
-                echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Fehler:" || echo "Failed:") ${url:0:60}..."
-                echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Siehe Log:" || echo "See log:") $BATCH_LOG"
-            fi
-        ) &
-        
-        ACTIVE_JOBS=$((ACTIVE_JOBS + 1))
-        
-    done < "$BATCH_FILE"
-    
-    # Warte auf alle Jobs
-    echo ""
-    echo "⏳ $([ "$SCRIPT_LANG" = "de" ] && echo "Warte auf laufende Downloads..." || echo "Waiting for running downloads...")"
-    wait
-    
-    echo ""
-    echo "🎉 $([ "$SCRIPT_LANG" = "de" ] && echo "Batch-Download abgeschlossen!" || echo "Batch download completed!")"
-    echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Gesamt:" || echo "Total:") $TOTAL_URLS"
-    echo ""
-    
-    exit 0
-fi
 
 
 # Tools prüfen (nur wenn wir tatsächlich downloaden wollen)
@@ -729,48 +592,91 @@ fi
     fi
 } 200>"$LOG_LOCK"
 
-# Audio oder Video?
-if [ "${SOCIAL_DL_BATCH_MODE:-0}" -eq 1 ]; then
-    # Batch-Modus: Nutze vorkonfigurierte Einstellungen
-    DOWNLOAD_TYPE="${SOCIAL_DL_BATCH_TYPE}"
-    QUALITY_CHOICE="${SOCIAL_DL_BATCH_QUALITY:-1}"
-    
-    if [ "$DOWNLOAD_TYPE" = "audio" ]; then
-        TARGET_DIR="$AUDIO_DIR"
-        FILE_EXT="mp3"
-    else
-        TARGET_DIR="$DOWNLOAD_DIR"
-        FILE_EXT="mp4"
-    fi
-    
-    # Kein Shotcut im Batch-Mode
-    EDIT=no
-    EDIT_BACKGROUND=no
-else
-    # Normaler Modus: Interaktive Fragen
+# Download-Modus wählen (mit Zurück-Funktion)
+while true; do
     echo ""
-    if confirm "$(msg "msg_audio_question")"; then
-        DOWNLOAD_TYPE="audio"
-        TARGET_DIR="$AUDIO_DIR"
-        FILE_EXT="mp3"
-    else
+    echo "$([ "$SCRIPT_LANG" = "de" ] && echo "Download-Modus:" || echo "Download mode:")"
+    echo "  [1] $([ "$SCRIPT_LANG" = "de" ] && echo "Schnell - Beste Qualität, ohne Bearbeitung (Standard)" || echo "Quick - Best quality, no editing (Default)")"
+    echo "  [2] $([ "$SCRIPT_LANG" = "de" ] && echo "Erweitert - Audio/Qualität/Shotcut wählen" || echo "Advanced - Choose audio/quality/Shotcut")"
+    read -r -p "$([ "$SCRIPT_LANG" = "de" ] && echo "Auswahl [1-2, Enter=1]: " || echo "Choice [1-2, Enter=1]: ")" -n 1 MODE_CHOICE
+    echo ""
+    
+    MODE_CHOICE="${MODE_CHOICE:-1}"
+    
+    if [ "$MODE_CHOICE" = "1" ]; then
+        # Quick Mode: Beste Qualität, Video, kein Shotcut
         DOWNLOAD_TYPE="video"
         TARGET_DIR="$DOWNLOAD_DIR"
         FILE_EXT="mp4"
-    fi
-    
-    # Bearbeiten
-    EDIT=no
-    EDIT_BACKGROUND=no
-    if [ "$DOWNLOAD_TYPE" = "video" ] && [ "$HAS_SHOTCUT" -eq 1 ]; then
-        if confirm "$(msg "msg_edit_question")"; then
-            EDIT=yes
-            if confirm "$(msg "msg_edit_background")"; then
-                EDIT_BACKGROUND=yes
+        QUALITY_CHOICE=1
+        EDIT=no
+        EDIT_BACKGROUND=no
+        
+        echo "$([ "$SCRIPT_LANG" = "de" ] && echo "✓ Schnellmodus: Beste Video-Qualität" || echo "✓ Quick mode: Best video quality")"
+        break
+    elif [ "$MODE_CHOICE" = "2" ]; then
+        # Erweitert: Alle Fragen wie bisher
+        echo ""
+        echo "$([ "$SCRIPT_LANG" = "de" ] && echo "=== ERWEITERTE OPTIONEN ===" || echo "=== ADVANCED OPTIONS ===")"
+        echo ""
+        
+        # Audio oder Video?
+        if confirm "$(msg "msg_audio_question")"; then
+            DOWNLOAD_TYPE="audio"
+            TARGET_DIR="$AUDIO_DIR"
+            FILE_EXT="mp3"
+            ADVANCED_COMPLETED=yes
+        else
+            DOWNLOAD_TYPE="video"
+            TARGET_DIR="$DOWNLOAD_DIR"
+            FILE_EXT="mp4"
+            ADVANCED_COMPLETED=yes
+        fi
+        
+        # Zurück-Option nach Audio/Video
+        echo ""
+        if ! confirm "$([ "$SCRIPT_LANG" = "de" ] && echo "Mit diesen Einstellungen fortfahren?" || echo "Continue with these settings?")"; then
+            echo "$([ "$SCRIPT_LANG" = "de" ] && echo "↩️  Zurück zum Hauptmenü..." || echo "↩️  Back to main menu...")"
+            continue
+        fi
+        
+        # Qualitätswahl für Video
+        if [ "$DOWNLOAD_TYPE" = "video" ]; then
+            echo ""
+            echo "$(msg "msg_quality_select")"
+            echo "  [1] $(msg "msg_quality_best")"
+            echo "  [2] 1080p max"
+            echo "  [3] 720p max"
+            echo "  [4] 480p ($(msg "msg_quality_small"))"
+            read -r -p "$(msg "msg_quality_prompt") " -n 1 QUALITY_CHOICE
+            echo ""
+            
+            QUALITY_CHOICE="${QUALITY_CHOICE:-1}"
+            
+            # Zurück-Option nach Qualität
+            echo ""
+            if ! confirm "$([ "$SCRIPT_LANG" = "de" ] && echo "Mit dieser Qualität fortfahren?" || echo "Continue with this quality?")"; then
+                echo "$([ "$SCRIPT_LANG" = "de" ] && echo "↩️  Zurück zum Hauptmenü..." || echo "↩️  Back to main menu...")"
+                continue
             fi
         fi
+        
+        # Bearbeiten
+        EDIT=no
+        EDIT_BACKGROUND=no
+        if [ "$DOWNLOAD_TYPE" = "video" ] && [ "$HAS_SHOTCUT" -eq 1 ]; then
+            if confirm "$(msg "msg_edit_question")"; then
+                EDIT=yes
+                if confirm "$(msg "msg_edit_background")"; then
+                    EDIT_BACKGROUND=yes
+                fi
+            fi
+        fi
+        break
+    else
+        echo "$([ "$SCRIPT_LANG" = "de" ] && echo "⚠️  Ungültige Auswahl. Bitte 1 oder 2 eingeben." || echo "⚠️  Invalid choice. Please enter 1 or 2.")"
     fi
-fi
+done
 
 # Format-String
 FORMAT_STRING=""
@@ -781,21 +687,9 @@ if [ "$DOWNLOAD_TYPE" = "audio" ]; then
     # QUICK WIN 1: Audio-Thumbnail hinzugefügt
     YTDLP_EXTRA_ARGS="-x --audio-format mp3 --audio-quality 0 --embed-thumbnail"
 else
-    # Qualitätswahl
-    if [ "${SOCIAL_DL_BATCH_MODE:-0}" -eq 0 ]; then
-        # Normaler Modus: Frage nach Qualität
-        echo ""
-        echo "$(msg "msg_quality_select")"
-        echo "  [1] $(msg "msg_quality_best")"
-        echo "  [2] 1080p max"
-        echo "  [3] 720p max"
-        echo "  [4] 480p ($(msg "msg_quality_small"))"
-        read -r -p "$(msg "msg_quality_prompt") " -n 1 QUALITY_CHOICE
-        echo ""
-        
-        QUALITY_CHOICE="${QUALITY_CHOICE:-1}"
-    fi
-    # Im Batch-Mode ist QUALITY_CHOICE bereits gesetzt
+    # QUALITY_CHOICE wurde bereits im Hauptmenü gesetzt
+    # Quick-Mode: QUALITY_CHOICE=1
+    # Erweitert-Mode: QUALITY_CHOICE wurde vom User gewählt
     
     case "$QUALITY_CHOICE" in
         1) FORMAT_STRING="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" ;;
