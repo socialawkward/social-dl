@@ -743,3 +743,158 @@ This document is part of the Social-DL project and is released under the MIT Lic
 
 **Last Updated:** January 8, 2026  
 **Contributors:** Development team & community
+
+---
+
+## YAD GUI Framework - Limitations & Best Practices
+
+**Date:** 2026-01-09  
+**Version:** v2.7.0
+
+### Known Limitations
+
+#### 1. Empty Row Highlighting
+**Issue:** Rows with `@disabled@` ID still highlight on mouse hover.
+
+**Cause:** YAD's list widget doesn't support true row disabling - only prevents selection via ID.
+
+**Impact:** Visual only - users might think empty rows are clickable.
+
+**Workaround:** None available. Script handles `@disabled@` returns gracefully.
+
+**Status:** Documented, accepted limitation.
+
+---
+
+#### 2. Window Position Jumping
+**Issue:** Windows reset to center when switching between main menu ↔ settings.
+
+**Cause:** Each YAD invocation creates a new window instance.
+
+**Attempted Solutions:**
+- `--mouse`: Opens at mouse position (doesn't persist)
+- Removing `--center`: Inconsistent WM placement
+- `wmctrl`: Could save/restore geometry (adds complexity + dependency)
+
+**Decision:** Keep `--center` for consistency. Position jumping is predictable.
+
+---
+
+#### 3. Cancel Button Behavior (CRITICAL)
+**Issue:** Cancel button returns `exit_code=0` with empty `stdout`, not `exit_code=1`.
+
+**Cause:** YAD button behavior - buttons set exit codes but YAD process exits 0.
+
+**Critical Bug:** This caused infinite loop:
+```bash
+# WRONG - causes loop:
+if [ $? -ne 0 ]; then return 1; fi
+if [ -z "$choice" ]; then continue; fi  # ← Never exits!
+
+# CORRECT:
+if [ $? -ne 0 ]; then return 1; fi
+if [ -z "$choice" ]; then return 1; fi  # ← Exit on empty!
+```
+
+**Solution:** Always check empty string FIRST and treat as cancellation.
+
+---
+
+#### 4. Window Blinking on Empty Row Click
+**Issue:** Double-clicking empty row closes window briefly then reopens.
+
+**Cause:** YAD closes on any double-click, script detects `@disabled@` and shows menu again.
+
+**Workaround:** None without removing `--no-click` (forces OK button only).
+
+**Impact:** Minor - blink is fast (~100ms).
+
+---
+
+### Best Practices
+
+**Exit Handling:**
+```bash
+local choice=$(show_menu)
+local exit_code=$?
+
+# Check exit code first (ESC, X button)
+if [ $exit_code -ne 0 ]; then
+    return 1
+fi
+
+# Check empty choice (Cancel button)
+if [ -z "$choice" ]; then
+    return 1
+fi
+
+# Check disabled rows
+if [ "$choice" = "@disabled@" ]; then
+    continue  # Ignore, stay in loop
+fi
+```
+
+**Column Formatting:**
+```bash
+--column="ID:HD"              # Hidden column
+--column="Icon:IMG:60"        # Image, 60px width
+--column="Text:TXT:180"       # Text, 180px width
+--column="Description:TXT"    # Text, auto width
+--no-headers                  # Hide column headers
+--separator=""                # Clean output
+```
+
+**Button Layout:**
+```bash
+--buttons-layout=center
+--button="❌ Cancel:1"
+--button="✅ OK:0"
+```
+
+**Window Sizing:**
+```bash
+--width=360 --height=640      # 9:16 smartphone ratio
+--center --fixed              # Consistent positioning
+```
+
+---
+
+### Debug Techniques
+
+**Adding Debug Output:**
+```bash
+echo "[DEBUG] choice='$choice', exit_code=$exit_code" >&2
+```
+
+**Finding Zombie Processes:**
+```bash
+ps aux | grep yad
+ps aux | grep test-mobile-ui
+pkill -9 -f test-mobile-ui
+killall -9 yad
+```
+
+**Testing Exit Codes:**
+```bash
+yad --list [...]; echo "Exit: $?"
+```
+
+---
+
+### Architecture Decision: Separate Windows
+
+**Rejected Approach:** Multi-tab with `--notebook`
+- Complex syntax
+- Poor documentation
+- Harder to maintain
+
+**Chosen Approach:** Separate windows with smart alignment
+- Settings button (line 20) → Opens settings window
+- Settings back button (line 20) → Returns to main menu
+- Mouse stays at same vertical position (no movement needed)
+- Cleaner code, easier debugging
+
+---
+
+**Conclusion:** YAD provides significant UX improvements over Zenity (alignment, formatting, sizing) but has quirks that require careful handling. Most limitations are minor and don't affect core functionality.
+
