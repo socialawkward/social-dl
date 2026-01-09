@@ -16,6 +16,7 @@ This document contains all problems encountered during development and their sol
 4. [Base64: Creating Self-Contained Scripts](#base64-creating-self-contained-scripts)
 5. [GitHub API: SHA Extraction from JSON](#github-api-sha-extraction-from-json)
 6. [Bash: stdout vs stderr in Functions](#bash-stdout-vs-stderr-in-functions)
+7. [GitHub Releases: Updating Existing Assets](#github-releases-updating-existing-assets)
 
 ---
 
@@ -537,6 +538,152 @@ echo "Got: [$result]"  # Should be single clean value
 
 # Test that status messages still appear:
 my_function  # Run without capturing - see status messages
+```
+
+---
+
+## GitHub Releases: Updating Existing Assets
+
+### Problem Statement
+When updating an existing GitHub Release with new asset files, the upload fails silently if assets with the same name already exist.
+
+### Symptoms
+```bash
+# Upload appears to work but asset isn't updated:
+curl -X POST \
+    "https://uploads.github.com/repos/user/repo/releases/12345/assets?name=file.tar.gz" \
+    --data-binary "@file.tar.gz" 2>&1 || true
+
+# Returns: {"message": "Validation Failed", "errors": [...]}
+# But || true hides the error!
+```
+
+### Context
+- Building release automation that updates existing releases
+- Each run creates fresh tar.gz and app files
+- Need to replace old assets with new versions
+- Using `|| true` to avoid script failures
+
+### Why This Happens
+GitHub API does not allow duplicate asset names in a release:
+- Each asset name must be unique
+- POST to `/releases/{id}/assets` creates NEW asset
+- If name exists: Returns 422 error
+- Old asset remains, new one is not uploaded
+
+### Failed Approach ❌
+```bash
+# Just upload and ignore errors
+curl -X POST .../assets?name=file.tar.gz \
+    --data-binary "@file.tar.gz" || true
+
+# Problem: Hides the real issue!
+# Result: Old asset stays, new one not uploaded
+```
+
+### Solution ✅
+
+**Delete old assets before uploading new ones:**
+
+```bash
+# 1. Get existing assets from release
+assets_response=$(curl -s \
+    -H "Authorization: token $GITHUB_TOKEN" \
+    "$GITHUB_API/repos/$USER/$REPO/releases/$RELEASE_ID/assets")
+
+# 2. Find asset ID by name
+asset_id=$(echo "$assets_response" | \
+    grep -B 3 "\"name\"[[:space:]]*:[[:space:]]*\"$FILENAME\"" | \
+    grep -o '"id"[[:space:]]*:[[:space:]]*[0-9]*' | \
+    head -1 | \
+    grep -o '[0-9]*')
+
+# 3. Delete old asset if found
+if [ -n "$asset_id" ]; then
+    curl -s -X DELETE \
+        -H "Authorization: token $GITHUB_TOKEN" \
+        "$GITHUB_API/repos/$USER/$REPO/releases/assets/$asset_id"
+fi
+
+# 4. Upload new asset (now without conflict!)
+curl -s -X POST \
+    -H "Authorization: token $GITHUB_TOKEN" \
+    -H "Content-Type: application/gzip" \
+    --data-binary "@$FILENAME" \
+    "https://uploads.github.com/repos/$USER/$REPO/releases/$RELEASE_ID/assets?name=$FILENAME"
+```
+
+### Why This Works
+- **GET /releases/{id}/assets** returns all assets with IDs
+- **DELETE /releases/assets/{id}** removes specific asset
+- **Asset names become available** after deletion
+- **POST can now succeed** without name conflict
+- **No `|| true` needed** - errors are real errors
+
+### Complete Example
+
+```bash
+update_release_assets() {
+    local release_id="$1"
+    local tarball="$2"
+    local app_file="$3"
+    
+    # Get all existing assets
+    local assets
+    assets=$(curl -s \
+        -H "Authorization: token $GITHUB_TOKEN" \
+        "$GITHUB_API/repos/$USER/$REPO/releases/$release_id/assets")
+    
+    # Delete + upload tarball
+    local tarball_id
+    tarball_id=$(echo "$assets" | \
+        grep -B 3 "\"name\".*\"$tarball\"" | \
+        grep '"id"' | grep -o '[0-9]*' | head -1)
+    
+    if [ -n "$tarball_id" ]; then
+        echo "Deleting old $tarball..."
+        curl -s -X DELETE \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            "$GITHUB_API/repos/$USER/$REPO/releases/assets/$tarball_id"
+    fi
+    
+    echo "Uploading new $tarball..."
+    curl -s -X POST \
+        -H "Authorization: token $GITHUB_TOKEN" \
+        -H "Content-Type: application/gzip" \
+        --data-binary "@$tarball" \
+        "https://uploads.github.com/repos/$USER/$REPO/releases/$release_id/assets?name=$tarball"
+    
+    # Same for app file...
+}
+```
+
+### Key Takeaways
+1. **GitHub does not auto-replace assets** with same name
+2. **DELETE old assets before uploading new ones**
+3. **Don't use `|| true` on critical uploads** - it hides real errors
+4. **Parse asset ID from list response** using grep + name matching
+5. **This pattern applies to ALL release assets**
+
+### GitHub API References
+- List Release Assets: `GET /repos/{owner}/{repo}/releases/{release_id}/assets`
+- Delete Asset: `DELETE /repos/{owner}/{repo}/releases/assets/{asset_id}`
+- Upload Asset: `POST https://uploads.github.com/repos/{owner}/{repo}/releases/{release_id}/assets`
+
+### Common Mistakes
+```bash
+# WRONG: Assuming upload overwrites
+curl -X POST .../assets?name=file.tar.gz
+
+# WRONG: Hiding errors
+curl ... || true
+
+# WRONG: Using PATCH (doesn't exist for assets)
+curl -X PATCH .../assets/{id}
+
+# RIGHT: Delete then POST
+curl -X DELETE .../assets/{id}
+curl -X POST .../assets?name=file.tar.gz
 ```
 
 ---
