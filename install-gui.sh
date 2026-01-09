@@ -18,7 +18,8 @@ select_language() {
         --column="" --column="Code" --column="Language / Sprache" \
         TRUE "en" "English" \
         FALSE "de" "Deutsch" \
-        --width=500 --height=250
+        --width=550 --height=300 \
+        --hide-column=2 --print-column=2
 }
 
 LANG_CHOICE=$(select_language)
@@ -121,7 +122,8 @@ INSTALL_TYPE=$(zenity --list \
     --column="" --column="Typ" --column="$(t "select_type" | head -c 1)" \
     TRUE "local" "$(t "type_local")" \
     FALSE "system" "$(t "type_system")" \
-    --width=600 --height=300)
+    --hide-column=1 --print-column=2 \
+    --width=650 --height=350)
 
 if [ -z "$INSTALL_TYPE" ]; then
     exit 0
