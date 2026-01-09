@@ -10,17 +10,14 @@ SCRIPT_NAME="social-dl"
 
 # Language Selection
 select_language() {
-    yad --form \
+    zenity --list \
         --title="Social-DL Uninstaller - Language / Sprache" \
         --text="Please select your language / Bitte wähle deine Sprache:" \
-        --field="Language/Sprache:CB" \
-        "English!Deutsch" \
-        --width=400 --height=200 \
-        --button="Cancel:1" --button="OK:0" \
-        2>/dev/null | awk -F'|' '{
-            if ($1 == "English") print "en"
-            else if ($1 == "Deutsch") print "de"
-        }'
+        --radiolist \
+        --column="" --column="Code" --column="Language / Sprache" \
+        TRUE "en" "English" \
+        FALSE "de" "Deutsch" \
+        --width=500 --height=250
 }
 
 LANG_CHOICE=$(select_language)
@@ -87,7 +84,7 @@ fi
 
 # Keine Installation gefunden
 if [ $LOCAL_INSTALLED -eq 0 ] && [ $SYSTEM_INSTALLED -eq 0 ]; then
-    yad --info \
+    zenity --info \
         --title="$(t "title")" \
         --text="$(t "not_installed")" \
         --width=400
@@ -103,19 +100,19 @@ if [ $SYSTEM_INSTALLED -eq 1 ]; then
     INSTALL_INFO="${INSTALL_INFO}$(t "system_install")\n"
 fi
 
-yad --question \
+zenity --question \
     --title="$(t "title")" \
     --text="$(t "found_installations")\n\n${INSTALL_INFO}\n$(t "confirm_uninstall")" \
-    --width=450 \
+    --width=550 \
     --ok-label="$(t "yes_uninstall")" \
     --cancel-label="$(t "cancel")" || exit 0
 
 # Frage nach Logs
 DELETE_LOGS=0
-if yad --question \
+if zenity --question \
     --title="$(t "title")" \
     --text="$(t "delete_logs_question")" \
-    --width=450 \
+    --width=550 \
     --ok-label="$(t "yes_delete_logs")" \
     --cancel-label="$(t "no_keep_logs")"; then
     DELETE_LOGS=1
@@ -148,10 +145,10 @@ if [ $SYSTEM_INSTALLED -eq 1 ]; then
             rm -f '/usr/share/applications/$SCRIPT_NAME.desktop'
         " || exit 1
     else
-        yad --error \
+        zenity --error \
             --title="$(t "title")" \
             --text="$(t "need_pkexec")" \
-            --width=450
+            --width=550
         exit 1
     fi
 fi
@@ -166,7 +163,7 @@ fi
 echo "100"
 echo "# $(t "done")"
 
-) | yad --progress \
+) | zenity --progress \
     --title="$(t "title")" \
     --text="$(t "uninstalling")" \
     --percentage=0 \
@@ -187,14 +184,14 @@ if [ $ZENITY_EXIT -eq 0 ] || [ $ZENITY_EXIT -eq 143 ]; then
 
     MSG="${MSG}$(t "downloads_kept")\n$(t "downloads_videos")\n$(t "downloads_audio")"
 
-    yad --info \
+    zenity --info \
         --title="$(t "title")" \
         --text="$MSG" \
-        --width=450
+        --width=550
 else
-    yad --error \
+    zenity --error \
         --title="$(t "title")" \
         --text="$(t "failed")" \
-        --width=450
+        --width=550
     exit 1
 fi
