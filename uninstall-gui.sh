@@ -17,7 +17,8 @@ select_language() {
         --column="" --column="Code" --column="Language / Sprache" \
         TRUE "en" "English" \
         FALSE "de" "Deutsch" \
-        --width=500 --height=250
+        --width=550 --height=300 \
+        --hide-column=2 --print-column=2
 }
 
 LANG_CHOICE=$(select_language)
