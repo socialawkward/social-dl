@@ -245,9 +245,17 @@ show_menu() {
                     continue
                 fi
                 
-                # Otherwise return the settings choice
-                echo "$choice"
-                return 0
+                # Settings actions (101-105) are returned to main script for handling
+                # After handling, main script should call show_menu again
+                # This keeps the settings loop active
+                if [[ "$choice" =~ ^10[1-5]$ ]]; then
+                    # Return the choice for main script to handle
+                    echo "$choice"
+                    return 0
+                fi
+                
+                # Unknown choice in settings - ignore and continue
+                continue
             done
             # Continue to show main menu again
         else
