@@ -11,17 +11,17 @@ SCRIPT_SOURCE="social-dl.sh"
 
 # Language Selection
 select_language() {
-    yad --list \
+    yad --form \
         --title="Social-DL Installer - Language / Sprache" \
         --text="Please select your language / Bitte wähle deine Sprache:" \
-        --radiolist \
-        --column="Select:RD" --column="Code:TEXT" --column="Language / Sprache:TEXT" \
-        TRUE "en" "English" \
-        FALSE "de" "Deutsch" \
+        --field="Language/Sprache:CB" \
+        "English!Deutsch" \
         --width=400 --height=200 \
         --button="Cancel:1" --button="OK:0" \
-        --print-column=2 \
-        2>/dev/null
+        2>/dev/null | awk -F'|' '{
+            if ($1 == "English") print "en"
+            else if ($1 == "Deutsch") print "de"
+        }'
 }
 
 LANG_CHOICE=$(select_language)
@@ -117,17 +117,23 @@ if [ -n "$MISSING_DEPS" ]; then
 fi
 
 # Installationstyp wählen
-INSTALL_TYPE=$(yad --list \
+INSTALL_RESULT=$(yad --form \
     --title="$(t "title")" \
     --text="$(t "select_type")" \
-    --radiolist \
-    --column="Select:RD" --column="Typ:TEXT" --column="Beschreibung:TEXT" \
-    TRUE "local" "$(t "type_local")" \
-    FALSE "system" "$(t "type_system")" \
-    --width=550 --height=250 \
+    --field="Installation Type:CB" \
+    "$(t "type_local")!$(t "type_system")" \
+    --width=550 --height=200 \
     --button="Cancel:1" --button="OK:0" \
-    --print-column=2 \
     2>/dev/null)
+
+# Map selection back to local/system
+if echo "$INSTALL_RESULT" | grep -q "$(t "type_local")"; then
+    INSTALL_TYPE="local"
+elif echo "$INSTALL_RESULT" | grep -q "$(t "type_system")"; then
+    INSTALL_TYPE="system"
+else
+    INSTALL_TYPE=""
+fi
 
 if [ -z "$INSTALL_TYPE" ]; then
     exit 0
