@@ -15,13 +15,12 @@ select_language() {
         --title="Social-DL Installer - Language / Sprache" \
         --text="Please select your language / Bitte wähle deine Sprache:" \
         --radiolist \
-        --column="" --column="Code" --column="Language / Sprache" \
+        --column="Select:RD" --column="Code:TEXT" --column="Language / Sprache:TEXT" \
         TRUE "en" "English" \
         FALSE "de" "Deutsch" \
         --width=400 --height=200 \
         --button="Cancel:1" --button="OK:0" \
         --print-column=2 \
-        --no-headers \
         2>/dev/null
 }
 
@@ -122,13 +121,12 @@ INSTALL_TYPE=$(yad --list \
     --title="$(t "title")" \
     --text="$(t "select_type")" \
     --radiolist \
-    --column="" --column="Typ" --column="Beschreibung" \
+    --column="Select:RD" --column="Typ:TEXT" --column="Beschreibung:TEXT" \
     TRUE "local" "$(t "type_local")" \
     FALSE "system" "$(t "type_system")" \
     --width=550 --height=250 \
     --button="Cancel:1" --button="OK:0" \
     --print-column=2 \
-    --no-headers \
     2>/dev/null)
 
 if [ -z "$INSTALL_TYPE" ]; then
