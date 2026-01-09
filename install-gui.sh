@@ -11,17 +11,14 @@ SCRIPT_SOURCE="social-dl.sh"
 
 # Language Selection
 select_language() {
-    yad --form \
+    zenity --list \
         --title="Social-DL Installer - Language / Sprache" \
         --text="Please select your language / Bitte wähle deine Sprache:" \
-        --field="Language/Sprache:CB" \
-        "English!Deutsch" \
-        --width=400 --height=200 \
-        --button="Cancel:1" --button="OK:0" \
-        2>/dev/null | awk -F'|' '{
-            if ($1 == "English") print "en"
-            else if ($1 == "Deutsch") print "de"
-        }'
+        --radiolist \
+        --column="" --column="Code" --column="Language / Sprache" \
+        TRUE "en" "English" \
+        FALSE "de" "Deutsch" \
+        --width=500 --height=250
 }
 
 LANG_CHOICE=$(select_language)
@@ -81,7 +78,7 @@ if ! command -v zenity >/dev/null 2>&1; then
 fi
 
 # Willkommens-Dialog
-yad --question \
+zenity --question \
     --title="$(t "title")" \
     --text="$(t "welcome_text")" \
     --width=400 \
@@ -90,7 +87,7 @@ yad --question \
 
 # Prüfe ob social-dl.sh existiert
 if [ ! -f "$SCRIPT_SOURCE" ]; then
-    yad --error \
+    zenity --error \
         --title="$(t "title")" \
         --text="$(t "error_script_not_found")" \
         --width=400
@@ -109,31 +106,22 @@ if [ -n "$MISSING_DEPS" ]; then
     INSTALL_MSG="$(t "install_instructions")\n"
     [ "$LANG_CHOICE" = "de" ] && INSTALL_MSG="${INSTALL_MSG}Arch/Manjaro: sudo pacman -S yt-dlp\nDebian/Ubuntu: sudo apt install yt-dlp\nFedora: sudo dnf install yt-dlp\nUniversal: pip install yt-dlp" || INSTALL_MSG="${INSTALL_MSG}Arch/Manjaro: sudo pacman -S yt-dlp\nDebian/Ubuntu: sudo apt install yt-dlp\nFedora: sudo dnf install yt-dlp\nUniversal: pip install yt-dlp"
 
-    yad --error \
+    zenity --error \
         --title="$(t "title")" \
         --text="$(t "missing_deps")\n\n${MISSING_DEPS}\n${INSTALL_MSG}" \
-        --width=450
+        --width=550
     exit 1
 fi
 
 # Installationstyp wählen
-INSTALL_RESULT=$(yad --form \
+INSTALL_TYPE=$(zenity --list \
     --title="$(t "title")" \
     --text="$(t "select_type")" \
-    --field="Installation Type:CB" \
-    "$(t "type_local")!$(t "type_system")" \
-    --width=550 --height=200 \
-    --button="Cancel:1" --button="OK:0" \
-    2>/dev/null)
-
-# Map selection back to local/system
-if echo "$INSTALL_RESULT" | grep -q "$(t "type_local")"; then
-    INSTALL_TYPE="local"
-elif echo "$INSTALL_RESULT" | grep -q "$(t "type_system")"; then
-    INSTALL_TYPE="system"
-else
-    INSTALL_TYPE=""
-fi
+    --radiolist \
+    --column="" --column="Typ" --column="$(t "select_type" | head -c 1)" \
+    TRUE "local" "$(t "type_local")" \
+    FALSE "system" "$(t "type_system")" \
+    --width=600 --height=300)
 
 if [ -z "$INSTALL_TYPE" ]; then
     exit 0
@@ -243,7 +231,7 @@ EOF
             fi
         " || exit 1
     else
-        yad --error \
+        zenity --error \
             --title="$(t "title")" \
             --text="$(t "need_sudo")" \
             --width=400
@@ -254,7 +242,7 @@ EOF
     echo "# $(t "done")"
 fi
 
-) | yad --progress \
+) | zenity --progress \
     --title="$(t "title")" \
     --text="$(t "installing")" \
     --percentage=0 \
@@ -271,12 +259,12 @@ if [ $ZENITY_EXIT -eq 0 ] || [ $ZENITY_EXIT -eq 143 ]; then
         MSG="${MSG}$(t "note_shell")"
     fi
 
-    yad --info \
+    zenity --info \
         --title="$(t "title")" \
         --text="$MSG" \
-        --width=450
+        --width=550
 
-    if yad --question \
+    if zenity --question \
         --title="$(t "title")" \
         --text="$(t "test_question")" \
         --width=400 \
@@ -313,14 +301,14 @@ if [ $ZENITY_EXIT -eq 0 ] || [ $ZENITY_EXIT -eq 143 ]; then
                     ;;
             esac
         else
-            yad --info \
+            zenity --info \
                 --title="$(t "title")" \
                 --text="$(t "no_terminal")$SCRIPT_PATH --help" \
                 --width=400
         fi
     fi
 else
-    yad --error \
+    zenity --error \
         --title="$(t "title")" \
         --text="$(t "failed")" \
         --width=400
