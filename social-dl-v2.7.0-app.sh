@@ -147,6 +147,7 @@ else
     
     # Source the Zenity UI module
     source "$TEMP_DIR/ui/mobile-app-ui-zenity.sh"
+fi
 
 # === FUTURE FEATURE: BATCH DROP ZONE (Hidden Placeholder) ===
 # This is a placeholder for future batch download functionality
