@@ -104,7 +104,7 @@ show_menu() {
             --width=480 --height=580 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
-            --column="ID" --column="" --column="Option" --column="Beschreibung" \
+            --column="ID" --column=" " --column="Option" --column="Beschreibung" \
             "1" "📥" "Installieren" "System-Installation" \
             "2" "🗑️" "Deinstallieren" "Vom System entfernen" \
             "3" "📖" "README (DE)" "Deutsche Dokumentation" \
@@ -126,7 +126,7 @@ show_menu() {
             --width=480 --height=580 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
-            --column="ID" --column=""--column="Option" --column="Description" \
+            --column="ID" --column=" " --column="Option" --column="Description" \
             "1" "📥" "Installieren" "System-Installation" \
             "2" "🗑️" "Deinstallieren" "Vom System entfernen" \
             "3" "📖" "README (DE)" "Deutsche Dokumentation" \
