@@ -505,7 +505,7 @@ For detailed release notes and version history, see **[CHANGELOG.md](CHANGELOG.m
 
 ### Recent Highlights
 
-- **v2.7.0:** YAD support (enhanced GUI), modular UI architecture, GUI test script
+- **v2.7.0:** YAD support (enhanced GUI), separate windows UI, settings window, smart navigation
 - **v2.6.0:** Retry mechanism, config file support, enhanced robustness
 - **v2.5.0:** English-first approach, separate changelog, enhanced mobile app
 - **v2.4.6:** Mobile app with smartphone design, development notes published
