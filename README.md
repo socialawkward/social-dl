@@ -467,85 +467,25 @@ social-dl/
 ├── Makefile                        # Build system
 ├── README.md                       # This file (English)
 ├── README.de.md                    # German documentation
+├── CHANGELOG.md                    # Version history
 ├── DEVELOPMENT-NOTES.md            # Developer documentation
 └── LICENSE                         # MIT License
 ```
 
 ---
 
-## 📝 Changelog
+## 📝 Version History
 
-### Version 2.5.0 (2026-01-09)
+**Current Version:** 2.5.0 (2026-01-09)
 
-**🌍 Internationalization:**
-- ✅ **English-First:** README.md is now English (international audience)
-- ✅ **German Still Available:** README.de.md for German speakers
-- ✅ **Language Switcher:** Easy navigation between languages
-- ✅ **Better Discovery:** Improved findability for international users
+For detailed release notes and version history, see **[CHANGELOG.md](CHANGELOG.md)**.
 
-**📦 Package Updates:**
-- ✅ **File Structure:** Updated references in all scripts
-- ✅ **Upload Automation:** Scripts adjusted for new file names
-- ✅ **Mobile App:** Automatically includes both language versions
+### Recent Highlights
 
-### Version 2.4.6 (2026-01-08)
-
-**📱 Mobile App (All-in-One):**
-- ✅ **Self-contained App:** All files in a single executable
-- ✅ **Smartphone Design:** Modern GUI with two-column layout
-- ✅ **Multilingual:** DE/EN language switcher with one click
-- ✅ **Desktop Launcher:** .desktop file with multimedia icon
-- ✅ **Click to Install:** Install/uninstall directly from the app
-- ✅ **Integrated Docs:** READMEs viewable directly in GUI
-- ✅ **Test Mode:** Run Social-DL directly without installation
-
-**⚡ Quick Mode:**
-- ✅ **1-Click Download:** Press `1` (or Enter) for best quality without further questions
-- ✅ **Default Mode:** Quick Mode is default - fastest for 95% of downloads
-
-**🔄 Back Function:**
-- ✅ **2x Back Option:** After audio/video choice and after quality selection
-- ✅ **Flexible Navigation:** Return to main menu anytime without restart
-
-**🎯 User Experience:**
-- ✅ **Drastically fewer inputs:** From 3 questions to 1 keystroke
-- ✅ **Advanced Mode:** Full control still available (Option 2)
-- ✅ **Intelligent Flow:** Quick for everyday, Advanced for special cases
-
-**📦 Distribution:**
-- ✅ **Automated Packaging:** Upload script creates tar.gz + app automatically
-- ✅ **GitHub Releases:** Automatic release creation with assets
-
-### Version 2.4.3 (2026-01-08)
-
-**🐛 Critical Bugfixes:**
-- ✅ **Syntax error fixed:** Missing `fi` in check_version() function
-- ✅ **URL validation corrected:** Removed `&` from dangerous_chars
-- ✅ **Tool check moved:** --help and --version work without yt-dlp
-- ✅ **Desktop entry fix:** update-desktop-database is called automatically
-- ✅ **Twitter/X postprocessing error:** Removed `--add-metadata`
-- ✅ **Twitter/X file extension problem:** Explicit output template
-- ✅ **Reddit CDN support:** Direct download with correct file extension
-
-**✨ New Features:**
-- ✅ **Reddit CDN links:** preview.redd.it, v.redd.it, i.redd.it
-- ✅ **Twitter-specific handling:** Videos with/without audio
-- ✅ **Intelligent file extension detection:** Automatic format detection
-- ✅ **Debug output:** Better troubleshooting
-
-**🔧 Improvements:**
-- ✅ Extended URL cleaning (igsh, igshid)
-- ✅ Better error messages
-- ✅ Improved installers
-- ✅ Comprehensive documentation
-
-### Version 2.4 (2026-01-07)
-
-**✨ Features:**
-- ✅ Audio downloads with embedded thumbnail
-- ✅ Version check feature
-- ✅ Multilingual support (German/English)
-- ✅ Tracking parameter removal
+- **v2.5.0:** English-first approach, separate changelog, enhanced mobile app
+- **v2.4.6:** Mobile app with smartphone design, development notes published
+- **v2.4.4-2.4.5:** Quick mode (1-click download), back function
+- **v2.4.3:** Critical bugfixes (URL validation, Twitter/X, Reddit CDN)
 
 ---
 
