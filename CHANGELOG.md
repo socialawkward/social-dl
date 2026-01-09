@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.7.0] - 2026-01-09
+
+### Added
+- **YAD Support:** Enhanced GUI with better text alignment and column formatting
+  - Centered icons, left-aligned text
+  - Precise column widths for optimal layout
+  - Improved visual hierarchy
+- **Modular UI Architecture:** Separate UI modules for better maintainability
+  - `ui/mobile-app-ui-yad.sh` - Enhanced YAD version
+  - `ui/mobile-app-ui-zenity.sh` - Standard Zenity fallback
+  - `ui/test-mobile-ui.sh` - Standalone GUI test script
+- **Auto-Detection:** Automatically uses YAD if available, falls back to Zenity
+- **GUI Test Script:** Test mobile app UI without upload/packaging
+
+### Changed
+- **Mobile App GUI:** Now uses modular UI system with auto-detection
+- **Optional Dependency:** YAD is optional (recommended for better UI)
+- **Backward Compatible:** Works perfectly without YAD installed
+
+### Technical
+- Mobile app now embeds appropriate UI module at build time
+- No breaking changes - existing installations continue to work
+- UI modules can be tested independently
+
+---
+
 ## [2.6.0] - 2026-01-09
 
 ### Added
