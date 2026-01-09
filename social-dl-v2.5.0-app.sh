@@ -101,41 +101,43 @@ show_menu() {
         # Deutsches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.5.0" \
-            --width=420 --height=580 \
+            --width=480 --height=580 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
             --column="ID" --column="Option" --column="Beschreibung" \
-            "1" "📥 Installieren" "Auf diesem System installieren" \
-            "2" "🗑️  Deinstallieren" "Von diesem System entfernen" \
+            "1" "📥 Installieren" "System-Installation" \
+            "2" "🗑️  Deinstallieren" "Vom System entfernen" \
             "3" "📖 README (DE)" "Deutsche Dokumentation" \
-            "4" "📘 README (EN)" "Englische Dokumentation" \
-            "5" "📋 Changelog" "Versionshistorie anzeigen" \
+            "4" "📘 README (EN)" "English documentation" \
+            "5" "📋 Changelog" "Versionshistorie" \
             "6" "ℹ️  Info" "Über Social-DL" \
             "7" "🌐 English" "Switch language" \
             "" "" "" \
             "" "" "" \
-            "8" "<big><b>🚀 AUSFÜHREN</b></big>" "<b>Social-DL jetzt starten (ohne Installation)</b>" \
+            "8" "🚀 AUSFÜHREN" "Jetzt starten (ohne Installation)" \
             "" "" "" \
+            "9" "❌ Beenden" "Programm schließen" \
+            --hide-column=1 --print-column=1 2>/dev/null) \
             "9" "❌ Beenden" "Programm schließen" \
             --hide-column=1 --print-column=1 2>/dev/null)
     else
         # Englisches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.5.0" \
-            --width=420 --height=580 \
+            --width=480 --height=580 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
             --column="ID" --column="Option" --column="Description" \
-            "1" "📥 Install" "Install on this system" \
-            "2" "🗑️  Uninstall" "Remove from this system" \
+            "1" "📥 Install" "System installation" \
+            "2" "🗑️  Uninstall" "Remove from system" \
             "3" "📖 README (DE)" "German documentation" \
             "4" "📘 README (EN)" "English documentation" \
-            "5" "📋 Changelog" "View version history" \
+            "5" "📋 Changelog" "Version history" \
             "6" "ℹ️  Info" "About Social-DL" \
             "7" "🌐 Deutsch" "Sprache wechseln" \
             "" "" "" \
             "" "" "" \
-            "8" "<big><b>🚀 RUN NOW</b></big>" "<b>Start Social-DL now (no installation)</b>" \
+            "8" "🚀 RUN NOW" "Start now (no installation)" \
             "" "" "" \
             "9" "❌ Exit" "Close program" \
             --hide-column=1 --print-column=1 2>/dev/null)
