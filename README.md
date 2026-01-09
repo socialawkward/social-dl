@@ -101,6 +101,8 @@ make install-local
 
 #### Install Dependencies
 
+**Required:**
+
 **Arch/Manjaro/CachyOS:**
 ```bash
 sudo pacman -S yt-dlp zenity xclip wl-clipboard libnotify shotcut curl
@@ -116,6 +118,27 @@ sudo apt install yt-dlp zenity xclip wl-clipboard libnotify-bin shotcut curl
 ```bash
 sudo dnf install yt-dlp zenity xclip wl-clipboard libnotify shotcut curl
 ```
+
+**Optional (Recommended for Enhanced GUI):**
+
+YAD provides improved mobile app UI with better text alignment and formatting.
+
+**Arch/Manjaro/CachyOS:**
+```bash
+sudo pacman -S yad
+```
+
+**Debian/Ubuntu/Mint:**
+```bash
+sudo apt install yad
+```
+
+**Fedora:**
+```bash
+sudo dnf install yad
+```
+
+> **Note:** Without YAD, the mobile app automatically falls back to Zenity (standard GUI).
 
 ---
 
@@ -476,16 +499,16 @@ social-dl/
 
 ## 📝 Version History
 
-**Current Version:** 2.6.0 (2026-01-09)
+**Current Version:** 2.7.0 (2026-01-09)
 
 For detailed release notes and version history, see **[CHANGELOG.md](CHANGELOG.md)**.
 
 ### Recent Highlights
 
+- **v2.7.0:** YAD support (enhanced GUI), modular UI architecture, GUI test script
 - **v2.6.0:** Retry mechanism, config file support, enhanced robustness
 - **v2.5.0:** English-first approach, separate changelog, enhanced mobile app
 - **v2.4.6:** Mobile app with smartphone design, development notes published
-- **v2.4.4-2.4.5:** Quick mode (1-click download), back function
 
 ---
 
