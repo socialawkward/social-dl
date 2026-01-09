@@ -1,0 +1,18 @@
+# Social-DL Configuration File
+# Copy this to: ~/.config/social-dl/config
+# Uncomment and modify settings as needed
+
+# Download directories
+#DOWNLOAD_DIR="$HOME/Downloads/Videos"
+#AUDIO_DIR="$HOME/Downloads/Audio"
+
+# Log settings
+#LOG_FILE="$HOME/.social-dl.log"
+#LOG_MAX_LINES=10000
+
+# Download settings
+#DOWNLOAD_TIMEOUT=300        # Timeout in seconds (default: 5 minutes)
+#MAX_RETRIES=3               # Number of retry attempts on network errors
+
+# Language (auto-detected from LANG if not set)
+#SCRIPT_LANG="de"            # Options: "de" or "en"
