@@ -117,8 +117,6 @@ show_menu() {
             "8" "🚀 AUSFÜHREN" "Jetzt starten (ohne Installation)" \
             "" "" "" \
             "9" "❌ Beenden" "Programm schließen" \
-            --hide-column=1 --print-column=1 2>/dev/null) \
-            "9" "❌ Beenden" "Programm schließen" \
             --hide-column=1 --print-column=1 2>/dev/null)
     else
         # Englisches Menü - Smartphone Design mit Icons
