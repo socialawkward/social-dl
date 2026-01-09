@@ -14,10 +14,10 @@ select_language() {
         --title="Social-DL Uninstaller - Language / Sprache" \
         --text="Please select your language / Bitte wähle deine Sprache:" \
         --radiolist \
-        --column="" --column="Code" --column="Language / Sprache" \
+        --column="☑" --column="Code" --column="Language / Sprache" \
         TRUE "en" "English" \
         FALSE "de" "Deutsch" \
-        --width=550 --height=280
+        --width=550 --height=300
 }
 
 LANG_CHOICE=$(select_language)
