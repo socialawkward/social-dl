@@ -101,40 +101,56 @@ show_menu() {
         # Deutsches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.5.0" \
-            --width=420 --height=520 \
+            --width=420 --height=580 \
             --window-icon="applications-multimedia" \
-            --text="<big><b>📱 Social-DL</b></big>\n<small>Universal Social Media Downloader</small>" \
+            --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
             --column="ID" --column="Option" --column="Beschreibung" \
             "1" "📥 Installieren" "Auf diesem System installieren" \
             "2" "🗑️  Deinstallieren" "Von diesem System entfernen" \
             "3" "📖 README (DE)" "Deutsche Dokumentation" \
             "4" "📘 README (EN)" "Englische Dokumentation" \
-            "5" "🚀 Ausführen" "Social-DL jetzt starten" \
+            "5" "📋 Changelog" "Versionshistorie anzeigen" \
             "6" "ℹ️  Info" "Über Social-DL" \
             "7" "🌐 English" "Switch language" \
-            "8" "❌ Beenden" "Programm schließen" \
+            "" "" "" \
+            "" "" "" \
+            "8" "<big><b>🚀 AUSFÜHREN</b></big>" "<b>Social-DL jetzt starten (ohne Installation)</b>" \
+            "" "" "" \
+            "9" "❌ Beenden" "Programm schließen" \
             --hide-column=1 --print-column=1 2>/dev/null)
     else
         # Englisches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.5.0" \
-            --width=420 --height=520 \
+            --width=420 --height=580 \
             --window-icon="applications-multimedia" \
-            --text="<big><b>📱 Social-DL</b></big>\n<small>Universal Social Media Downloader</small>" \
+            --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
             --column="ID" --column="Option" --column="Description" \
             "1" "📥 Install" "Install on this system" \
             "2" "🗑️  Uninstall" "Remove from this system" \
             "3" "📖 README (DE)" "German documentation" \
             "4" "📘 README (EN)" "English documentation" \
-            "5" "🚀 Run now" "Start Social-DL now" \
+            "5" "📋 Changelog" "View version history" \
             "6" "ℹ️  Info" "About Social-DL" \
             "7" "🌐 Deutsch" "Sprache wechseln" \
-            "8" "❌ Exit" "Close program" \
+            "" "" "" \
+            "" "" "" \
+            "8" "<big><b>🚀 RUN NOW</b></big>" "<b>Start Social-DL now (no installation)</b>" \
+            "" "" "" \
+            "9" "❌ Exit" "Close program" \
             --hide-column=1 --print-column=1 2>/dev/null)
     fi
     
     echo "$CHOICE"
 }
+
+# === FUTURE FEATURE: BATCH DROP ZONE (Hidden Placeholder) ===
+# This is a placeholder for future batch download functionality
+# Will allow drag & drop of .txt or .md files containing URLs
+# Implementation: Add zenity --file-selection with --multiple flag
+# Parse each line of file as URL and pass to social-dl.sh
+# Status: Not yet implemented - placeholder for v2.6+
+# ============================================================
 
 while true; do
     CHOICE=$(show_menu "$LANG_MODE")
@@ -174,20 +190,27 @@ while true; do
             fi
             ;;
         "3")  # README DE
-            zenity --text-info --filename="./README.md" \
+            zenity --text-info --filename="./README.de.md" \
                 --width=900 --height=700 \
                 --window-icon="text-x-generic" \
                 --title="📖 README (Deutsch)" \
                 --font="Monospace 10"
             ;;
         "4")  # README EN
-            zenity --text-info --filename="./README.en.md" \
+            zenity --text-info --filename="./README.md" \
                 --width=900 --height=700 \
                 --window-icon="text-x-generic" \
                 --title="📘 README (English)" \
                 --font="Monospace 10"
             ;;
-        "5")  # Ausführen
+        "5")  # Changelog
+            zenity --text-info --filename="./CHANGELOG.md" \
+                --width=900 --height=700 \
+                --window-icon="text-x-generic" \
+                --title="📋 Changelog" \
+                --font="Monospace 10"
+            ;;
+        "6")  # Info
             # Finde Terminal
             TERMINAL=""
             for term in x-terminal-emulator konsole gnome-terminal xfce4-terminal xterm; do
@@ -277,7 +300,39 @@ for Social Media Platforms
                 LANG_MODE="de"
             fi
             ;;
-        "8"|*)  # Beenden
+        "8")  # Ausführen / Run now
+            # Finde Terminal
+            TERMINAL=""
+            for term in x-terminal-emulator konsole gnome-terminal xfce4-terminal xterm; do
+                if command -v "$term" >/dev/null 2>&1; then
+                    TERMINAL="$term"
+                    break
+                fi
+            done
+            
+            if [ -n "$TERMINAL" ]; then
+                case "$TERMINAL" in
+                    konsole)
+                        konsole --workdir "$TEMP_DIR" -e bash -c "./social-dl.sh; echo ''; read -p 'Enter zum Schließen... / Press Enter to close...'"
+                        ;;
+                    gnome-terminal|xfce4-terminal)
+                        $TERMINAL --working-directory="$TEMP_DIR" -- bash -c "./social-dl.sh; echo ''; read -p 'Enter zum Schließen... / Press Enter to close...'"
+                        ;;
+                    *)
+                        $TERMINAL -e bash -c "cd '$TEMP_DIR' && ./social-dl.sh; echo ''; read -p 'Enter zum Schließen... / Press Enter to close...'"
+                        ;;
+                esac
+            else
+                if [ "$LANG_MODE" = "de" ]; then
+                    zenity --error --width=360 --window-icon="dialog-error" --title="Fehler" \
+                        --text="<b>Kein Terminal gefunden!</b>\n\nBitte führe social-dl.sh manuell aus:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>"
+                else
+                    zenity --error --width=360 --window-icon="dialog-error" --title="Error" \
+                        --text="<b>No terminal found!</b>\n\nPlease run social-dl.sh manually:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>"
+                fi
+            fi
+            ;;
+        "9"|*)  # Beenden / Exit
             exit 0
             ;;
     esac
