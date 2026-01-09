@@ -101,7 +101,7 @@ show_menu() {
         # Deutsches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.6.0" \
-            --width=460 --height=580 \
+            --width=440 --height=580 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
             --column="ID" --column="" --column="Option" --column="Beschreibung" \
@@ -114,7 +114,7 @@ show_menu() {
             "7" "🌐" "English" "Switch language" \
             "" "" "" ""\
             "" "" "" ""\
-            "8" "🚀" "AUSFÜHREN" "Jetzt starten (ohne Installation)" \
+            "8" "🚀" "AUSFÜHREN" "Direkt starten" \
             "" "" "" ""\
             "" "" "" ""\
             "9" "❌" "Beenden" "Programm schließen" \
@@ -123,7 +123,7 @@ show_menu() {
         # Englisches Menü - Smartphone Design mit Icons
         CHOICE=$(zenity --list \
             --title="Social-DL v2.6.0" \
-            --width=460 --height=580 \
+            --width=440 --height=580 \
             --window-icon="applications-multimedia" \
             --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
             --column="ID" --column="" --column="Option" --column="Description" \
@@ -136,7 +136,7 @@ show_menu() {
             "7" "🌐" "English" "Switch language" \
             "" "" "" ""\
             "-" "-" "-" "-"\
-            "8" "🚀" "RUN NOW" "Start now (no installation)" \
+            "8" "🚀" "RUN NOW" "Start directly" \
             "-" "-" "-" "-"\
             "" "" "" ""\
             "9" "❌" "Exit" "Close program" \
