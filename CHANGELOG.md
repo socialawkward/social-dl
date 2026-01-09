@@ -12,10 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **YAD Support:** Enhanced GUI with better text alignment and column formatting
   - Centered icons, left-aligned text
-  - Precise column widths for optimal layout
+  - Precise column widths (360x640 smartphone ratio)
   - Improved visual hierarchy
+- **Separate Windows UI:** Main menu with dedicated settings window
+  - Smart button alignment (no mouse movement needed between windows)
+  - Settings window with config editor, GitHub link, download folder selection
+  - Language switcher in both main menu and settings
 - **Modular UI Architecture:** Separate UI modules for better maintainability
-  - `ui/mobile-app-ui-yad.sh` - Enhanced YAD version
+  - `ui/mobile-app-ui-yad-tabs.sh` - Enhanced YAD version with separate windows
   - `ui/mobile-app-ui-zenity.sh` - Standard Zenity fallback
   - `ui/test-mobile-ui.sh` - Standalone GUI test script
 - **Auto-Detection:** Automatically uses YAD if available, falls back to Zenity
@@ -25,11 +29,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Mobile App GUI:** Now uses modular UI system with auto-detection
 - **Optional Dependency:** YAD is optional (recommended for better UI)
 - **Backward Compatible:** Works perfectly without YAD installed
+- **Settings Access:** Dedicated settings window for configuration options
+
+### Fixed
+- **Exit Logic:** Proper handling of cancel button and window close
+- **Empty Row Handling:** Graceful handling of disabled row clicks
 
 ### Technical
-- Mobile app now embeds appropriate UI module at build time
+- Mobile app now sources UI modules at runtime (not embedded inline)
 - No breaking changes - existing installations continue to work
 - UI modules can be tested independently
+- Comprehensive YAD limitations documented in DEVELOPMENT-NOTES.md
 
 ---
 
