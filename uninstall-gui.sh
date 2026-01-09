@@ -17,8 +17,7 @@ select_language() {
         --column="" --column="Code" --column="Language / Sprache" \
         TRUE "en" "English" \
         FALSE "de" "Deutsch" \
-        --width=550 --height=300 \
-        --hide-column=2 --print-column=2
+        --width=550 --height=280
 }
 
 LANG_CHOICE=$(select_language)
@@ -149,11 +148,6 @@ if [ $SYSTEM_INSTALLED -eq 1 ]; then
             rm -f '/usr/local/bin/$SCRIPT_NAME'
             rm -f '/usr/local/bin/.social-dl-lang'
             rm -f '/usr/share/applications/$SCRIPT_NAME.desktop'
-            
-            # Desktop-Database aktualisieren
-            if command -v update-desktop-database >/dev/null 2>&1; then
-                update-desktop-database /usr/share/applications 2>/dev/null || true
-            fi
         " || exit 1
     else
         zenity --error \
