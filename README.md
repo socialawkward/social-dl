@@ -1,53 +1,53 @@
 # 📥 Social-DL
 
-> **[English version](README.en.md) available**
+> **🌍 Language / Sprache:** [🇩🇪 Deutsch](README.de.md) | 🇬🇧 **English** (current)
 
-**Universal Video & Audio Downloader für Social Media Plattformen**
+**Universal Video & Audio Downloader for Social Media Platforms**
 
-Lade Videos und Audio von Instagram, Twitter/X, YouTube, Reddit und TikTok mit einem einfachen Tool herunter. Production-ready, sicher und benutzerfreundlich.
+Download videos and audio from Instagram, Twitter/X, YouTube, Reddit, and TikTok with a simple tool. Production-ready, secure, and user-friendly.
 
 ---
 
 ## 🚀 Quick Install
 
-### 📱 Mobile App (All-in-One, NEU!)
+### 📱 Mobile App (All-in-One, NEW!)
 
-**Die einfachste Methode - alles in einer Datei:**
+**The easiest method - everything in one file:**
 
-1. **Download:** `social-dl-v2.4.6-app.sh` von [Releases](https://github.com/socialawkward/social-dl/releases)
-2. **Ausführbar machen:** `chmod +x social-dl-v2.4.6-app.sh`
-3. **Starten:**
-   - **Mit Icon:** Doppelklick auf `social-dl-v2.4.6-app.desktop`
-   - **Direkt:** `./social-dl-v2.4.6-app.sh`
+1. **Download:** `social-dl-v2.4.6-app.sh` from [Releases](https://github.com/socialawkward/social-dl/releases)
+2. **Make executable:** `chmod +x social-dl-v2.4.6-app.sh`
+3. **Start:**
+   - **With icon:** Double-click `social-dl-v2.4.6-app.desktop`
+   - **Direct:** `./social-dl-v2.4.6-app.sh`
 
-**Features der Mobile App:**
-- 📱 Smartphone-inspiriertes Design
-- 🌍 DE/EN Sprachumschaltung
-- 📥 Installation/Deinstallation per Klick
-- 📖 READMEs direkt anzeigbar
-- 🚀 Direkt ausführbar (Test-Modus)
+**Mobile App Features:**
+- 📱 Smartphone-inspired design
+- 🌍 DE/EN language switcher
+- 📥 Install/uninstall with one click
+- 📖 READMEs viewable directly in GUI
+- 🚀 Run directly (test mode)
 
-### 🖱️ Grafische Installation (klassisch)
+### 🖱️ Graphical Installation (classic)
 
-1. **Download** das komplette Paket (`social-dl-v2.4.6.tar.gz`)
-2. **Entpacken:** `tar -xzf social-dl-v2.4.6.tar.gz`
-3. **Doppelklick** auf `social-dl-installer.desktop`
-4. **Fertig!** Nutze das Programm aus dem Anwendungsmenü
+1. **Download** the complete package (`social-dl-v2.4.6.tar.gz`)
+2. **Extract:** `tar -xzf social-dl-v2.4.6.tar.gz`
+3. **Double-click** on `social-dl-installer.desktop`
+4. **Done!** Use the program from your application menu
 
-**Hinweis:** Benötigt `zenity` (meist vorinstalliert)
+**Note:** Requires `zenity` (usually pre-installed)
 ```bash
-# Falls zenity fehlt:
+# If zenity is missing:
 sudo apt install zenity      # Debian/Ubuntu
-sudo pacman -S zenity        # Arch/Manjaro/CachyOS
+sudo pacman -S zenity        # Arch/Manjaro
 ```
 
-### 📟 Terminal-Installation (alternativ)
+### 📟 Terminal Installation (alternative)
 
 ```bash
-# Schnellste Methode:
+# Quickest method:
 ./install.sh
 
-# Oder mit Makefile:
+# Or with Makefile:
 make install-local
 ```
 
@@ -55,53 +55,51 @@ make install-local
 
 ## ✨ Features
 
-- 📱 **Mobile App** - All-in-One GUI mit Smartphone-Design (NEU in 2.4.6!)
-- ⚡ **Quick Mode** - 1 Tastendruck für beste Qualität (NEU in 2.4.6!)
-- 🔄 **Zurück-Funktion** - Jederzeit zum Hauptmenü zurück (NEU in 2.4.6!)
-- 🎬 **Video-Downloads** in wählbarer Qualität (Best/1080p/720p/480p)
-- 🎵 **Audio-Only Downloads** als MP3 **mit eingebettetem Thumbnail** (Cover-Art)
-- 📋 **Clipboard-Integration** (automatische URL-Erkennung)
-- 🔒 **Thread-Safe** (parallele Downloads möglich)
-- 🚫 **Duplikat-Erkennung** (verhindert doppelte Downloads)
-- 🎨 **Shotcut-Integration** (optionale Video-Bearbeitung)
-- 🔔 **Desktop-Benachrichtigungen**
-- 📊 **Live Progress-Bar** mit Download-Geschwindigkeit
-- 📁 **Automatische Log-Rotation** (mit 3 Backups)
-- 🛡️ **Security-Hardened** (URL-Sanitization, Timeouts)
+- 📱 **Mobile App** - All-in-One GUI with smartphone design (NEW in 2.4.6!)
+- ⚡ **Quick Mode** - 1 keystroke for best quality (NEW in 2.4.6!)
+- 🔄 **Back Function** - Return to main menu anytime (NEW in 2.4.6!)
+- 🎬 **Video Downloads** in selectable quality (Best/1080p/720p/480p)
+- 🎵 **Audio-Only Downloads** as MP3 **with embedded thumbnail** (cover art)
+- 📋 **Clipboard Integration** (automatic URL detection)
+- 🔒 **Thread-Safe** (parallel downloads possible)
+- 🚫 **Duplicate Detection** (prevents duplicate downloads)
+- 🎨 **Shotcut Integration** (optional video editing)
+- 🔔 **Desktop Notifications**
+- 📊 **Live Progress Bar** with download speed
+- 📁 **Automatic Log Rotation** (with 3 backups)
+- 🛡️ **Security-Hardened** (URL sanitization, timeouts)
 - 🐟 **Multi-Shell Support** (Bash, Zsh, Fish)
-- 🔄 **Version-Check** (`--check-update`)
-- 🧹 **Tracking-Parameter-Entfernung** (utm_source, fbclid, igsh, etc.)
-- 🌍 **Mehrsprachig** (Deutsch/Englisch)
-- 📦 **Reddit CDN Support** (direkter Download für preview.redd.it, v.redd.it, i.redd.it)
-- 🐦 **Twitter/X Optimiert** (spezielle Behandlung für Videos mit/ohne Audio)
+- 🌍 **Multilingual** (German/English)
+- 📦 **Reddit CDN Support** (direct download for preview.redd.it, v.redd.it, i.redd.it)
+- 🐦 **Twitter/X Optimized** (special handling for videos with/without audio)
 
-### Unterstützte Plattformen
+### Supported Platforms
 
-| Plattform | Video | Audio | Besonderheiten |
-|-----------|-------|-------|----------------|
+| Platform | Video | Audio | Features |
+|----------|-------|-------|----------|
 | Instagram | ✅ | ✅ | Stories, Reels, Posts |
-| Twitter/X | ✅ | ✅ | Tweets, Spaces, Videos mit/ohne Audio |
-| YouTube   | ✅ | ✅ | Videos, Shorts (keine Playlists) |
-| Reddit    | ✅ | ✅ | Posts, CDN-Links (v.redd.it, preview.redd.it) |
-| TikTok    | ✅ | ✅ | Beste verfügbare Quelle (oft ohne Wasserzeichen) |
+| Twitter/X | ✅ | ✅ | Tweets, Spaces, Videos with/without audio |
+| YouTube   | ✅ | ✅ | Videos, Shorts (no playlists) |
+| Reddit    | ✅ | ✅ | Posts, CDN links (v.redd.it, preview.redd.it) |
+| TikTok    | ✅ | ✅ | Best available source (often without watermark) |
 
 ---
 
 ## 📦 Installation
 
-### Voraussetzungen
+### Prerequisites
 
-**Pflicht:**
-- `yt-dlp` (Video-Downloader)
-- `zenity` (für GUI-Installation)
+**Required:**
+- `yt-dlp` (video downloader)
+- `zenity` (for GUI installation)
 
-**Optional (empfohlen):**
-- `xclip` oder `wl-paste` (Clipboard-Support)
-- `notify-send` (Desktop-Benachrichtigungen)
-- `shotcut` (Video-Bearbeitung)
-- `curl` oder `wget` (für Reddit CDN-Links)
+**Optional (recommended):**
+- `xclip` or `wl-paste` (clipboard support)
+- `notify-send` (desktop notifications)
+- `shotcut` (video editing)
+- `curl` or `wget` (for Reddit CDN links)
 
-#### Abhängigkeiten installieren
+#### Install Dependencies
 
 **Arch/Manjaro/CachyOS:**
 ```bash
@@ -121,24 +119,24 @@ sudo dnf install yt-dlp zenity xclip wl-clipboard libnotify shotcut curl
 
 ---
 
-### 🖱️ Grafische Installation (GUI)
+### 🖱️ Graphical Installation (GUI)
 
-Die einfachste Methode – **kein Terminal nötig!**
+The easiest method – **no terminal required!**
 
-1. **Download das Paket** und entpacke es
-2. **Doppelklick** auf `social-dl-installer.desktop`
-3. **Folge den Anweisungen** im grafischen Fenster
-4. **Wähle Installationstyp:**
-   - **Lokal** (nur für deinen User) – empfohlen
-   - **Systemweit** (für alle User) – benötigt Berechtigung
+1. **Download the package** and extract it
+2. **Double-click** on `social-dl-installer.desktop`
+3. **Follow the instructions** in the graphical window
+4. **Choose installation type:**
+   - **Local** (only for your user) – recommended
+   - **System-wide** (for all users) – requires permission
 
-**Fertig!** Das Programm erscheint im Anwendungsmenü unter "Social Media Downloader"
+**Done!** The program appears in your application menu as "Social Media Downloader"
 
 ---
 
-### 📟 Terminal-Installation (alternativ)
+### 📟 Terminal Installation (alternative)
 
-#### Via Installer-Script:
+#### Via Installer Script:
 ```bash
 chmod +x install.sh
 ./install.sh
@@ -146,142 +144,142 @@ chmod +x install.sh
 
 #### Via Makefile:
 ```bash
-# Lokale Installation:
+# Local installation:
 make install-local
 
-# Systemweite Installation:
+# System-wide installation:
 sudo make install
 ```
 
 ---
 
-## 🗑️ Deinstallation
+## 🗑️ Uninstallation
 
-### 🖱️ Grafische Deinstallation (GUI)
+### 🖱️ Graphical Uninstallation (GUI)
 
-**Doppelklick** auf `social-dl-uninstaller.desktop`
+**Double-click** on `social-dl-uninstaller.desktop`
 
-Der Uninstaller:
-- ✅ Erkennt automatisch lokale/systemweite Installation
-- ✅ Fragt bei Bedarf nach Berechtigungen
-- ✅ Optional: Logs und Konfiguration löschen
-- ✅ Deine Downloads bleiben erhalten!
+The uninstaller:
+- ✅ Automatically detects local/system-wide installation
+- ✅ Asks for permissions when needed
+- ✅ Optional: Delete logs and configuration
+- ✅ Your downloads remain intact!
 
 ---
 
-### 📟 Terminal-Deinstallation (alternativ)
+### 📟 Terminal Uninstallation (alternative)
 
 ```bash
-# Via Installer:
+# Via installer:
 ./install.sh --uninstall
 
 # Via Makefile:
-make uninstall-local        # Lokal
-sudo make uninstall         # Systemweit
+make uninstall-local        # Local
+sudo make uninstall         # System-wide
 
-# Manuell:
+# Manual:
 rm ~/.local/bin/social-dl
 rm ~/.local/share/applications/social-dl.desktop
-rm ~/.social-dl.log*  # Optional: Logs
+rm ~/.social-dl.log*  # Optional: logs
 ```
 
 ---
 
-## 🎯 Verwendung
+## 🎯 Usage
 
-### Grundlegende Nutzung
+### Basic Usage
 
 ```bash
-# URL aus Zwischenablage verwenden:
+# Use URL from clipboard:
 social-dl
 
-# Direkte URL angeben (WICHTIG: URLs mit & in Quotes!):
+# Specify URL directly (IMPORTANT: URLs with & must be quoted!):
 social-dl "https://youtube.com/watch?v=ABC&utm_source=share"
 
-# Hilfe anzeigen:
+# Show help:
 social-dl --help
 
-# Version anzeigen:
+# Show version:
 social-dl --version
 
-# Nach Updates suchen:
+# Check for updates:
 social-dl --check-update
 ```
 
-### ⚠️ WICHTIG: URLs mit Parametern
+### ⚠️ IMPORTANT: URLs with Parameters
 
-URLs die `&` enthalten **müssen in Anführungszeichen** gesetzt werden:
+URLs containing `&` **must be quoted**:
 
 ```bash
-# ✅ RICHTIG:
+# ✅ CORRECT:
 social-dl "https://instagram.com/reel/ABC/?utm_source=ig&igsh=XYZ"
 
-# ❌ FALSCH (Shell schneidet URL bei & ab):
+# ❌ WRONG (shell truncates URL at &):
 social-dl https://instagram.com/reel/ABC/?utm_source=ig&igsh=XYZ
 ```
 
-**Alternative:** Nutze die Clipboard-Funktion (kopiere URL mit Strg+C, dann einfach `social-dl` eingeben)
+**Alternative:** Use the clipboard feature (copy URL with Ctrl+C, then just type `social-dl`)
 
 ### Workflow
 
-1. **URL kopieren** (z. B. YouTube-Link mit Ctrl+C)
-2. **Terminal öffnen** und `social-dl` eingeben
-3. **Fragen beantworten:**
-   - Audio oder Video?
-   - Bei Video: Qualität wählen (1–4)
-   - Optional: Shotcut zum Bearbeiten?
-4. **Warten** – Live Progress-Bar zeigt Fortschritt
-5. **Fertig!** Datei in `~/Downloads/Videos/` oder `~/Downloads/Audio/`
+1. **Copy URL** (e.g., YouTube link with Ctrl+C)
+2. **Open terminal** and type `social-dl`
+3. **Answer questions:**
+   - Audio or Video?
+   - For video: Choose quality (1–4)
+   - Optional: Edit with Shotcut?
+4. **Wait** – Live progress bar shows download progress
+5. **Done!** File in `~/Downloads/Videos/` or `~/Downloads/Audio/`
 
-### Beispiele
+### Examples
 
-**YouTube-Video herunterladen:**
+**Download YouTube video:**
 ```bash
 social-dl "https://youtube.com/watch?v=dQw4w9WgXcQ"
-# → Video wählen → Qualität 1 → Download mit Progress
+# → Choose video → Quality 1 → Download with progress
 ```
 
-**Instagram-Audio extrahieren (mit Cover):**
+**Extract Instagram audio (with cover):**
 ```bash
 social-dl "https://instagram.com/p/ABC123/"
-# → Audio wählen → MP3-Download mit eingebettetem Thumbnail
+# → Choose audio → MP3 download with embedded thumbnail
 ```
 
-**Twitter-Video (auch ohne Audio):**
+**Twitter video (even without audio):**
 ```bash
 social-dl "https://x.com/user/status/123456789"
-# → Funktioniert mit Videos mit und ohne Audio
+# → Works with videos with and without audio
 ```
 
-**Reddit-Post:**
+**Reddit post:**
 ```bash
 social-dl "https://reddit.com/r/funny/comments/abc123/"
-# → Lädt Video aus Reddit-Post
+# → Downloads video from Reddit post
 ```
 
-**Reddit CDN-Link (direkter Download):**
+**Reddit CDN link (direct download):**
 ```bash
 social-dl "https://preview.redd.it/xyz.gif?format=mp4"
-# → Direkter Download, richtige Dateiendung
+# → Direct download with correct file extension
 ```
 
-**TikTok ohne Wasserzeichen:**
+**TikTok without watermark:**
 ```bash
 social-dl "https://tiktok.com/@user/video/123"
-# → Video wird ohne Wasserzeichen geladen
+# → Video downloaded without watermark
 ```
 
-**Parallele Downloads:**
+**Parallel downloads:**
 ```bash
 social-dl "URL1" &
 social-dl "URL2" &
 social-dl "URL3" &
-# Alle 3 laufen parallel, Counter bleibt korrekt!
+# All 3 run in parallel, counter remains correct!
 ```
 
 ---
 
-## 📁 Dateistruktur
+## 📁 File Structure
 
 ```
 ~/Downloads/
@@ -293,41 +291,41 @@ social-dl "URL3" &
 └── Audio/
     └── 2026-01-08_14-35-10-YouTube-001.mp3
 
-~/.social-dl.log         # Download-Historie
+~/.social-dl.log         # Download history
 ~/.social-dl.log.1.old   # Backup 1
 ~/.social-dl.log.2.old   # Backup 2
 ~/.social-dl.log.3.old   # Backup 3
 ```
 
-**Dateinamen-Format:**
+**Filename Format:**
 ```
 YYYY-MM-DD_HH-MM-SS-PLATFORM-XXX.ext
 │         │         │          │   │
-│         │         │          │   └─ Dateityp (mp4, ts, mp3, etc.)
+│         │         │          │   └─ File type (mp4, ts, mp3, etc.)
 │         │         │          └───── Counter
-│         │         └──────────────── Plattform
-│         └────────────────────────── Uhrzeit
-└──────────────────────────────────── Datum
+│         │         └──────────────── Platform
+│         └────────────────────────── Time
+└──────────────────────────────────── Date
 ```
 
 ---
 
-## ⚙️ Konfiguration
+## ⚙️ Configuration
 
-Bearbeite `~/.local/bin/social-dl` (Zeilen 243–247):
+Edit `~/.local/bin/social-dl` (lines 243–247):
 
 ```bash
-DOWNLOAD_DIR="$HOME/Downloads/Videos"  # Video-Ordner
-AUDIO_DIR="$HOME/Downloads/Audio"      # Audio-Ordner
-LOG_MAX_LINES=10000                    # Log-Rotation
-DOWNLOAD_TIMEOUT=300                   # Timeout (Sekunden)
+DOWNLOAD_DIR="$HOME/Downloads/Videos"  # Video folder
+AUDIO_DIR="$HOME/Downloads/Audio"      # Audio folder
+LOG_MAX_LINES=10000                    # Log rotation
+DOWNLOAD_TIMEOUT=300                   # Timeout (seconds)
 ```
 
 ---
 
 ## 🐛 Troubleshooting
 
-### "zenity nicht gefunden" (GUI-Installation)
+### "zenity not found" (GUI installation)
 
 ```bash
 sudo apt install zenity      # Debian/Ubuntu
@@ -335,7 +333,7 @@ sudo pacman -S zenity        # Arch
 sudo dnf install zenity      # Fedora
 ```
 
-### "yt-dlp nicht gefunden"
+### "yt-dlp not found"
 
 ```bash
 # Arch:
@@ -348,9 +346,9 @@ sudo apt install yt-dlp
 pip install --user yt-dlp
 ```
 
-### "Kein Link in Zwischenablage"
+### "No link in clipboard"
 
-**Lösung 1:** Installiere Clipboard-Tool
+**Solution 1:** Install clipboard tool
 ```bash
 # Wayland:
 sudo apt install wl-clipboard
@@ -359,46 +357,46 @@ sudo apt install wl-clipboard
 sudo apt install xclip
 ```
 
-**Lösung 2:** URL direkt angeben (in Quotes!)
+**Solution 2:** Specify URL directly (quoted!)
 ```bash
 social-dl "https://youtube.com/watch?v=..."
 ```
 
-### "URL enthält potentiell gefährliche Zeichen"
+### "URL contains potentially dangerous characters"
 
-**Problem:** Du verwendest URLs mit `&` ohne Anführungszeichen.
+**Problem:** You're using URLs with `&` without quotes.
 
-**Lösung:**
+**Solution:**
 ```bash
-# ✅ RICHTIG:
+# ✅ CORRECT:
 social-dl "https://instagram.com/reel/ABC/?utm_source=ig&igsh=XYZ"
 
-# ODER: Clipboard nutzen
-# URL kopieren (Strg+C), dann:
+# OR: Use clipboard
+# Copy URL (Ctrl+C), then:
 social-dl
 ```
 
 ### Twitter: "Error opening output files"
 
-Dieses Problem wurde in v2.4.3 behoben. Stelle sicher, dass du die neueste Version installiert hast:
+This problem was fixed in v2.4.3. Make sure you have the latest version installed:
 ```bash
-social-dl --version  # Sollte 2.4.3 oder höher sein
+social-dl --version  # Should be 2.4.3 or higher
 ```
 
-### Reddit CDN-Link: Datei ist kaputt
+### Reddit CDN link: File is corrupted
 
-Dieses Problem wurde in v2.4.3 behoben. Reddit CDN-Links (`preview.redd.it`, `v.redd.it`, `i.redd.it`) werden jetzt direkt heruntergeladen mit korrekter Dateiendung.
+This problem was fixed in v2.4.3. Reddit CDN links (`preview.redd.it`, `v.redd.it`, `i.redd.it`) are now downloaded directly with correct file extension.
 
-**Tipp:** Für beste Ergebnisse verwende den Reddit-Post-Link statt des direkten CDN-Links:
+**Tip:** For best results, use the Reddit post link instead of the direct CDN link:
 ```bash
-# Besser:
+# Better:
 social-dl "https://reddit.com/r/funny/comments/abc123/"
 
-# Funktioniert auch (aber weniger Metadaten):
+# Also works (but less metadata):
 social-dl "https://preview.redd.it/xyz.gif?format=mp4"
 ```
 
-### "~/.local/bin nicht im PATH"
+### "~/.local/bin not in PATH"
 
 ```bash
 # Fish:
@@ -413,22 +411,22 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-### Desktop-Icon wird nicht angezeigt
+### Desktop icon not showing
 
 ```bash
-# Desktop-Database aktualisieren:
+# Update desktop database:
 update-desktop-database ~/.local/share/applications
 
-# Falls immer noch nicht sichtbar:
+# If still not visible:
 killall -3 gnome-shell  # GNOME
-# ODER: Logout/Login
+# OR: Logout/Login
 ```
 
-### Desktop-Icon wird nicht ausgeführt
+### Desktop icon doesn't execute
 
-**Rechtsklick** auf `.desktop` Datei → **Eigenschaften** → **Berechtigung** → ✅ "Datei als Programm ausführen"
+**Right-click** on `.desktop` file → **Properties** → **Permissions** → ✅ "Allow executing file as program"
 
-Oder Terminal:
+Or terminal:
 ```bash
 chmod +x social-dl-installer.desktop
 chmod +x social-dl-uninstaller.desktop
@@ -438,38 +436,38 @@ chmod +x social-dl-uninstaller.desktop
 
 ## 🔧 Development Notes
 
-Du entwickelst selbst mit Bash und GitHub API? Schau dir unsere [Development Notes](DEVELOPMENT-NOTES.md) an!
+Developing with Bash and GitHub API yourself? Check out our [Development Notes](DEVELOPMENT-NOTES.md)!
 
-**Was du dort findest:**
-- 💡 **Häufige Fallstricke** und deren Lösungen
-- 📦 **GitHub API** für große Dateien (>100KB)
-- 🐚 **Bash Best Practices** (set -e, stdout/stderr, etc.)
-- 🎨 **GUI-Entwicklung** mit Zenity
-- 📝 **Base64 Self-Contained Scripts**
+**What you'll find:**
+- 💡 **Common pitfalls** and their solutions
+- 📦 **GitHub API** handling for large files (>100KB)
+- 🐚 **Bash best practices** (set -e, stdout/stderr, etc.)
+- 🎨 **GUI development** with Zenity
+- 📝 **Base64 self-contained scripts**
 
-**Alle Probleme dokumentiert mit:**
-- ❌ Was nicht funktioniert (und warum)
-- ✅ Was funktioniert (mit Code-Beispielen)
-- 💡 Warum es funktioniert
+**All problems documented with:**
+- ❌ What doesn't work (and why)
+- ✅ What works (with code examples)
+- 💡 Why it works
 
-Diese Notes dokumentieren echte Probleme aus der Entwicklung und helfen dir, die gleichen Fehler zu vermeiden!
+These notes document real problems from development and help you avoid the same mistakes!
 
 ---
 
-## 📦 Paket-Struktur
+## 📦 Package Structure
 
 ```
 social-dl/
-├── social-dl.sh                    # Haupt-Programm
-├── install.sh                      # Terminal-Installer
-├── install-gui.sh                  # GUI-Installer
-├── uninstall-gui.sh                # GUI-Uninstaller
-├── social-dl-installer.desktop     # Desktop-Icon Installer
-├── social-dl-uninstaller.desktop   # Desktop-Icon Uninstaller
-├── Makefile                        # Build-System
-├── README.md                       # Diese Datei (Deutsch)
-├── README.en.md                    # English documentation
-├── DEVELOPMENT-NOTES.md            # Entwickler-Dokumentation
+├── social-dl.sh                    # Main program
+├── install.sh                      # Terminal installer
+├── install-gui.sh                  # GUI installer
+├── uninstall-gui.sh                # GUI uninstaller
+├── social-dl-installer.desktop     # Desktop icon installer
+├── social-dl-uninstaller.desktop   # Desktop icon uninstaller
+├── Makefile                        # Build system
+├── README.md                       # This file (English)
+├── README.de.md                    # German documentation
+├── DEVELOPMENT-NOTES.md            # Developer documentation
 └── LICENSE                         # MIT License
 ```
 
@@ -477,110 +475,123 @@ social-dl/
 
 ## 📝 Changelog
 
+### Version 2.5.0 (2026-01-09)
+
+**🌍 Internationalization:**
+- ✅ **English-First:** README.md is now English (international audience)
+- ✅ **German Still Available:** README.de.md for German speakers
+- ✅ **Language Switcher:** Easy navigation between languages
+- ✅ **Better Discovery:** Improved findability for international users
+
+**📦 Package Updates:**
+- ✅ **File Structure:** Updated references in all scripts
+- ✅ **Upload Automation:** Scripts adjusted for new file names
+- ✅ **Mobile App:** Automatically includes both language versions
+
 ### Version 2.4.6 (2026-01-08)
 
 **📱 Mobile App (All-in-One):**
-- ✅ **Self-contained App:** Alle Dateien in einer einzigen ausführbaren Datei
-- ✅ **Smartphone-Design:** Modernes GUI mit Zwei-Spalten-Layout
-- ✅ **Multilingual:** DE/EN Sprachumschaltung per Klick
-- ✅ **Desktop-Launcher:** .desktop Datei mit Multimedia-Icon
-- ✅ **Installation per Klick:** Install/Uninstall direkt aus der App
-- ✅ **Integrierte Docs:** READMEs direkt im GUI anzeigbar
-- ✅ **Test-Modus:** Social-DL direkt ausführbar ohne Installation
+- ✅ **Self-contained App:** All files in a single executable
+- ✅ **Smartphone Design:** Modern GUI with two-column layout
+- ✅ **Multilingual:** DE/EN language switcher with one click
+- ✅ **Desktop Launcher:** .desktop file with multimedia icon
+- ✅ **Click to Install:** Install/uninstall directly from the app
+- ✅ **Integrated Docs:** READMEs viewable directly in GUI
+- ✅ **Test Mode:** Run Social-DL directly without installation
 
 **⚡ Quick Mode:**
-- ✅ **1-Klick-Download:** Drücke `1` (oder Enter) für beste Qualität ohne weitere Fragen
-- ✅ **Standard-Modus:** Quick Mode ist Standard - am schnellsten für 95% der Downloads
+- ✅ **1-Click Download:** Press `1` (or Enter) for best quality without further questions
+- ✅ **Default Mode:** Quick Mode is default - fastest for 95% of downloads
 
-**🔄 Zurück-Funktion:**
-- ✅ **2x Zurück-Option:** Nach Audio/Video-Wahl und nach Qualitäts-Wahl
-- ✅ **Flexible Navigation:** Jederzeit zurück ins Hauptmenü ohne Neustart
+**🔄 Back Function:**
+- ✅ **2x Back Option:** After audio/video choice and after quality selection
+- ✅ **Flexible Navigation:** Return to main menu anytime without restart
 
 **🎯 User Experience:**
-- ✅ **Drastisch weniger Eingaben:** Von 3 Fragen zu 1 Tastendruck
-- ✅ **Erweitert-Modus:** Volle Kontrolle weiterhin verfügbar (Option 2)
-- ✅ **Intelligenter Flow:** Quick für Alltag, Erweitert für Spezialfälle
+- ✅ **Drastically fewer inputs:** From 3 questions to 1 keystroke
+- ✅ **Advanced Mode:** Full control still available (Option 2)
+- ✅ **Intelligent Flow:** Quick for everyday, Advanced for special cases
 
 **📦 Distribution:**
-- ✅ **Automatisiertes Packaging:** Upload-Script erstellt tar.gz + App automatisch
-- ✅ **GitHub Releases:** Automatische Release-Erstellung mit Assets
+- ✅ **Automated Packaging:** Upload script creates tar.gz + app automatically
+- ✅ **GitHub Releases:** Automatic release creation with assets
 
 ### Version 2.4.3 (2026-01-08)
 
-**🐛 Kritische Bugfixes:**
-- ✅ **Syntax-Fehler behoben:** Fehlende `fi` in check_version() Funktion
-- ✅ **URL-Validierung korrigiert:** `&` aus dangerous_chars entfernt
-- ✅ **Tool-Prüfung verschoben:** --help und --version funktionieren ohne yt-dlp
-- ✅ **Desktop-Entry Fix:** update-desktop-database wird automatisch aufgerufen
-- ✅ **Twitter/X Postprocessing-Fehler:** Entfernt `--add-metadata`
-- ✅ **Twitter/X Dateiendungs-Problem:** Explizites Output-Template
-- ✅ **Reddit CDN-Support:** Direkter Download mit korrekter Dateiendung
+**🐛 Critical Bugfixes:**
+- ✅ **Syntax error fixed:** Missing `fi` in check_version() function
+- ✅ **URL validation corrected:** Removed `&` from dangerous_chars
+- ✅ **Tool check moved:** --help and --version work without yt-dlp
+- ✅ **Desktop entry fix:** update-desktop-database is called automatically
+- ✅ **Twitter/X postprocessing error:** Removed `--add-metadata`
+- ✅ **Twitter/X file extension problem:** Explicit output template
+- ✅ **Reddit CDN support:** Direct download with correct file extension
 
-**✨ Neue Features:**
-- ✅ **Reddit CDN-Links:** preview.redd.it, v.redd.it, i.redd.it
-- ✅ **Twitter-spezifische Behandlung:** Videos mit/ohne Audio
-- ✅ **Intelligente Dateiendungs-Erkennung:** Automatische Format-Erkennung
-- ✅ **Debug-Ausgabe:** Besseres Troubleshooting
+**✨ New Features:**
+- ✅ **Reddit CDN links:** preview.redd.it, v.redd.it, i.redd.it
+- ✅ **Twitter-specific handling:** Videos with/without audio
+- ✅ **Intelligent file extension detection:** Automatic format detection
+- ✅ **Debug output:** Better troubleshooting
 
-**🔧 Verbesserungen:**
-- ✅ Erweiterte URL-Bereinigung (igsh, igshid)
-- ✅ Bessere Fehlermeldungen
-- ✅ Verbesserte Installer
-- ✅ Umfassende Dokumentation
+**🔧 Improvements:**
+- ✅ Extended URL cleaning (igsh, igshid)
+- ✅ Better error messages
+- ✅ Improved installers
+- ✅ Comprehensive documentation
 
 ### Version 2.4 (2026-01-07)
 
 **✨ Features:**
-- ✅ Audio-Downloads mit eingebettetem Thumbnail
-- ✅ Version-Check Feature
-- ✅ Mehrsprachigkeit (Deutsch/Englisch)
-- ✅ Tracking-Parameter-Entfernung
+- ✅ Audio downloads with embedded thumbnail
+- ✅ Version check feature
+- ✅ Multilingual support (German/English)
+- ✅ Tracking parameter removal
 
 ---
 
-## 🤝 Mitwirken
+## 🤝 Contributing
 
-Contributions sind willkommen!
+Contributions welcome!
 
-1. Fork das Repository
-2. Erstelle einen Feature-Branch
-3. Commit deine Änderungen
-4. Push zum Branch
-5. Öffne einen Pull Request
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
 ---
 
-## 📜 Lizenz
+## 📜 License
 
-MIT License – siehe [LICENSE](LICENSE) Datei.
+MIT License – see [LICENSE](LICENSE) file.
 
-**Kurzfassung:** Freie Nutzung, Modifikation und Weitergabe, auch kommerziell.
+**Summary:** Free to use, modify, and distribute, including commercial use.
 
 ---
 
 ## 🙏 Credits
 
-Entwickelt mit ❤️:
-- **Grok** (Basis & Features)
-- **Claude** (Security & Production-Ready)  
-- **Perplexity** (Edge-Cases & Optimierungen)
+Developed with ❤️:
+- **Grok** (Base & Features)
+- **Claude** (Security & Production-Ready)
+- **Perplexity** (Edge-Cases & Optimizations)
 
 **Powered by:**
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) – Video-Downloader
-- [Zenity](https://wiki.gnome.org/Projects/Zenity) – GUI-Dialoge
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) – Video downloader
+- [Zenity](https://wiki.gnome.org/Projects/Zenity) – GUI dialogs
 
 ---
 
-## ⚠️ Haftungsausschluss
+## ⚠️ Disclaimer
 
-Dieses Tool ist für den **persönlichen, legalen Gebrauch** gedacht.
+This tool is intended for **personal, legal use**.
 
-- Respektiere Urheberrechte und Nutzungsbedingungen
-- Lade nur eigene Inhalte oder mit Erlaubnis herunter
-- Der Autor übernimmt keine Haftung für Missbrauch
+- Respect copyrights and terms of service
+- Only download your own content or with permission
+- Author assumes no liability for misuse
 
 ---
 
 **Version:** 2.4.6  
-**Letzte Aktualisierung:** 08. Januar 2026  
+**Last Update:** January 08, 2026  
 **Status:** Production-Ready 🎉
