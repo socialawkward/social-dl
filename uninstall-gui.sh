@@ -50,7 +50,7 @@ t() {
         "removed") [ "$LANG_CHOICE" = "de" ] && echo "<b>Entfernt:</b>" || echo "<b>Removed:</b>" ;;
         "programs") [ "$LANG_CHOICE" = "de" ] && echo "• Programme" || echo "• Programs" ;;
         "desktop_entries") [ "$LANG_CHOICE" = "de" ] && echo "• Desktop-Einträge" || echo "• Desktop entries" ;;
-        "logs_config") [ "$LANG_CHOICE" = "de" ] && echo "• Logs & Konfiguration" || echo "• Logs & configuration" ;;
+        "logs_config") [ "$LANG_CHOICE" = "de" ] && echo "• Logs &amp; Konfiguration" || echo "• Logs &amp; configuration" ;;
         "kept") [ "$LANG_CHOICE" = "de" ] && echo "<b>Behalten:</b>" || echo "<b>Kept:</b>" ;;
         "downloads_kept") [ "$LANG_CHOICE" = "de" ] && echo "<b>Deine Downloads bleiben erhalten:</b>" || echo "<b>Your downloads remain intact:</b>" ;;
         "downloads_videos") [ "$LANG_CHOICE" = "de" ] && echo "• ~/Downloads/Videos/" || echo "• ~/Downloads/Videos/" ;;
