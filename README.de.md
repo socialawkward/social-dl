@@ -475,79 +475,18 @@ social-dl/
 
 ---
 
-## 📝 Changelog
+## 📝 Versionshistorie
 
-### Version 2.5.0 (2026-01-09)
+**Aktuelle Version:** 2.6.0 (2026-01-09)
 
-**🌍 Internationalisierung:**
-- ✅ **English-First:** README.md ist jetzt Englisch (internationale Zielgruppe)
-- ✅ **Deutsch weiterhin verfügbar:** README.de.md für deutschsprachige Nutzer
-- ✅ **Sprachumschalter:** Einfache Navigation zwischen Sprachen
-- ✅ **Bessere Auffindbarkeit:** Verbesserte Sichtbarkeit für internationale Nutzer
+Für detaillierte Release Notes und vollständige Versionshistorie, siehe **[CHANGELOG.md](CHANGELOG.md)** (Englisch).
 
-**📦 Paket-Updates:**
-- ✅ **Dateistruktur:** Aktualisierte Referenzen in allen Scripts
-- ✅ **Upload-Automatisierung:** Scripts angepasst für neue Dateinamen
-- ✅ **Mobile App:** Enthält automatisch beide Sprachversionen
+### Aktuelle Highlights
 
-### Version 2.4.6 (2026-01-08)
-
-**📱 Mobile App (All-in-One):**
-- ✅ **Self-contained App:** Alle Dateien in einer einzigen ausführbaren Datei
-- ✅ **Smartphone-Design:** Modernes GUI mit Zwei-Spalten-Layout
-- ✅ **Multilingual:** DE/EN Sprachumschaltung per Klick
-- ✅ **Desktop-Launcher:** .desktop Datei mit Multimedia-Icon
-- ✅ **Installation per Klick:** Install/Uninstall direkt aus der App
-- ✅ **Integrierte Docs:** READMEs direkt im GUI anzeigbar
-- ✅ **Test-Modus:** Social-DL direkt ausführbar ohne Installation
-
-**⚡ Quick Mode:**
-- ✅ **1-Klick-Download:** Drücke `1` (oder Enter) für beste Qualität ohne weitere Fragen
-- ✅ **Standard-Modus:** Quick Mode ist Standard - am schnellsten für 95% der Downloads
-
-**🔄 Zurück-Funktion:**
-- ✅ **2x Zurück-Option:** Nach Audio/Video-Wahl und nach Qualitäts-Wahl
-- ✅ **Flexible Navigation:** Jederzeit zurück ins Hauptmenü ohne Neustart
-
-**🎯 User Experience:**
-- ✅ **Drastisch weniger Eingaben:** Von 3 Fragen zu 1 Tastendruck
-- ✅ **Erweitert-Modus:** Volle Kontrolle weiterhin verfügbar (Option 2)
-- ✅ **Intelligenter Flow:** Quick für Alltag, Erweitert für Spezialfälle
-
-**📦 Distribution:**
-- ✅ **Automatisiertes Packaging:** Upload-Script erstellt tar.gz + App automatisch
-- ✅ **GitHub Releases:** Automatische Release-Erstellung mit Assets
-
-### Version 2.4.3 (2026-01-08)
-
-**🐛 Kritische Bugfixes:**
-- ✅ **Syntax-Fehler behoben:** Fehlende `fi` in check_version() Funktion
-- ✅ **URL-Validierung korrigiert:** `&` aus dangerous_chars entfernt
-- ✅ **Tool-Prüfung verschoben:** --help und --version funktionieren ohne yt-dlp
-- ✅ **Desktop-Entry Fix:** update-desktop-database wird automatisch aufgerufen
-- ✅ **Twitter/X Postprocessing-Fehler:** Entfernt `--add-metadata`
-- ✅ **Twitter/X Dateiendungs-Problem:** Explizites Output-Template
-- ✅ **Reddit CDN-Support:** Direkter Download mit korrekter Dateiendung
-
-**✨ Neue Features:**
-- ✅ **Reddit CDN-Links:** preview.redd.it, v.redd.it, i.redd.it
-- ✅ **Twitter-spezifische Behandlung:** Videos mit/ohne Audio
-- ✅ **Intelligente Dateiendungs-Erkennung:** Automatische Format-Erkennung
-- ✅ **Debug-Ausgabe:** Besseres Troubleshooting
-
-**🔧 Verbesserungen:**
-- ✅ Erweiterte URL-Bereinigung (igsh, igshid)
-- ✅ Bessere Fehlermeldungen
-- ✅ Verbesserte Installer
-- ✅ Umfassende Dokumentation
-
-### Version 2.4 (2026-01-07)
-
-**✨ Features:**
-- ✅ Audio-Downloads mit eingebettetem Thumbnail
-- ✅ Version-Check Feature
-- ✅ Mehrsprachigkeit (Deutsch/Englisch)
-- ✅ Tracking-Parameter-Entfernung
+- **v2.6.0:** Retry-Mechanismus, Konfigurationsdatei, verbesserte Robustheit
+- **v2.5.0:** English-First Ansatz, separater Changelog, verbesserte Mobile App
+- **v2.4.6:** Mobile App mit Smartphone-Design, Development Notes veröffentlicht
+- **v2.4.4-2.4.5:** Quick Mode (1-Klick Download), Zurück-Funktion
 
 ---
 
