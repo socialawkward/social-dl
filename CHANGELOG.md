@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.6.0] - 2026-01-09
+
+### Added
+- **Retry Mechanism:** Automatic retry on network errors (default: 3 attempts, configurable)
+- **Configuration File Support:** User settings via `~/.config/social-dl/config`
+  - Customizable download directories
+  - Configurable timeouts and retry attempts
+  - Language preference override
+- **File Size Validation:** Rejects downloads smaller than 1KB (corrupt file detection)
+- **Example Config:** `config.example` file with all available options
+
+### Fixed
+- **Lock File Timeout:** Automatically removes stale lock files older than 5 minutes
+- **Counter Race Condition:** Prevents file overwrites in parallel downloads by checking file existence
+- **Improved Robustness:** Better handling of edge cases and concurrent operations
+
+### Changed
+- **Default Retries:** Network errors now retry 3 times before failing (previously failed immediately)
+- **Lock Management:** More defensive lock handling with automatic cleanup
+
+---
+
 ## [2.5.0] - 2026-01-09
 
 ### Changed
