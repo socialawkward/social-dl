@@ -87,7 +87,7 @@ fi
 
 # Keine Installation gefunden
 if [ $LOCAL_INSTALLED -eq 0 ] && [ $SYSTEM_INSTALLED -eq 0 ]; then
-    yad --info \ || true
+    yad --info \
         --title="$(t "title")" \
         --text="$(t "not_installed")" \
         --width=400
@@ -103,7 +103,7 @@ if [ $SYSTEM_INSTALLED -eq 1 ]; then
     INSTALL_INFO="${INSTALL_INFO}$(t "system_install")\n"
 fi
 
-yad --question \ || true
+yad --question \
     --title="$(t "title")" \
     --text="$(t "found_installations")\n\n${INSTALL_INFO}\n$(t "confirm_uninstall")" \
     --width=450 \
@@ -112,7 +112,7 @@ yad --question \ || true
 
 # Frage nach Logs
 DELETE_LOGS=0
-if yad --question \ || true
+if yad --question \
     --title="$(t "title")" \
     --text="$(t "delete_logs_question")" \
     --width=450 \
@@ -148,7 +148,7 @@ if [ $SYSTEM_INSTALLED -eq 1 ]; then
             rm -f '/usr/share/applications/$SCRIPT_NAME.desktop'
         " || exit 1
     else
-        yad --error \ || true
+        yad --error \
             --title="$(t "title")" \
             --text="$(t "need_pkexec")" \
             --width=450
@@ -187,12 +187,12 @@ if [ $ZENITY_EXIT -eq 0 ] || [ $ZENITY_EXIT -eq 143 ]; then
 
     MSG="${MSG}$(t "downloads_kept")\n$(t "downloads_videos")\n$(t "downloads_audio")"
 
-    yad --info \ || true
+    yad --info \
         --title="$(t "title")" \
         --text="$MSG" \
         --width=450
 else
-    yad --error \ || true
+    yad --error \
         --title="$(t "title")" \
         --text="$(t "failed")" \
         --width=450
