@@ -506,7 +506,7 @@ Für detaillierte Release Notes und vollständige Versionshistorie, siehe **[CHA
 
 ### Aktuelle Highlights
 
-- **v2.7.0:** YAD-Support (verbesserte GUI), modulare UI-Architektur, GUI-Test-Script
+- **v2.7.0:** YAD-Support (verbesserte GUI), separate Fenster, Einstellungs-Fenster, smarte Navigation
 - **v2.6.0:** Retry-Mechanismus, Konfigurationsdatei, verbesserte Robustheit
 - **v2.5.0:** English-First Ansatz, separater Changelog, verbesserte Mobile App
 - **v2.4.6:** Mobile App mit Smartphone-Design, Development Notes veröffentlicht
