@@ -10,17 +10,17 @@ SCRIPT_NAME="social-dl"
 
 # Language Selection
 select_language() {
-    yad --list \
+    yad --form \
         --title="Social-DL Uninstaller - Language / Sprache" \
         --text="Please select your language / Bitte wähle deine Sprache:" \
-        --radiolist \
-        --column="Select:RD" --column="Code:TEXT" --column="Language / Sprache:TEXT" \
-        TRUE "en" "English" \
-        FALSE "de" "Deutsch" \
+        --field="Language/Sprache:CB" \
+        "English!Deutsch" \
         --width=400 --height=200 \
         --button="Cancel:1" --button="OK:0" \
-        --print-column=2 \
-        2>/dev/null
+        2>/dev/null | awk -F'|' '{
+            if ($1 == "English") print "en"
+            else if ($1 == "Deutsch") print "de"
+        }'
 }
 
 LANG_CHOICE=$(select_language)
