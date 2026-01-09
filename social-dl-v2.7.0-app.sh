@@ -219,38 +219,6 @@ while true; do
                 --font="Monospace 10"
             ;;
         "6")  # Info
-            # Finde Terminal
-            TERMINAL=""
-            for term in x-terminal-emulator konsole gnome-terminal xfce4-terminal xterm; do
-                if command -v "$term" >/dev/null 2>&1; then
-                    TERMINAL="$term"
-                    break
-                fi
-            done
-            
-            if [ -n "$TERMINAL" ]; then
-                case "$TERMINAL" in
-                    konsole)
-                        konsole --workdir "$TEMP_DIR" -e bash -c "./social-dl.sh; echo ''; read -p 'Enter zum Schließen... / Press Enter to close...'"
-                        ;;
-                    gnome-terminal|xfce4-terminal)
-                        $TERMINAL --working-directory="$TEMP_DIR" -- bash -c "./social-dl.sh; echo ''; read -p 'Enter zum Schließen... / Press Enter to close...'"
-                        ;;
-                    *)
-                        $TERMINAL -e bash -c "cd '$TEMP_DIR' && ./social-dl.sh; echo ''; read -p 'Enter zum Schließen... / Press Enter to close...'"
-                        ;;
-                esac
-            else
-                if [ "$LANG_MODE" = "de" ]; then
-                    zenity --error --width=360 --window-icon="dialog-error" --title="Fehler" \
-                        --text="<b>Kein Terminal gefunden!</b>\n\nBitte führe social-dl.sh manuell aus:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>"
-                else
-                    zenity --error --width=360 --window-icon="dialog-error" --title="Error" \
-                        --text="<b>No terminal found!</b>\n\nPlease run social-dl.sh manually:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>"
-                fi
-            fi
-            ;;
-        "6")  # Info
             if [ "$LANG_MODE" = "de" ]; then
                 zenity --info --width=400 --height=420 --window-icon="help-about" --title="ℹ️  Über Social-DL" \
                     --text="<span size='x-large'><b>Social-DL</b></span>
@@ -301,14 +269,7 @@ for Social Media Platforms
 <b>📄 License:</b> MIT License"
             fi
             ;;
-        "7")  # Sprachwechsel
-            if [ "$LANG_MODE" = "de" ]; then
-                LANG_MODE="en"
-            else
-                LANG_MODE="de"
-            fi
-            ;;
-        "8")  # Ausführen / Run now
+        "7")  # Ausführen / Run now
             # Finde Terminal
             TERMINAL=""
             for term in x-terminal-emulator konsole gnome-terminal xfce4-terminal xterm; do
@@ -340,7 +301,184 @@ for Social Media Platforms
                 fi
             fi
             ;;
-        "9"|*)  # Beenden / Exit
+        "8")  # Settings (handled by show_menu in UI module)
+            # This is handled by the UI module's show_menu function
+            # If we reach here, something went wrong - just continue
+            continue
+            ;;
+        "9")  # Sprachwechsel / Language switch
+            if [ "$LANG_MODE" = "de" ]; then
+                LANG_MODE="en"
+            else
+                LANG_MODE="de"
+            fi
+            ;;
+        
+        # === SETTINGS MENU ACTIONS (100-199) ===
+        "100")  # Back button (handled by UI module)
+            # This is handled by the UI module - should not reach here
+            continue
+            ;;
+        "101")  # Config bearbeiten / Edit config
+            CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/social-dl/config"
+            
+            # Create config from example if it doesn't exist
+            if [ ! -f "$CONFIG_FILE" ]; then
+                mkdir -p "$(dirname "$CONFIG_FILE")"
+                cp "$TEMP_DIR/config.example" "$CONFIG_FILE" 2>/dev/null || true
+            fi
+            
+            # Try to find a text editor
+            EDITOR_CMD=""
+            for editor in gedit kate mousepad pluma xed leafpad nano; do
+                if command -v "$editor" >/dev/null 2>&1; then
+                    EDITOR_CMD="$editor"
+                    break
+                fi
+            done
+            
+            if [ -n "$EDITOR_CMD" ]; then
+                $EDITOR_CMD "$CONFIG_FILE" &
+            else
+                if [ "$LANG_MODE" = "de" ]; then
+                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
+                        --text="<b>Kein Texteditor gefunden!</b>\n\nÖffne die Datei manuell:\n\n<tt>$CONFIG_FILE</tt>"
+                else
+                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
+                        --text="<b>No text editor found!</b>\n\nOpen the file manually:\n\n<tt>$CONFIG_FILE</tt>"
+                fi
+            fi
+            ;;
+        "102")  # Download Folder / Download-Ordner
+            NEW_DIR=$(zenity --file-selection --directory --title="Select Download Folder / Download-Ordner wählen" 2>/dev/null)
+            if [ -n "$NEW_DIR" ]; then
+                CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/social-dl/config"
+                mkdir -p "$(dirname "$CONFIG_FILE")"
+                
+                # Update or create config
+                if [ -f "$CONFIG_FILE" ]; then
+                    # Update existing
+                    if grep -q "^DOWNLOAD_DIR=" "$CONFIG_FILE"; then
+                        sed -i "s|^DOWNLOAD_DIR=.*|DOWNLOAD_DIR=\"$NEW_DIR/Videos\"|" "$CONFIG_FILE"
+                    else
+                        echo "DOWNLOAD_DIR=\"$NEW_DIR/Videos\"" >> "$CONFIG_FILE"
+                    fi
+                    if grep -q "^AUDIO_DIR=" "$CONFIG_FILE"; then
+                        sed -i "s|^AUDIO_DIR=.*|AUDIO_DIR=\"$NEW_DIR/Audio\"|" "$CONFIG_FILE"
+                    else
+                        echo "AUDIO_DIR=\"$NEW_DIR/Audio\"" >> "$CONFIG_FILE"
+                    fi
+                else
+                    # Create new
+                    cat > "$CONFIG_FILE" << 'CONFIG_EOF'
+# Social-DL Configuration
+DOWNLOAD_DIR="$NEW_DIR/Videos"
+AUDIO_DIR="$NEW_DIR/Audio"
+CONFIG_EOF
+                fi
+                
+                if [ "$LANG_MODE" = "de" ]; then
+                    zenity --info --width=320 --window-icon="dialog-information" --title="Erfolg" \
+                        --text="<b>Download-Ordner gesetzt!</b>\n\n<tt>$NEW_DIR</tt>"
+                else
+                    zenity --info --width=320 --window-icon="dialog-information" --title="Success" \
+                        --text="<b>Download folder set!</b>\n\n<tt>$NEW_DIR</tt>"
+                fi
+            fi
+            ;;
+        "103")  # Retry Count / Wiederholungsversuche
+            if [ "$LANG_MODE" = "de" ]; then
+                RETRY_COUNT=$(zenity --entry --title="Wiederholungsversuche" \
+                    --text="Anzahl der Wiederholungsversuche bei Netzwerkfehlern:" \
+                    --entry-text="3" 2>/dev/null)
+            else
+                RETRY_COUNT=$(zenity --entry --title="Retry Count" \
+                    --text="Number of retry attempts on network errors:" \
+                    --entry-text="3" 2>/dev/null)
+            fi
+            
+            if [ -n "$RETRY_COUNT" ] && [[ "$RETRY_COUNT" =~ ^[0-9]+$ ]]; then
+                CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/social-dl/config"
+                mkdir -p "$(dirname "$CONFIG_FILE")"
+                
+                if [ -f "$CONFIG_FILE" ]; then
+                    if grep -q "^MAX_RETRIES=" "$CONFIG_FILE"; then
+                        sed -i "s|^MAX_RETRIES=.*|MAX_RETRIES=$RETRY_COUNT|" "$CONFIG_FILE"
+                    else
+                        echo "MAX_RETRIES=$RETRY_COUNT" >> "$CONFIG_FILE"
+                    fi
+                else
+                    echo "MAX_RETRIES=$RETRY_COUNT" > "$CONFIG_FILE"
+                fi
+                
+                if [ "$LANG_MODE" = "de" ]; then
+                    zenity --info --width=320 --window-icon="dialog-information" --title="Erfolg" \
+                        --text="<b>Retry-Anzahl gesetzt!</b>\n\n$RETRY_COUNT Versuche"
+                else
+                    zenity --info --width=320 --window-icon="dialog-information" --title="Success" \
+                        --text="<b>Retry count set!</b>\n\n$RETRY_COUNT attempts"
+                fi
+            fi
+            ;;
+        "104")  # GitHub Repo
+            if command -v xdg-open >/dev/null 2>&1; then
+                xdg-open "https://github.com/socialawkward/social-dl" 2>/dev/null &
+            elif command -v firefox >/dev/null 2>&1; then
+                firefox "https://github.com/socialawkward/social-dl" 2>/dev/null &
+            elif command -v chromium >/dev/null 2>&1; then
+                chromium "https://github.com/socialawkward/social-dl" 2>/dev/null &
+            else
+                if [ "$LANG_MODE" = "de" ]; then
+                    zenity --info --width=400 --window-icon="dialog-information" --title="GitHub Repository" \
+                        --text="<b>Repository URL:</b>\n\n<span foreground='#0969DA'>https://github.com/socialawkward/social-dl</span>"
+                else
+                    zenity --info --width=400 --window-icon="dialog-information" --title="GitHub Repository" \
+                        --text="<b>Repository URL:</b>\n\n<span foreground='#0969DA'>https://github.com/socialawkward/social-dl</span>"
+                fi
+            fi
+            ;;
+        "105")  # yt-dlp Update
+            if [ "$LANG_MODE" = "de" ]; then
+                TERM_TITLE="yt-dlp Update"
+                UPDATE_CMD="echo '🔧 Aktualisiere yt-dlp...'; echo ''; pip install --upgrade --break-system-packages yt-dlp; echo ''; echo '✅ Fertig!'; echo ''; read -p 'Enter zum Schließen...'"
+            else
+                TERM_TITLE="yt-dlp Update"
+                UPDATE_CMD="echo '🔧 Updating yt-dlp...'; echo ''; pip install --upgrade --break-system-packages yt-dlp; echo ''; echo '✅ Done!'; echo ''; read -p 'Press Enter to close...'"
+            fi
+            
+            # Find terminal
+            TERMINAL=""
+            for term in x-terminal-emulator konsole gnome-terminal xfce4-terminal xterm; do
+                if command -v "$term" >/dev/null 2>&1; then
+                    TERMINAL="$term"
+                    break
+                fi
+            done
+            
+            if [ -n "$TERMINAL" ]; then
+                case "$TERMINAL" in
+                    konsole)
+                        konsole --title "$TERM_TITLE" -e bash -c "$UPDATE_CMD" &
+                        ;;
+                    gnome-terminal|xfce4-terminal)
+                        $TERMINAL --title="$TERM_TITLE" -- bash -c "$UPDATE_CMD" &
+                        ;;
+                    *)
+                        $TERMINAL -e bash -c "$UPDATE_CMD" &
+                        ;;
+                esac
+            else
+                if [ "$LANG_MODE" = "de" ]; then
+                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
+                        --text="<b>Kein Terminal gefunden!</b>\n\nFühre manuell aus:\n\n<tt>pip install --upgrade yt-dlp</tt>"
+                else
+                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
+                        --text="<b>No terminal found!</b>\n\nRun manually:\n\n<tt>pip install --upgrade yt-dlp</tt>"
+                fi
+            fi
+            ;;
+        
+        *)  # Unknown / Exit
             exit 0
             ;;
     esac
