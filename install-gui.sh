@@ -81,7 +81,7 @@ if ! command -v zenity >/dev/null 2>&1; then
 fi
 
 # Willkommens-Dialog
-yad --question \ || true
+yad --question \
     --title="$(t "title")" \
     --text="$(t "welcome_text")" \
     --width=400 \
@@ -90,7 +90,7 @@ yad --question \ || true
 
 # Prüfe ob social-dl.sh existiert
 if [ ! -f "$SCRIPT_SOURCE" ]; then
-    yad --error \ || true
+    yad --error \
         --title="$(t "title")" \
         --text="$(t "error_script_not_found")" \
         --width=400
@@ -109,7 +109,7 @@ if [ -n "$MISSING_DEPS" ]; then
     INSTALL_MSG="$(t "install_instructions")\n"
     [ "$LANG_CHOICE" = "de" ] && INSTALL_MSG="${INSTALL_MSG}Arch/Manjaro: sudo pacman -S yt-dlp\nDebian/Ubuntu: sudo apt install yt-dlp\nFedora: sudo dnf install yt-dlp\nUniversal: pip install yt-dlp" || INSTALL_MSG="${INSTALL_MSG}Arch/Manjaro: sudo pacman -S yt-dlp\nDebian/Ubuntu: sudo apt install yt-dlp\nFedora: sudo dnf install yt-dlp\nUniversal: pip install yt-dlp"
 
-    yad --error \ || true
+    yad --error \
         --title="$(t "title")" \
         --text="$(t "missing_deps")\n\n${MISSING_DEPS}\n${INSTALL_MSG}" \
         --width=450
@@ -243,7 +243,7 @@ EOF
             fi
         " || exit 1
     else
-        yad --error \ || true
+        yad --error \
             --title="$(t "title")" \
             --text="$(t "need_sudo")" \
             --width=400
@@ -271,12 +271,12 @@ if [ $ZENITY_EXIT -eq 0 ] || [ $ZENITY_EXIT -eq 143 ]; then
         MSG="${MSG}$(t "note_shell")"
     fi
 
-    yad --info \ || true
+    yad --info \
         --title="$(t "title")" \
         --text="$MSG" \
         --width=450
 
-    if yad --question \ || true
+    if yad --question \
         --title="$(t "title")" \
         --text="$(t "test_question")" \
         --width=400 \
@@ -313,14 +313,14 @@ if [ $ZENITY_EXIT -eq 0 ] || [ $ZENITY_EXIT -eq 143 ]; then
                     ;;
             esac
         else
-            yad --info \ || true
+            yad --info \
                 --title="$(t "title")" \
                 --text="$(t "no_terminal")$SCRIPT_PATH --help" \
                 --width=400
         fi
     fi
 else
-    yad --error \ || true
+    yad --error \
         --title="$(t "title")" \
         --text="$(t "failed")" \
         --width=400
