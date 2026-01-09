@@ -476,16 +476,16 @@ social-dl/
 
 ## 📝 Version History
 
-**Current Version:** 2.5.0 (2026-01-09)
+**Current Version:** 2.6.0 (2026-01-09)
 
 For detailed release notes and version history, see **[CHANGELOG.md](CHANGELOG.md)**.
 
 ### Recent Highlights
 
+- **v2.6.0:** Retry mechanism, config file support, enhanced robustness
 - **v2.5.0:** English-first approach, separate changelog, enhanced mobile app
 - **v2.4.6:** Mobile app with smartphone design, development notes published
 - **v2.4.4-2.4.5:** Quick mode (1-click download), back function
-- **v2.4.3:** Critical bugfixes (URL validation, Twitter/X, Reddit CDN)
 
 ---
 
