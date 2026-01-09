@@ -15,10 +15,10 @@ select_language() {
         --title="Social-DL Installer - Language / Sprache" \
         --text="Please select your language / Bitte wähle deine Sprache:" \
         --radiolist \
-        --column="" --column="Code" --column="Language / Sprache" \
+        --column="☑" --column="Code" --column="Language / Sprache" \
         TRUE "en" "English" \
         FALSE "de" "Deutsch" \
-        --width=550 --height=280
+        --width=550 --height=300
 }
 
 LANG_CHOICE=$(select_language)
@@ -118,10 +118,10 @@ INSTALL_TYPE=$(zenity --list \
     --title="$(t "title")" \
     --text="$(t "select_type")" \
     --radiolist \
-    --column="" --column="Typ" --column="$(t "select_type" | head -c 1)" \
+    --column="☑" --column="Typ" --column="Beschreibung" \
     TRUE "local" "$(t "type_local")" \
     FALSE "system" "$(t "type_system")" \
-    --width=650 --height=320)
+    --width=650 --height=350)
 
 if [ -z "$INSTALL_TYPE" ]; then
     exit 0
