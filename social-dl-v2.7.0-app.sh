@@ -82,7 +82,7 @@ EOF_config_example
 # === ui/mobile-app-ui-yad-tabs.sh ===
 mkdir -p "$TEMP_DIR/ui"
 cat << 'EOF_ui_mobile_app_ui_yad_tabs_sh' | base64 -d > "$TEMP_DIR/ui/mobile-app-ui-yad-tabs.sh"
-IyEvdXNyL2Jpbi9lbnYgYmFzaAojIE1vYmlsZSBBcHAgVUkgLSBZQUQgU2VwYXJhdGUgV2luZG93cyBWZXJzaW9uCiMgTWFpbiBtZW51IHdpdGggc2V0dGluZ3MgYnV0dG9uIHRoYXQgb3BlbnMgc2VwYXJhdGUgd2luZG93CiMgUmVxdWlyZXM6IHlhZAoKIyBDb25maWcgZmlsZSBsb2NhdGlvbgpDT05GSUdfRklMRT0iJHtYREdfQ09ORklHX0hPTUU6LSRIT01FLy5jb25maWd9L3NvY2lhbC1kbC9jb25maWciCgpzaG93X21haW5fbWVudSgpIHsKICAgIGxvY2FsIGxhbmc9IiQxIgogICAgbG9jYWwgdmVyc2lvbj0iJDIiCiAgICAKICAgIGlmIFsgIiRsYW5nIiA9ICJkZSIgXTsgdGhlbgogICAgICAgICMgRGV1dHNjaGVzIEhhdXB0bWVuw7wKICAgICAgICB5YWQgLS1saXN0IFwKICAgICAgICAgICAgLS10aXRsZT0iU29jaWFsLURMIHYke3ZlcnNpb259IiBcCiAgICAgICAgICAgIC0td2lkdGg9MzYwIC0taGVpZ2h0PTY0MCBcCiAgICAgICAgICAgIC0tY2VudGVyIFwKICAgICAgICAgICAgLS1maXhlZCBcCiAgICAgICAgICAgIC0tYnV0dG9ucy1sYXlvdXQ9Y2VudGVyIFwKICAgICAgICAgICAgLS1idXR0b249IuKdjCBBYmJyZWNoZW46MSIgLS1idXR0b249IuKchSBPazowIiBcCiAgICAgICAgICAgIC0td2luZG93LWljb249ImFwcGxpY2F0aW9ucy1tdWx0aW1lZGlhIiBcCiAgICAgICAgICAgIC0tdGV4dD0iPGJpZz48Yj7wn5OxIFNvY2lhbC1ETDwvYj48L2JpZz5cbjxzbWFsbD5JbnN0YWdyYW0g4oCiIFR3aXR0ZXIvWCDigKIgWW91VHViZSDigKIgUmVkZGl0IOKAoiBUaWtUb2s8L3NtYWxsPiIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSUQ6SEQiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ikljb246SU1HOjYwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJPcHRpb246VFhUOjE4MCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iQmVzY2hyZWlidW5nOlRYVCIgXAogICAgICAgICAgICAtLW5vLWhlYWRlcnMgXAogICAgICAgICAgICAtLW5vLWNsaWNrIFwKICAgICAgICAgICAgLS1wcmludC1jb2x1bW49MSBcCiAgICAgICAgICAgIC0tc2VwYXJhdG9yPSIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIjciICLwn5qAIiAiPGJpZz48Yj5BVVNGw5xIUkVOPC9iPjwvYmlnPiAgICAgIiAiRGlyZWt0IHN0YXJ0ZW4iIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIjEiICLwn5OlIiAiSW5zdGFsbGllcmVuICAgICAiICJTeXN0ZW0tSW5zdGFsbGF0aW9uIiBcCiAgICAgICAgICAgICIyIiAi8J+Xke+4jyIgIkRlaW5zdGFsbGllcmVuICAgICAiICJWb20gU3lzdGVtIGVudGZlcm5lbiIgXAogICAgICAgICAgICAiMyIgIvCfk5YiICJSRUFETUUgKERFKSAgICAgIiAiRGV1dHNjaGUgRG9rdW1lbnRhdGlvbiIgXAogICAgICAgICAgICAiNCIgIvCfk5giICJSRUFETUUgKEVOKSAgICAgIiAiRW5nbGlzaCBkb2N1bWVudGF0aW9uIiBcCiAgICAgICAgICAgICI1IiAi8J+TiyIgIkNoYW5nZWxvZyAgICAgIiAiVmVyc2lvbnNoaXN0b3JpZSIgXAogICAgICAgICAgICAiNiIgIuKEue+4jyIgIkluZm8gICAgICIgIsOcYmVyIFNvY2lhbC1ETCIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiOCIgIuKame+4jyIgIkVpbnN0ZWxsdW5nZW4g4oaSICAgICAiICJLb25maWd1cmF0aW9uIMO2ZmZuZW4iIFwKICAgICAgICAgICAgIjkiICLwn4yQIiAiRW5nbGlzaCAgICAgIiAiU3dpdGNoIGxhbmd1YWdlIiBcCiAgICAgICAgICAgIDI+L2Rldi9udWxsCiAgICBlbHNlCiAgICAgICAgIyBFbmdsaXNoIE1haW4gTWVudQogICAgICAgIHlhZCAtLWxpc3QgXAogICAgICAgICAgICAtLXRpdGxlPSJTb2NpYWwtREwgdiR7dmVyc2lvbn0iIFwKICAgICAgICAgICAgLS13aWR0aD0zNjAgLS1oZWlnaHQ9NjQwIFwKICAgICAgICAgICAgLS1jZW50ZXIgXAogICAgICAgICAgICAtLWZpeGVkIFwKICAgICAgICAgICAgLS1idXR0b25zLWxheW91dD1jZW50ZXIgXAogICAgICAgICAgICAtLWJ1dHRvbj0i4p2MIENhbmNlbDoxIiAtLWJ1dHRvbj0i4pyFIE9rOjAiIFwKICAgICAgICAgICAgLS13aW5kb3ctaWNvbj0iYXBwbGljYXRpb25zLW11bHRpbWVkaWEiIFwKICAgICAgICAgICAgLS10ZXh0PSI8YmlnPjxiPvCfk7EgU29jaWFsLURMPC9iPjwvYmlnPlxuPHNtYWxsPkluc3RhZ3JhbSDigKIgVHdpdHRlci9YIOKAoiBZb3VUdWJlIOKAoiBSZWRkaXQg4oCiIFRpa1Rvazwvc21hbGw+IiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJJRDpIRCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSWNvbjpJTUc6NjAiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ik9wdGlvbjpUWFQ6MTgwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJEZXNjcmlwdGlvbjpUWFQiIFwKICAgICAgICAgICAgLS1uby1oZWFkZXJzIFwKICAgICAgICAgICAgLS1uby1jbGljayBcCiAgICAgICAgICAgIC0tcHJpbnQtY29sdW1uPTEgXAogICAgICAgICAgICAtLXNlcGFyYXRvcj0iIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICI3IiAi8J+agCIgIjxiaWc+PGI+UlVOIE5PVzwvYj48L2JpZz4gICAgICIgIlN0YXJ0IGRpcmVjdGx5IiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICIxIiAi8J+TpSIgIkluc3RhbGwgICAgICIgIlN5c3RlbSBpbnN0YWxsYXRpb24iIFwKICAgICAgICAgICAgIjIiICLwn5eR77iPIiAiVW5pbnN0YWxsICAgICAiICJSZW1vdmUgZnJvbSBzeXN0ZW0iIFwKICAgICAgICAgICAgIjMiICLwn5OWIiAiUkVBRE1FIChERSkgICAgICIgIkdlcm1hbiBkb2N1bWVudGF0aW9uIiBcCiAgICAgICAgICAgICI0IiAi8J+TmCIgIlJFQURNRSAoRU4pICAgICAiICJFbmdsaXNoIGRvY3VtZW50YXRpb24iIFwKICAgICAgICAgICAgIjUiICLwn5OLIiAiQ2hhbmdlbG9nICAgICAiICJWZXJzaW9uIGhpc3RvcnkiIFwKICAgICAgICAgICAgIjYiICLihLnvuI8iICJJbmZvICAgICAiICJBYm91dCBTb2NpYWwtREwiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIjgiICLimpnvuI8iICJTZXR0aW5ncyDihpIgICAgICIgIk9wZW4gY29uZmlndXJhdGlvbiIgXAogICAgICAgICAgICAiOSIgIvCfjJAiICJEZXV0c2NoICAgICAiICJTd2l0Y2ggdG8gR2VybWFuIiBcCiAgICAgICAgICAgIDI+L2Rldi9udWxsCiAgICBmaQp9CgpzaG93X3NldHRpbmdzX21lbnUoKSB7CiAgICBsb2NhbCBsYW5nPSIkMSIKICAgIGxvY2FsIHZlcnNpb249IiQyIgogICAgCiAgICBpZiBbICIkbGFuZyIgPSAiZGUiIF07IHRoZW4KICAgICAgICAjIERldXRzY2hlcyBFaW5zdGVsbHVuZ3NtZW7DvAogICAgICAgIHlhZCAtLWxpc3QgXAogICAgICAgICAgICAtLXRpdGxlPSJTb2NpYWwtREwgdiR7dmVyc2lvbn0gLSBFaW5zdGVsbHVuZ2VuIiBcCiAgICAgICAgICAgIC0td2lkdGg9MzYwIC0taGVpZ2h0PTY0MCBcCiAgICAgICAgICAgIC0tY2VudGVyIFwKICAgICAgICAgICAgLS1maXhlZCBcCiAgICAgICAgICAgIC0tYnV0dG9ucy1sYXlvdXQ9Y2VudGVyIFwKICAgICAgICAgICAgLS1idXR0b249IuKdjCBBYmJyZWNoZW46MSIgLS1idXR0b249IuKchSBPazowIiBcCiAgICAgICAgICAgIC0td2luZG93LWljb249ImFwcGxpY2F0aW9ucy1tdWx0aW1lZGlhIiBcCiAgICAgICAgICAgIC0tdGV4dD0iPGJpZz48Yj7impnvuI8gRWluc3RlbGx1bmdlbjwvYj48L2JpZz5cbjxzbWFsbD5Lb25maWd1cmF0aW9uIHVuZCBBbnBhc3N1bmdlbjwvc21hbGw+IiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJJRDpIRCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSWNvbjpJTUc6NjAiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ik9wdGlvbjpUWFQ6MTgwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJCZXNjaHJlaWJ1bmc6VFhUIiBcCiAgICAgICAgICAgIC0tbm8taGVhZGVycyBcCiAgICAgICAgICAgIC0tbm8tY2xpY2sgXAogICAgICAgICAgICAtLXByaW50LWNvbHVtbj0xIFwKICAgICAgICAgICAgLS1zZXBhcmF0b3I9IiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiMTAxIiAi8J+TnSIgIkNvbmZpZyBiZWFyYmVpdGVuICAgICAiICJFaW5zdGVsbHVuZ2VuIGFucGFzc2VuIiBcCiAgICAgICAgICAgICIxMDIiICLwn5OBIiAiRG93bmxvYWQtT3JkbmVyICAgICAiICJaaWVsdmVyemVpY2huaXMgd8OkaGxlbiIgXAogICAgICAgICAgICAiMTAzIiAi8J+UhCIgIlJldHJ5LUFuemFobCAgICAgIiAiV2llZGVyaG9sdW5nc3ZlcnN1Y2hlIiBcCiAgICAgICAgICAgICIxMDQiICLwn4yQIiAiR2l0SHViIFJlcG8gICAgICIgIlJlcG9zaXRvcnkgw7ZmZm5lbiIgXAogICAgICAgICAgICAiMTA1IiAi8J+UpyIgInl0LWRscCBVcGRhdGUgICAgICIgIkRvd25sb2FkZXIgYWt0dWFsaXNpZXJlbiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiMTAwIiAi4oaQIiAiPGI+WnVyw7xjazwvYj4gICAgICIgIlp1bSBIYXVwdG1lbsO8IiBcCiAgICAgICAgICAgICI5IiAi8J+MkCIgIkVuZ2xpc2ggICAgICIgIlN3aXRjaCBsYW5ndWFnZSIgXAogICAgICAgICAgICAyPi9kZXYvbnVsbAogICAgZWxzZQogICAgICAgICMgRW5nbGlzaCBTZXR0aW5ncyBNZW51CiAgICAgICAgeWFkIC0tbGlzdCBcCiAgICAgICAgICAgIC0tdGl0bGU9IlNvY2lhbC1ETCB2JHt2ZXJzaW9ufSAtIFNldHRpbmdzIiBcCiAgICAgICAgICAgIC0td2lkdGg9MzYwIC0taGVpZ2h0PTY0MCBcCiAgICAgICAgICAgIC0tY2VudGVyIFwKICAgICAgICAgICAgLS1maXhlZCBcCiAgICAgICAgICAgIC0tYnV0dG9ucy1sYXlvdXQ9Y2VudGVyIFwKICAgICAgICAgICAgLS1idXR0b249IuKdjCBDYW5jZWw6MSIgLS1idXR0b249IuKchSBPazowIiBcCiAgICAgICAgICAgIC0td2luZG93LWljb249ImFwcGxpY2F0aW9ucy1tdWx0aW1lZGlhIiBcCiAgICAgICAgICAgIC0tdGV4dD0iPGJpZz48Yj7impnvuI8gU2V0dGluZ3M8L2I+PC9iaWc+XG48c21hbGw+Q29uZmlndXJhdGlvbiBhbmQgY3VzdG9taXphdGlvbjwvc21hbGw+IiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJJRDpIRCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSWNvbjpJTUc6NjAiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ik9wdGlvbjpUWFQ6MTgwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJEZXNjcmlwdGlvbjpUWFQiIFwKICAgICAgICAgICAgLS1uby1oZWFkZXJzIFwKICAgICAgICAgICAgLS1uby1jbGljayBcCiAgICAgICAgICAgIC0tcHJpbnQtY29sdW1uPTEgXAogICAgICAgICAgICAtLXNlcGFyYXRvcj0iIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICIxMDEiICLwn5OdIiAiRWRpdCBDb25maWcgICAgICIgIkN1c3RvbWl6ZSBzZXR0aW5ncyIgXAogICAgICAgICAgICAiMTAyIiAi8J+TgSIgIkRvd25sb2FkIEZvbGRlciAgICAgIiAiQ2hvb3NlIHRhcmdldCBkaXJlY3RvcnkiIFwKICAgICAgICAgICAgIjEwMyIgIvCflIQiICJSZXRyeSBDb3VudCAgICAgIiAiU2V0IHJldHJ5IGF0dGVtcHRzIiBcCiAgICAgICAgICAgICIxMDQiICLwn4yQIiAiR2l0SHViIFJlcG8gICAgICIgIk9wZW4gcmVwb3NpdG9yeSIgXAogICAgICAgICAgICAiMTA1IiAi8J+UpyIgIlVwZGF0ZSB5dC1kbHAgICAgICIgIlVwZGF0ZSBkb3dubG9hZGVyIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICIxMDAiICLihpAiICI8Yj5CYWNrPC9iPiAgICAgIiAiUmV0dXJuIHRvIG1haW4gbWVudSIgXAogICAgICAgICAgICAiOSIgIvCfjJAiICJEZXV0c2NoICAgICAiICJTd2l0Y2ggdG8gR2VybWFuIiBcCiAgICAgICAgICAgIDI+L2Rldi9udWxsCiAgICBmaQp9CgpzaG93X21lbnUoKSB7CiAgICBsb2NhbCBsYW5nPSIkMSIKICAgIGxvY2FsIHZlcnNpb249IiQyIgogICAgCiAgICB3aGlsZSB0cnVlOyBkbwogICAgICAgICMgU2hvdyBtYWluIG1lbnUKICAgICAgICBsb2NhbCBjaG9pY2U9JChzaG93X21haW5fbWVudSAiJGxhbmciICIkdmVyc2lvbiIpCiAgICAgICAgbG9jYWwgZXhpdF9jb2RlPSQ/CiAgICAgICAgCiAgICAgICAgIyBFeGl0IGlmIGNhbmNlbGxlZCAoRVNDIGdpdmVzIGV4aXRfY29kZSAhPSAwKQogICAgICAgIGlmIFsgJGV4aXRfY29kZSAtbmUgMCBdOyB0aGVuCiAgICAgICAgICAgIHJldHVybiAxCiAgICAgICAgZmkKICAgICAgICAKICAgICAgICAjIElmIGVtcHR5IGNob2ljZSwgaXQgbWVhbnMgQ2FuY2VsIGJ1dHRvbiB3YXMgY2xpY2tlZCAoYnV0dG9uIHJldHVybnMgZW1wdHkgd2l0aCBleGl0IDApCiAgICAgICAgaWYgWyAteiAiJGNob2ljZSIgXTsgdGhlbgogICAgICAgICAgICByZXR1cm4gMQogICAgICAgIGZpCiAgICAgICAgCiAgICAgICAgIyBJZiBAZGlzYWJsZWRAIHdhcyBzb21laG93IHNlbGVjdGVkLCBpZ25vcmUgYW5kIGNvbnRpbnVlCiAgICAgICAgaWYgWyAiJGNob2ljZSIgPSAiQGRpc2FibGVkQCIgXTsgdGhlbgogICAgICAgICAgICBjb250aW51ZQogICAgICAgIGZpCiAgICAgICAgCiAgICAgICAgIyBJZiBzZXR0aW5ncyBzZWxlY3RlZCAoOCksIHNob3cgc2V0dGluZ3MgbWVudQogICAgICAgIGlmIFsgIiRjaG9pY2UiID0gIjgiIF07IHRoZW4KICAgICAgICAgICAgd2hpbGUgdHJ1ZTsgZG8KICAgICAgICAgICAgICAgIGNob2ljZT0kKHNob3dfc2V0dGluZ3NfbWVudSAiJGxhbmciICIkdmVyc2lvbiIpCiAgICAgICAgICAgICAgICBsb2NhbCBleGl0X2NvZGU9JD8KICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBFeGl0IHNldHRpbmdzIGlmIGNhbmNlbGxlZCAoRVNDKQogICAgICAgICAgICAgICAgaWYgWyAkZXhpdF9jb2RlIC1uZSAwIF07IHRoZW4KICAgICAgICAgICAgICAgICAgICBicmVhawogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBFbXB0eSBjaG9pY2UgPSBDYW5jZWwgYnV0dG9uIGNsaWNrZWQKICAgICAgICAgICAgICAgIGlmIFsgLXogIiRjaG9pY2UiIF07IHRoZW4KICAgICAgICAgICAgICAgICAgICBicmVhawogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBJZ25vcmUgQGRpc2FibGVkQCByb3dzCiAgICAgICAgICAgICAgICBpZiBbICIkY2hvaWNlIiA9ICJAZGlzYWJsZWRAIiBdOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgY29udGludWUKICAgICAgICAgICAgICAgIGZpCiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICMgSWYgYmFjayBidXR0b24gKDEwMCksIHJldHVybiB0byBtYWluIG1lbnUKICAgICAgICAgICAgICAgIGlmIFsgIiRjaG9pY2UiID0gIjEwMCIgXTsgdGhlbgogICAgICAgICAgICAgICAgICAgIGJyZWFrCiAgICAgICAgICAgICAgICBmaQogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAjIElmIGxhbmd1YWdlIHN3aXRjaCAoOSkgaW4gc2V0dGluZ3MsIHRvZ2dsZSBhbmQgcmVsb2FkIHNldHRpbmdzCiAgICAgICAgICAgICAgICBpZiBbICIkY2hvaWNlIiA9ICI5IiBdOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgaWYgWyAiJGxhbmciID0gImRlIiBdOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgICAgIGxhbmc9ImVuIgogICAgICAgICAgICAgICAgICAgIGVsc2UKICAgICAgICAgICAgICAgICAgICAgICAgbGFuZz0iZGUiCiAgICAgICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgICAgICAjIENvbnRpbnVlIGxvb3AgdG8gc2hvdyBzZXR0aW5ncyBhZ2FpbiBpbiBuZXcgbGFuZ3VhZ2UKICAgICAgICAgICAgICAgICAgICBjb250aW51ZQogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBPdGhlcndpc2UgcmV0dXJuIHRoZSBzZXR0aW5ncyBjaG9pY2UKICAgICAgICAgICAgICAgIGVjaG8gIiRjaG9pY2UiCiAgICAgICAgICAgICAgICByZXR1cm4gMAogICAgICAgICAgICBkb25lCiAgICAgICAgICAgICMgQ29udGludWUgdG8gc2hvdyBtYWluIG1lbnUgYWdhaW4KICAgICAgICBlbHNlCiAgICAgICAgICAgICMgUmV0dXJuIG1haW4gbWVudSBjaG9pY2UKICAgICAgICAgICAgZWNobyAiJGNob2ljZSIKICAgICAgICAgICAgcmV0dXJuIDAKICAgICAgICBmaQogICAgZG9uZQp9CgojIEV4cG9ydCBmdW5jdGlvbnMgZm9yIHVzZSBpbiBvdGhlciBzY3JpcHRzCmV4cG9ydCAtZiBzaG93X21lbnUKZXhwb3J0IC1mIHNob3dfbWFpbl9tZW51CmV4cG9ydCAtZiBzaG93X3NldHRpbmdzX21lbnUK
+IyEvdXNyL2Jpbi9lbnYgYmFzaAojIE1vYmlsZSBBcHAgVUkgLSBZQUQgU2VwYXJhdGUgV2luZG93cyBWZXJzaW9uCiMgTWFpbiBtZW51IHdpdGggc2V0dGluZ3MgYnV0dG9uIHRoYXQgb3BlbnMgc2VwYXJhdGUgd2luZG93CiMgUmVxdWlyZXM6IHlhZAoKIyBDb25maWcgZmlsZSBsb2NhdGlvbgpDT05GSUdfRklMRT0iJHtYREdfQ09ORklHX0hPTUU6LSRIT01FLy5jb25maWd9L3NvY2lhbC1kbC9jb25maWciCgpzaG93X21haW5fbWVudSgpIHsKICAgIGxvY2FsIGxhbmc9IiQxIgogICAgbG9jYWwgdmVyc2lvbj0iJDIiCiAgICAKICAgIGlmIFsgIiRsYW5nIiA9ICJkZSIgXTsgdGhlbgogICAgICAgICMgRGV1dHNjaGVzIEhhdXB0bWVuw7wKICAgICAgICB5YWQgLS1saXN0IFwKICAgICAgICAgICAgLS10aXRsZT0iU29jaWFsLURMIHYke3ZlcnNpb259IiBcCiAgICAgICAgICAgIC0td2lkdGg9MzYwIC0taGVpZ2h0PTY0MCBcCiAgICAgICAgICAgIC0tY2VudGVyIFwKICAgICAgICAgICAgLS1maXhlZCBcCiAgICAgICAgICAgIC0tYnV0dG9ucy1sYXlvdXQ9Y2VudGVyIFwKICAgICAgICAgICAgLS1idXR0b249IuKdjCBBYmJyZWNoZW46MSIgLS1idXR0b249IuKchSBPazowIiBcCiAgICAgICAgICAgIC0td2luZG93LWljb249ImFwcGxpY2F0aW9ucy1tdWx0aW1lZGlhIiBcCiAgICAgICAgICAgIC0tdGV4dD0iPGJpZz48Yj7wn5OxIFNvY2lhbC1ETDwvYj48L2JpZz5cbjxzbWFsbD5JbnN0YWdyYW0g4oCiIFR3aXR0ZXIvWCDigKIgWW91VHViZSDigKIgUmVkZGl0IOKAoiBUaWtUb2s8L3NtYWxsPiIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSUQ6SEQiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ikljb246SU1HOjYwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJPcHRpb246VFhUOjE4MCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iQmVzY2hyZWlidW5nOlRYVCIgXAogICAgICAgICAgICAtLW5vLWhlYWRlcnMgXAogICAgICAgICAgICAtLW5vLWNsaWNrIFwKICAgICAgICAgICAgLS1wcmludC1jb2x1bW49MSBcCiAgICAgICAgICAgIC0tc2VwYXJhdG9yPSIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIjciICLwn5qAIiAiPGJpZz48Yj5BVVNGw5xIUkVOPC9iPjwvYmlnPiAgICAgIiAiRGlyZWt0IHN0YXJ0ZW4iIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIjEiICLwn5OlIiAiSW5zdGFsbGllcmVuICAgICAiICJTeXN0ZW0tSW5zdGFsbGF0aW9uIiBcCiAgICAgICAgICAgICIyIiAi8J+Xke+4jyIgIkRlaW5zdGFsbGllcmVuICAgICAiICJWb20gU3lzdGVtIGVudGZlcm5lbiIgXAogICAgICAgICAgICAiMyIgIvCfk5YiICJSRUFETUUgKERFKSAgICAgIiAiRGV1dHNjaGUgRG9rdW1lbnRhdGlvbiIgXAogICAgICAgICAgICAiNCIgIvCfk5giICJSRUFETUUgKEVOKSAgICAgIiAiRW5nbGlzaCBkb2N1bWVudGF0aW9uIiBcCiAgICAgICAgICAgICI1IiAi8J+TiyIgIkNoYW5nZWxvZyAgICAgIiAiVmVyc2lvbnNoaXN0b3JpZSIgXAogICAgICAgICAgICAiNiIgIuKEue+4jyIgIkluZm8gICAgICIgIsOcYmVyIFNvY2lhbC1ETCIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiOCIgIuKame+4jyIgIkVpbnN0ZWxsdW5nZW4g4oaSICAgICAiICJLb25maWd1cmF0aW9uIMO2ZmZuZW4iIFwKICAgICAgICAgICAgIjkiICLwn4yQIiAiRW5nbGlzaCAgICAgIiAiU3dpdGNoIGxhbmd1YWdlIiBcCiAgICAgICAgICAgIDI+L2Rldi9udWxsCiAgICBlbHNlCiAgICAgICAgIyBFbmdsaXNoIE1haW4gTWVudQogICAgICAgIHlhZCAtLWxpc3QgXAogICAgICAgICAgICAtLXRpdGxlPSJTb2NpYWwtREwgdiR7dmVyc2lvbn0iIFwKICAgICAgICAgICAgLS13aWR0aD0zNjAgLS1oZWlnaHQ9NjQwIFwKICAgICAgICAgICAgLS1jZW50ZXIgXAogICAgICAgICAgICAtLWZpeGVkIFwKICAgICAgICAgICAgLS1idXR0b25zLWxheW91dD1jZW50ZXIgXAogICAgICAgICAgICAtLWJ1dHRvbj0i4p2MIENhbmNlbDoxIiAtLWJ1dHRvbj0i4pyFIE9rOjAiIFwKICAgICAgICAgICAgLS13aW5kb3ctaWNvbj0iYXBwbGljYXRpb25zLW11bHRpbWVkaWEiIFwKICAgICAgICAgICAgLS10ZXh0PSI8YmlnPjxiPvCfk7EgU29jaWFsLURMPC9iPjwvYmlnPlxuPHNtYWxsPkluc3RhZ3JhbSDigKIgVHdpdHRlci9YIOKAoiBZb3VUdWJlIOKAoiBSZWRkaXQg4oCiIFRpa1Rvazwvc21hbGw+IiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJJRDpIRCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSWNvbjpJTUc6NjAiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ik9wdGlvbjpUWFQ6MTgwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJEZXNjcmlwdGlvbjpUWFQiIFwKICAgICAgICAgICAgLS1uby1oZWFkZXJzIFwKICAgICAgICAgICAgLS1uby1jbGljayBcCiAgICAgICAgICAgIC0tcHJpbnQtY29sdW1uPTEgXAogICAgICAgICAgICAtLXNlcGFyYXRvcj0iIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICI3IiAi8J+agCIgIjxiaWc+PGI+UlVOIE5PVzwvYj48L2JpZz4gICAgICIgIlN0YXJ0IGRpcmVjdGx5IiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICIxIiAi8J+TpSIgIkluc3RhbGwgICAgICIgIlN5c3RlbSBpbnN0YWxsYXRpb24iIFwKICAgICAgICAgICAgIjIiICLwn5eR77iPIiAiVW5pbnN0YWxsICAgICAiICJSZW1vdmUgZnJvbSBzeXN0ZW0iIFwKICAgICAgICAgICAgIjMiICLwn5OWIiAiUkVBRE1FIChERSkgICAgICIgIkdlcm1hbiBkb2N1bWVudGF0aW9uIiBcCiAgICAgICAgICAgICI0IiAi8J+TmCIgIlJFQURNRSAoRU4pICAgICAiICJFbmdsaXNoIGRvY3VtZW50YXRpb24iIFwKICAgICAgICAgICAgIjUiICLwn5OLIiAiQ2hhbmdlbG9nICAgICAiICJWZXJzaW9uIGhpc3RvcnkiIFwKICAgICAgICAgICAgIjYiICLihLnvuI8iICJJbmZvICAgICAiICJBYm91dCBTb2NpYWwtREwiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIkBkaXNhYmxlZEAiICIiICIiICIiIFwKICAgICAgICAgICAgIjgiICLimpnvuI8iICJTZXR0aW5ncyDihpIgICAgICIgIk9wZW4gY29uZmlndXJhdGlvbiIgXAogICAgICAgICAgICAiOSIgIvCfjJAiICJEZXV0c2NoICAgICAiICJTd2l0Y2ggdG8gR2VybWFuIiBcCiAgICAgICAgICAgIDI+L2Rldi9udWxsCiAgICBmaQp9CgpzaG93X3NldHRpbmdzX21lbnUoKSB7CiAgICBsb2NhbCBsYW5nPSIkMSIKICAgIGxvY2FsIHZlcnNpb249IiQyIgogICAgCiAgICBpZiBbICIkbGFuZyIgPSAiZGUiIF07IHRoZW4KICAgICAgICAjIERldXRzY2hlcyBFaW5zdGVsbHVuZ3NtZW7DvAogICAgICAgIHlhZCAtLWxpc3QgXAogICAgICAgICAgICAtLXRpdGxlPSJTb2NpYWwtREwgdiR7dmVyc2lvbn0gLSBFaW5zdGVsbHVuZ2VuIiBcCiAgICAgICAgICAgIC0td2lkdGg9MzYwIC0taGVpZ2h0PTY0MCBcCiAgICAgICAgICAgIC0tY2VudGVyIFwKICAgICAgICAgICAgLS1maXhlZCBcCiAgICAgICAgICAgIC0tYnV0dG9ucy1sYXlvdXQ9Y2VudGVyIFwKICAgICAgICAgICAgLS1idXR0b249IuKdjCBBYmJyZWNoZW46MSIgLS1idXR0b249IuKchSBPazowIiBcCiAgICAgICAgICAgIC0td2luZG93LWljb249ImFwcGxpY2F0aW9ucy1tdWx0aW1lZGlhIiBcCiAgICAgICAgICAgIC0tdGV4dD0iPGJpZz48Yj7impnvuI8gRWluc3RlbGx1bmdlbjwvYj48L2JpZz5cbjxzbWFsbD5Lb25maWd1cmF0aW9uIHVuZCBBbnBhc3N1bmdlbjwvc21hbGw+IiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJJRDpIRCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSWNvbjpJTUc6NjAiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ik9wdGlvbjpUWFQ6MTgwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJCZXNjaHJlaWJ1bmc6VFhUIiBcCiAgICAgICAgICAgIC0tbm8taGVhZGVycyBcCiAgICAgICAgICAgIC0tbm8tY2xpY2sgXAogICAgICAgICAgICAtLXByaW50LWNvbHVtbj0xIFwKICAgICAgICAgICAgLS1zZXBhcmF0b3I9IiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiMTAxIiAi8J+TnSIgIkNvbmZpZyBiZWFyYmVpdGVuICAgICAiICJFaW5zdGVsbHVuZ2VuIGFucGFzc2VuIiBcCiAgICAgICAgICAgICIxMDIiICLwn5OBIiAiRG93bmxvYWQtT3JkbmVyICAgICAiICJaaWVsdmVyemVpY2huaXMgd8OkaGxlbiIgXAogICAgICAgICAgICAiMTAzIiAi8J+UhCIgIlJldHJ5LUFuemFobCAgICAgIiAiV2llZGVyaG9sdW5nc3ZlcnN1Y2hlIiBcCiAgICAgICAgICAgICIxMDQiICLwn4yQIiAiR2l0SHViIFJlcG8gICAgICIgIlJlcG9zaXRvcnkgw7ZmZm5lbiIgXAogICAgICAgICAgICAiMTA1IiAi8J+UpyIgInl0LWRscCBVcGRhdGUgICAgICIgIkRvd25sb2FkZXIgYWt0dWFsaXNpZXJlbiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiQGRpc2FibGVkQCIgIiIgIiIgIiIgXAogICAgICAgICAgICAiMTAwIiAi4oaQIiAiPGI+WnVyw7xjazwvYj4gICAgICIgIlp1bSBIYXVwdG1lbsO8IiBcCiAgICAgICAgICAgICI5IiAi8J+MkCIgIkVuZ2xpc2ggICAgICIgIlN3aXRjaCBsYW5ndWFnZSIgXAogICAgICAgICAgICAyPi9kZXYvbnVsbAogICAgZWxzZQogICAgICAgICMgRW5nbGlzaCBTZXR0aW5ncyBNZW51CiAgICAgICAgeWFkIC0tbGlzdCBcCiAgICAgICAgICAgIC0tdGl0bGU9IlNvY2lhbC1ETCB2JHt2ZXJzaW9ufSAtIFNldHRpbmdzIiBcCiAgICAgICAgICAgIC0td2lkdGg9MzYwIC0taGVpZ2h0PTY0MCBcCiAgICAgICAgICAgIC0tY2VudGVyIFwKICAgICAgICAgICAgLS1maXhlZCBcCiAgICAgICAgICAgIC0tYnV0dG9ucy1sYXlvdXQ9Y2VudGVyIFwKICAgICAgICAgICAgLS1idXR0b249IuKdjCBDYW5jZWw6MSIgLS1idXR0b249IuKchSBPazowIiBcCiAgICAgICAgICAgIC0td2luZG93LWljb249ImFwcGxpY2F0aW9ucy1tdWx0aW1lZGlhIiBcCiAgICAgICAgICAgIC0tdGV4dD0iPGJpZz48Yj7impnvuI8gU2V0dGluZ3M8L2I+PC9iaWc+XG48c21hbGw+Q29uZmlndXJhdGlvbiBhbmQgY3VzdG9taXphdGlvbjwvc21hbGw+IiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJJRDpIRCIgXAogICAgICAgICAgICAtLWNvbHVtbj0iSWNvbjpJTUc6NjAiIFwKICAgICAgICAgICAgLS1jb2x1bW49Ik9wdGlvbjpUWFQ6MTgwIiBcCiAgICAgICAgICAgIC0tY29sdW1uPSJEZXNjcmlwdGlvbjpUWFQiIFwKICAgICAgICAgICAgLS1uby1oZWFkZXJzIFwKICAgICAgICAgICAgLS1uby1jbGljayBcCiAgICAgICAgICAgIC0tcHJpbnQtY29sdW1uPTEgXAogICAgICAgICAgICAtLXNlcGFyYXRvcj0iIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICIxMDEiICLwn5OdIiAiRWRpdCBDb25maWcgICAgICIgIkN1c3RvbWl6ZSBzZXR0aW5ncyIgXAogICAgICAgICAgICAiMTAyIiAi8J+TgSIgIkRvd25sb2FkIEZvbGRlciAgICAgIiAiQ2hvb3NlIHRhcmdldCBkaXJlY3RvcnkiIFwKICAgICAgICAgICAgIjEwMyIgIvCflIQiICJSZXRyeSBDb3VudCAgICAgIiAiU2V0IHJldHJ5IGF0dGVtcHRzIiBcCiAgICAgICAgICAgICIxMDQiICLwn4yQIiAiR2l0SHViIFJlcG8gICAgICIgIk9wZW4gcmVwb3NpdG9yeSIgXAogICAgICAgICAgICAiMTA1IiAi8J+UpyIgIlVwZGF0ZSB5dC1kbHAgICAgICIgIlVwZGF0ZSBkb3dubG9hZGVyIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICJAZGlzYWJsZWRAIiAiIiAiIiAiIiBcCiAgICAgICAgICAgICIxMDAiICLihpAiICI8Yj5CYWNrPC9iPiAgICAgIiAiUmV0dXJuIHRvIG1haW4gbWVudSIgXAogICAgICAgICAgICAiOSIgIvCfjJAiICJEZXV0c2NoICAgICAiICJTd2l0Y2ggdG8gR2VybWFuIiBcCiAgICAgICAgICAgIDI+L2Rldi9udWxsCiAgICBmaQp9CgpzaG93X21lbnUoKSB7CiAgICBsb2NhbCBsYW5nPSIkMSIKICAgIGxvY2FsIHZlcnNpb249IiQyIgogICAgCiAgICB3aGlsZSB0cnVlOyBkbwogICAgICAgICMgU2hvdyBtYWluIG1lbnUKICAgICAgICBsb2NhbCBjaG9pY2U9JChzaG93X21haW5fbWVudSAiJGxhbmciICIkdmVyc2lvbiIpCiAgICAgICAgbG9jYWwgZXhpdF9jb2RlPSQ/CiAgICAgICAgCiAgICAgICAgIyBFeGl0IGlmIGNhbmNlbGxlZCAoRVNDIGdpdmVzIGV4aXRfY29kZSAhPSAwKQogICAgICAgIGlmIFsgJGV4aXRfY29kZSAtbmUgMCBdOyB0aGVuCiAgICAgICAgICAgIHJldHVybiAxCiAgICAgICAgZmkKICAgICAgICAKICAgICAgICAjIElmIGVtcHR5IGNob2ljZSwgaXQgbWVhbnMgQ2FuY2VsIGJ1dHRvbiB3YXMgY2xpY2tlZCAoYnV0dG9uIHJldHVybnMgZW1wdHkgd2l0aCBleGl0IDApCiAgICAgICAgaWYgWyAteiAiJGNob2ljZSIgXTsgdGhlbgogICAgICAgICAgICByZXR1cm4gMQogICAgICAgIGZpCiAgICAgICAgCiAgICAgICAgIyBJZiBAZGlzYWJsZWRAIHdhcyBzb21laG93IHNlbGVjdGVkLCBpZ25vcmUgYW5kIGNvbnRpbnVlCiAgICAgICAgaWYgWyAiJGNob2ljZSIgPSAiQGRpc2FibGVkQCIgXTsgdGhlbgogICAgICAgICAgICBjb250aW51ZQogICAgICAgIGZpCiAgICAgICAgCiAgICAgICAgIyBJZiBzZXR0aW5ncyBzZWxlY3RlZCAoOCksIHNob3cgc2V0dGluZ3MgbWVudQogICAgICAgIGlmIFsgIiRjaG9pY2UiID0gIjgiIF07IHRoZW4KICAgICAgICAgICAgd2hpbGUgdHJ1ZTsgZG8KICAgICAgICAgICAgICAgIGNob2ljZT0kKHNob3dfc2V0dGluZ3NfbWVudSAiJGxhbmciICIkdmVyc2lvbiIpCiAgICAgICAgICAgICAgICBsb2NhbCBleGl0X2NvZGU9JD8KICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBFeGl0IHNldHRpbmdzIGlmIGNhbmNlbGxlZCAoRVNDKQogICAgICAgICAgICAgICAgaWYgWyAkZXhpdF9jb2RlIC1uZSAwIF07IHRoZW4KICAgICAgICAgICAgICAgICAgICBicmVhawogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBFbXB0eSBjaG9pY2UgPSBDYW5jZWwgYnV0dG9uIGNsaWNrZWQKICAgICAgICAgICAgICAgIGlmIFsgLXogIiRjaG9pY2UiIF07IHRoZW4KICAgICAgICAgICAgICAgICAgICBicmVhawogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBJZ25vcmUgQGRpc2FibGVkQCByb3dzCiAgICAgICAgICAgICAgICBpZiBbICIkY2hvaWNlIiA9ICJAZGlzYWJsZWRAIiBdOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgY29udGludWUKICAgICAgICAgICAgICAgIGZpCiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICMgSWYgYmFjayBidXR0b24gKDEwMCksIHJldHVybiB0byBtYWluIG1lbnUKICAgICAgICAgICAgICAgIGlmIFsgIiRjaG9pY2UiID0gIjEwMCIgXTsgdGhlbgogICAgICAgICAgICAgICAgICAgIGJyZWFrCiAgICAgICAgICAgICAgICBmaQogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAjIElmIGxhbmd1YWdlIHN3aXRjaCAoOSkgaW4gc2V0dGluZ3MsIHRvZ2dsZSBhbmQgcmVsb2FkIHNldHRpbmdzCiAgICAgICAgICAgICAgICBpZiBbICIkY2hvaWNlIiA9ICI5IiBdOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgaWYgWyAiJGxhbmciID0gImRlIiBdOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgICAgIGxhbmc9ImVuIgogICAgICAgICAgICAgICAgICAgIGVsc2UKICAgICAgICAgICAgICAgICAgICAgICAgbGFuZz0iZGUiCiAgICAgICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgICAgICAjIENvbnRpbnVlIGxvb3AgdG8gc2hvdyBzZXR0aW5ncyBhZ2FpbiBpbiBuZXcgbGFuZ3VhZ2UKICAgICAgICAgICAgICAgICAgICBjb250aW51ZQogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBTZXR0aW5ncyBhY3Rpb25zICgxMDEtMTA1KSBhcmUgcmV0dXJuZWQgdG8gbWFpbiBzY3JpcHQgZm9yIGhhbmRsaW5nCiAgICAgICAgICAgICAgICAjIEFmdGVyIGhhbmRsaW5nLCBtYWluIHNjcmlwdCBzaG91bGQgY2FsbCBzaG93X21lbnUgYWdhaW4KICAgICAgICAgICAgICAgICMgVGhpcyBrZWVwcyB0aGUgc2V0dGluZ3MgbG9vcCBhY3RpdmUKICAgICAgICAgICAgICAgIGlmIFtbICIkY2hvaWNlIiA9fiBeMTBbMS01XSQgXV07IHRoZW4KICAgICAgICAgICAgICAgICAgICAjIFJldHVybiB0aGUgY2hvaWNlIGZvciBtYWluIHNjcmlwdCB0byBoYW5kbGUKICAgICAgICAgICAgICAgICAgICBlY2hvICIkY2hvaWNlIgogICAgICAgICAgICAgICAgICAgIHJldHVybiAwCiAgICAgICAgICAgICAgICBmaQogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAjIFVua25vd24gY2hvaWNlIGluIHNldHRpbmdzIC0gaWdub3JlIGFuZCBjb250aW51ZQogICAgICAgICAgICAgICAgY29udGludWUKICAgICAgICAgICAgZG9uZQogICAgICAgICAgICAjIENvbnRpbnVlIHRvIHNob3cgbWFpbiBtZW51IGFnYWluCiAgICAgICAgZWxzZQogICAgICAgICAgICAjIFJldHVybiBtYWluIG1lbnUgY2hvaWNlCiAgICAgICAgICAgIGVjaG8gIiRjaG9pY2UiCiAgICAgICAgICAgIHJldHVybiAwCiAgICAgICAgZmkKICAgIGRvbmUKfQoKIyBFeHBvcnQgZnVuY3Rpb25zIGZvciB1c2UgaW4gb3RoZXIgc2NyaXB0cwpleHBvcnQgLWYgc2hvd19tZW51CmV4cG9ydCAtZiBzaG93X21haW5fbWVudQpleHBvcnQgLWYgc2hvd19zZXR0aW5nc19tZW51Cg==
 EOF_ui_mobile_app_ui_yad_tabs_sh
 chmod +x "$TEMP_DIR/ui/mobile-app-ui-yad-tabs.sh"
 
@@ -120,10 +120,10 @@ EOF_social_dl_uninstaller_desktop
 
 # === GUI MENU ===
 
-if ! command -v zenity >/dev/null 2>&1; then
-    echo "Error: zenity not installed"
-    echo "Arch: sudo pacman -S zenity"
-    echo "Debian/Ubuntu: sudo apt install zenity"
+if ! command -v yad >/dev/null 2>&1 && ! command -v zenity >/dev/null 2>&1; then
+    echo "Error: Neither YAD nor Zenity installed"
+    echo "Install YAD (recommended): sudo pacman -S yad"
+    echo "OR Zenity (fallback): sudo pacman -S zenity"
     exit 1
 fi
 
@@ -170,57 +170,57 @@ while true; do
         "1")  # Installieren
             if bash "./install-gui.sh"; then
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --info --window-icon="applications-multimedia" --text="<span size='large'>✅</span>\n\n<b>Installation erfolgreich!</b>\n\nSocial-DL wurde installiert." --width=320 --title="Erfolg"
+                    yad --info --image="dialog-information" --text="<span size='large'>✅</span>\n\n<b>Installation erfolgreich!</b>\n\nSocial-DL wurde installiert." --width=320 --title="Erfolg" --button="OK:0" 2>/dev/null
                 else
-                    zenity --info --window-icon="applications-multimedia" --text="<span size='large'>✅</span>\n\n<b>Installation successful!</b>\n\nSocial-DL has been installed." --width=320 --title="Success"
+                    yad --info --image="dialog-information" --text="<span size='large'>✅</span>\n\n<b>Installation successful!</b>\n\nSocial-DL has been installed." --width=320 --title="Success" --button="OK:0" 2>/dev/null
                 fi
             else
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --error --window-icon="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Installation fehlgeschlagen!</b>\n\nBitte Fehlermeldung prüfen." --width=320 --title="Fehler"
+                    yad --error --image="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Installation fehlgeschlagen!</b>\n\nBitte Fehlermeldung prüfen." --width=320 --title="Fehler" --button="OK:0" 2>/dev/null
                 else
-                    zenity --error --window-icon="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Installation failed!</b>\n\nPlease check error messages." --width=320 --title="Error"
+                    yad --error --image="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Installation failed!</b>\n\nPlease check error messages." --width=320 --title="Error" --button="OK:0" 2>/dev/null
                 fi
             fi
             ;;
         "2")  # Deinstallieren
             if bash "./uninstall-gui.sh"; then
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --info --window-icon="applications-multimedia" --text="<span size='large'>✅</span>\n\n<b>Deinstallation erfolgreich!</b>\n\nSocial-DL wurde entfernt." --width=320 --title="Erfolg"
+                    yad --info --image="dialog-information" --text="<span size='large'>✅</span>\n\n<b>Deinstallation erfolgreich!</b>\n\nSocial-DL wurde entfernt." --width=320 --title="Erfolg" --button="OK:0" 2>/dev/null
                 else
-                    zenity --info --window-icon="applications-multimedia" --text="<span size='large'>✅</span>\n\n<b>Uninstallation successful!</b>\n\nSocial-DL has been removed." --width=320 --title="Success"
+                    yad --info --image="dialog-information" --text="<span size='large'>✅</span>\n\n<b>Uninstallation successful!</b>\n\nSocial-DL has been removed." --width=320 --title="Success" --button="OK:0" 2>/dev/null
                 fi
             else
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --error --window-icon="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Deinstallation fehlgeschlagen!</b>\n\nBitte Fehlermeldung prüfen." --width=320 --title="Fehler"
+                    yad --error --image="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Deinstallation fehlgeschlagen!</b>\n\nBitte Fehlermeldung prüfen." --width=320 --title="Fehler" --button="OK:0" 2>/dev/null
                 else
-                    zenity --error --window-icon="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Uninstallation failed!</b>\n\nPlease check error messages." --width=320 --title="Error"
+                    yad --error --image="dialog-error" --text="<span size='large'>❌</span>\n\n<b>Uninstallation failed!</b>\n\nPlease check error messages." --width=320 --title="Error" --button="OK:0" 2>/dev/null
                 fi
             fi
             ;;
         "3")  # README DE
-            zenity --text-info --filename="./README.de.md" \
+            yad --text-info --filename="./README.de.md" \
                 --width=900 --height=700 \
-                --window-icon="text-x-generic" \
                 --title="📖 README (Deutsch)" \
-                --font="Monospace 10"
+                --button="Schließen:0" \
+                --fontname="Monospace 10" 2>/dev/null
             ;;
         "4")  # README EN
-            zenity --text-info --filename="./README.md" \
+            yad --text-info --filename="./README.md" \
                 --width=900 --height=700 \
-                --window-icon="text-x-generic" \
                 --title="📘 README (English)" \
-                --font="Monospace 10"
+                --button="Close:0" \
+                --fontname="Monospace 10" 2>/dev/null
             ;;
         "5")  # Changelog
-            zenity --text-info --filename="./CHANGELOG.md" \
+            yad --text-info --filename="./CHANGELOG.md" \
                 --width=900 --height=700 \
-                --window-icon="text-x-generic" \
                 --title="📋 Changelog" \
-                --font="Monospace 10"
+                --button="Schließen/Close:0" \
+                --fontname="Monospace 10" 2>/dev/null
             ;;
         "6")  # Info
             if [ "$LANG_MODE" = "de" ]; then
-                zenity --info --width=400 --height=420 --window-icon="help-about" --title="ℹ️  Über Social-DL" \
+                yad --info --width=400 --height=420 --image="help-about" --title="ℹ️  Über Social-DL" \
                     --text="<span size='x-large'><b>Social-DL</b></span>
 <span size='small'>Version 2.7.0</span>
 
@@ -242,9 +242,10 @@ für Social Media Plattformen
 <b>🔗 Repository:</b>
 <span foreground='#0969DA'>github.com/socialawkward/social-dl</span>
 
-<b>📄 Lizenz:</b> MIT License"
+<b>📄 Lizenz:</b> MIT License" \
+                    --button="OK:0" 2>/dev/null
             else
-                zenity --info --width=400 --height=420 --window-icon="help-about" --title="ℹ️  About Social-DL" \
+                yad --info --width=400 --height=420 --image="help-about" --title="ℹ️  About Social-DL" \
                     --text="<span size='x-large'><b>Social-DL</b></span>
 <span size='small'>Version 2.7.0</span>
 
@@ -266,7 +267,8 @@ for Social Media Platforms
 <b>🔗 Repository:</b>
 <span foreground='#0969DA'>github.com/socialawkward/social-dl</span>
 
-<b>📄 License:</b> MIT License"
+<b>📄 License:</b> MIT License" \
+                    --button="OK:0" 2>/dev/null
             fi
             ;;
         "7")  # Ausführen / Run now
@@ -293,11 +295,13 @@ for Social Media Platforms
                 esac
             else
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --error --width=360 --window-icon="dialog-error" --title="Fehler" \
-                        --text="<b>Kein Terminal gefunden!</b>\n\nBitte führe social-dl.sh manuell aus:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>"
+                    yad --error --width=360 --image="dialog-error" --title="Fehler" \
+                        --text="<b>Kein Terminal gefunden!</b>\n\nBitte führe social-dl.sh manuell aus:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>" \
+                        --button="OK:0" 2>/dev/null
                 else
-                    zenity --error --width=360 --window-icon="dialog-error" --title="Error" \
-                        --text="<b>No terminal found!</b>\n\nPlease run social-dl.sh manually:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>"
+                    yad --error --width=360 --image="dialog-error" --title="Error" \
+                        --text="<b>No terminal found!</b>\n\nPlease run social-dl.sh manually:\n\n<tt>$TEMP_DIR/social-dl.sh</tt>" \
+                        --button="OK:0" 2>/dev/null
                 fi
             fi
             ;;
@@ -311,6 +315,11 @@ for Social Media Platforms
                 LANG_MODE="en"
             else
                 LANG_MODE="de"
+            fi
+            # Check if we should stay in settings
+            if [ "${STAY_IN_SETTINGS:-0}" = "1" ]; then
+                STAY_IN_SETTINGS=0  # Reset flag
+                # Settings will reopen automatically
             fi
             ;;
         
@@ -341,16 +350,20 @@ for Social Media Platforms
                 $EDITOR_CMD "$CONFIG_FILE" &
             else
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
-                        --text="<b>Kein Texteditor gefunden!</b>\n\nÖffne die Datei manuell:\n\n<tt>$CONFIG_FILE</tt>"
+                    yad --info --width=400 --image="dialog-information" --title="Info" \
+                        --text="<b>Kein Texteditor gefunden!</b>\n\nÖffne die Datei manuell:\n\n<tt>$CONFIG_FILE</tt>" \
+                        --button="OK:0" 2>/dev/null
                 else
-                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
-                        --text="<b>No text editor found!</b>\n\nOpen the file manually:\n\n<tt>$CONFIG_FILE</tt>"
+                    yad --info --width=400 --image="dialog-information" --title="Info" \
+                        --text="<b>No text editor found!</b>\n\nOpen the file manually:\n\n<tt>$CONFIG_FILE</tt>" \
+                        --button="OK:0" 2>/dev/null
                 fi
             fi
+            # Force re-open settings by simulating settings button click
+            CHOICE="8"
             ;;
         "102")  # Download Folder / Download-Ordner
-            NEW_DIR=$(zenity --file-selection --directory --title="Select Download Folder / Download-Ordner wählen" 2>/dev/null)
+            NEW_DIR=$(yad --file --directory --title="Select Download Folder / Download-Ordner wählen" --button="Abbrechen/Cancel:1" --button="Auswählen/Select:0" 2>/dev/null)
             if [ -n "$NEW_DIR" ]; then
                 CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/social-dl/config"
                 mkdir -p "$(dirname "$CONFIG_FILE")"
@@ -378,23 +391,29 @@ CONFIG_EOF
                 fi
                 
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --info --width=320 --window-icon="dialog-information" --title="Erfolg" \
-                        --text="<b>Download-Ordner gesetzt!</b>\n\n<tt>$NEW_DIR</tt>"
+                    yad --info --width=320 --image="dialog-information" --title="Erfolg" \
+                        --text="<b>Download-Ordner gesetzt!</b>\n\n<tt>$NEW_DIR</tt>" \
+                        --button="OK:0" 2>/dev/null
                 else
-                    zenity --info --width=320 --window-icon="dialog-information" --title="Success" \
-                        --text="<b>Download folder set!</b>\n\n<tt>$NEW_DIR</tt>"
+                    yad --info --width=320 --image="dialog-information" --title="Success" \
+                        --text="<b>Download folder set!</b>\n\n<tt>$NEW_DIR</tt>" \
+                        --button="OK:0" 2>/dev/null
                 fi
             fi
+            # Force re-open settings
+            CHOICE="8"
             ;;
         "103")  # Retry Count / Wiederholungsversuche
             if [ "$LANG_MODE" = "de" ]; then
-                RETRY_COUNT=$(zenity --entry --title="Wiederholungsversuche" \
+                RETRY_COUNT=$(yad --entry --title="Wiederholungsversuche" \
                     --text="Anzahl der Wiederholungsversuche bei Netzwerkfehlern:" \
-                    --entry-text="3" 2>/dev/null)
+                    --entry-text="3" \
+                    --button="Abbrechen:1" --button="OK:0" 2>/dev/null)
             else
-                RETRY_COUNT=$(zenity --entry --title="Retry Count" \
+                RETRY_COUNT=$(yad --entry --title="Retry Count" \
                     --text="Number of retry attempts on network errors:" \
-                    --entry-text="3" 2>/dev/null)
+                    --entry-text="3" \
+                    --button="Cancel:1" --button="OK:0" 2>/dev/null)
             fi
             
             if [ -n "$RETRY_COUNT" ] && [[ "$RETRY_COUNT" =~ ^[0-9]+$ ]]; then
@@ -412,13 +431,17 @@ CONFIG_EOF
                 fi
                 
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --info --width=320 --window-icon="dialog-information" --title="Erfolg" \
-                        --text="<b>Retry-Anzahl gesetzt!</b>\n\n$RETRY_COUNT Versuche"
+                    yad --info --width=320 --image="dialog-information" --title="Erfolg" \
+                        --text="<b>Retry-Anzahl gesetzt!</b>\n\n$RETRY_COUNT Versuche" \
+                        --button="OK:0" 2>/dev/null
                 else
-                    zenity --info --width=320 --window-icon="dialog-information" --title="Success" \
-                        --text="<b>Retry count set!</b>\n\n$RETRY_COUNT attempts"
+                    yad --info --width=320 --image="dialog-information" --title="Success" \
+                        --text="<b>Retry count set!</b>\n\n$RETRY_COUNT attempts" \
+                        --button="OK:0" 2>/dev/null
                 fi
             fi
+            # Force re-open settings
+            CHOICE="8"
             ;;
         "104")  # GitHub Repo
             if command -v xdg-open >/dev/null 2>&1; then
@@ -429,13 +452,17 @@ CONFIG_EOF
                 chromium "https://github.com/socialawkward/social-dl" 2>/dev/null &
             else
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --info --width=400 --window-icon="dialog-information" --title="GitHub Repository" \
-                        --text="<b>Repository URL:</b>\n\n<span foreground='#0969DA'>https://github.com/socialawkward/social-dl</span>"
+                    yad --info --width=400 --image="dialog-information" --title="GitHub Repository" \
+                        --text="<b>Repository URL:</b>\n\n<span foreground='#0969DA'>https://github.com/socialawkward/social-dl</span>" \
+                        --button="OK:0" 2>/dev/null
                 else
-                    zenity --info --width=400 --window-icon="dialog-information" --title="GitHub Repository" \
-                        --text="<b>Repository URL:</b>\n\n<span foreground='#0969DA'>https://github.com/socialawkward/social-dl</span>"
+                    yad --info --width=400 --image="dialog-information" --title="GitHub Repository" \
+                        --text="<b>Repository URL:</b>\n\n<span foreground='#0969DA'>https://github.com/socialawkward/social-dl</span>" \
+                        --button="OK:0" 2>/dev/null
                 fi
             fi
+            # Force re-open settings
+            CHOICE="8"
             ;;
         "105")  # yt-dlp Update
             if [ "$LANG_MODE" = "de" ]; then
@@ -459,7 +486,9 @@ CONFIG_EOF
                 case "$TERMINAL" in
                     konsole)
                         konsole --title "$TERM_TITLE" -e bash -c "$UPDATE_CMD" &
-                        ;;
+            # Force re-open settings
+            CHOICE="8"
+            ;;
                     gnome-terminal|xfce4-terminal)
                         $TERMINAL --title="$TERM_TITLE" -- bash -c "$UPDATE_CMD" &
                         ;;
@@ -469,11 +498,13 @@ CONFIG_EOF
                 esac
             else
                 if [ "$LANG_MODE" = "de" ]; then
-                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
-                        --text="<b>Kein Terminal gefunden!</b>\n\nFühre manuell aus:\n\n<tt>pip install --upgrade yt-dlp</tt>"
+                    yad --info --width=400 --image="dialog-information" --title="Info" \
+                        --text="<b>Kein Terminal gefunden!</b>\n\nFühre manuell aus:\n\n<tt>pip install --upgrade yt-dlp</tt>" \
+                        --button="OK:0" 2>/dev/null
                 else
-                    zenity --info --width=400 --window-icon="dialog-information" --title="Info" \
-                        --text="<b>No terminal found!</b>\n\nRun manually:\n\n<tt>pip install --upgrade yt-dlp</tt>"
+                    yad --info --width=400 --image="dialog-information" --title="Info" \
+                        --text="<b>No terminal found!</b>\n\nRun manually:\n\n<tt>pip install --upgrade yt-dlp</tt>" \
+                        --button="OK:0" 2>/dev/null
                 fi
             fi
             ;;
