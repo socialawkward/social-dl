@@ -2,14 +2,14 @@
 
 # Improved Instagram/Twitter/YouTube/Reddit/TikTok Video/Audio Downloader
 # Features: Clipboard detection, duplicate check, atomic counter, optional Shotcut editing
-# Version: 2.5.0
+# Version: 2.6.0
 
 set -o errexit
 set -o nounset
 set -o pipefail
 
 # Version Info
-SCRIPT_VERSION="2.5.0"
+SCRIPT_VERSION="2.6.0"
 GITHUB_REPO="socialawkward/social-dl"
 
 # Language Detection
@@ -240,13 +240,31 @@ msg() {
     esac
 }
 
-# Konfiguration
-DOWNLOAD_DIR="$HOME/Downloads/Videos"
-AUDIO_DIR="$HOME/Downloads/Audio"
-LOG_FILE="$HOME/.social-dl.log"
+# Konfiguration (Defaults)
+DEFAULT_DOWNLOAD_DIR="$HOME/Downloads/Videos"
+DEFAULT_AUDIO_DIR="$HOME/Downloads/Audio"
+DEFAULT_LOG_FILE="$HOME/.social-dl.log"
+DEFAULT_LOG_MAX_LINES=10000
+DEFAULT_DOWNLOAD_TIMEOUT=300
+DEFAULT_MAX_RETRIES=3
+
+# Config-Datei laden (falls vorhanden)
+CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/social-dl/config"
+
+if [ -f "$CONFIG_FILE" ]; then
+    # shellcheck source=/dev/null
+    source "$CONFIG_FILE"
+    echo "✅ $([ "${SCRIPT_LANG:-en}" = "de" ] && echo "Konfiguration geladen:" || echo "Config loaded:") $CONFIG_FILE" >&2
+fi
+
+# Setze finale Werte (Config überschreibt Defaults)
+DOWNLOAD_DIR="${DOWNLOAD_DIR:-$DEFAULT_DOWNLOAD_DIR}"
+AUDIO_DIR="${AUDIO_DIR:-$DEFAULT_AUDIO_DIR}"
+LOG_FILE="${LOG_FILE:-$DEFAULT_LOG_FILE}"
 LOG_LOCK="$LOG_FILE.lock"
-LOG_MAX_LINES=10000
-DOWNLOAD_TIMEOUT=300
+LOG_MAX_LINES="${LOG_MAX_LINES:-$DEFAULT_LOG_MAX_LINES}"
+DOWNLOAD_TIMEOUT="${DOWNLOAD_TIMEOUT:-$DEFAULT_DOWNLOAD_TIMEOUT}"
+MAX_RETRIES="${MAX_RETRIES:-$DEFAULT_MAX_RETRIES}"
 
 # Cleanup bei Script-Ende (defensive programming)
 cleanup() {
@@ -256,6 +274,20 @@ cleanup() {
     fi
 }
 trap cleanup EXIT
+
+# Lock-File Timeout (entfernt hängende Locks älter als 5 Minuten)
+cleanup_stale_locks() {
+    if [ -f "$LOG_LOCK" ]; then
+        local lock_age
+        lock_age=$(( $(date +%s) - $(stat -c %Y "$LOG_LOCK" 2>/dev/null || echo 0) ))
+        
+        # Wenn Lock älter als 300 Sekunden (5 Minuten)
+        if [ "$lock_age" -gt 300 ]; then
+            echo "⚠️  $([ "$SCRIPT_LANG" = "de" ] && echo "Entferne veraltetes Lock-File (${lock_age}s alt)" || echo "Removing stale lock file (${lock_age}s old)")" >&2
+            rm -f "$LOG_LOCK" 2>/dev/null || true
+        fi
+    fi
+}
 
 # Version Check Funktion
 check_version() {
@@ -580,6 +612,7 @@ else
 fi
 
 # Duplicate-Check
+cleanup_stale_locks
 {
     flock -x 200
     if grep -Fxq "$LINK" "$LOG_FILE"; then
@@ -726,12 +759,19 @@ fi
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 DATE_PREFIX=$(date +"%Y-%m-%d")
 
+cleanup_stale_locks
 {
     flock -x 200
     rotate_log
     COUNTER=$(find "$TARGET_DIR" -maxdepth 1 -type f -name "${DATE_PREFIX}-${SOURCE}-[0-9][0-9][0-9].${FILE_EXT}" 2>/dev/null | wc -l)
     COUNTER=$((COUNTER + 1))
     COUNTER_PAD=$(printf "%03d" "$COUNTER")
+    
+    # Race-Condition Fix: Prüfe ob Datei bereits existiert
+    while ls "$TARGET_DIR/${DATE_PREFIX}-${SOURCE}-${COUNTER_PAD}".* >/dev/null 2>&1; do
+        COUNTER=$((COUNTER + 1))
+        COUNTER_PAD=$(printf "%03d" "$COUNTER")
+    done
 } 200>"$LOG_LOCK"
 
 FILENAME="${TIMESTAMP}-${SOURCE}-${COUNTER_PAD}.${FILE_EXT}"
@@ -810,9 +850,29 @@ fi
 
 # Normaler yt-dlp Download
 if [ "$SKIP_YTDLP" -eq 0 ]; then
-    if ! timeout "$DOWNLOAD_TIMEOUT" yt-dlp "${YTDLP_ARGS[@]}"; then
+    # Retry-Mechanismus: Konfigurierbare Versuche bei Netzwerkfehlern
+    RETRY_COUNT=0
+    DOWNLOAD_SUCCESS=0
+    
+    while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+        if [ $RETRY_COUNT -gt 0 ]; then
+            echo ""
+            echo "🔄 $([ "$SCRIPT_LANG" = "de" ] && echo "Versuch $((RETRY_COUNT + 1))/$MAX_RETRIES..." || echo "Attempt $((RETRY_COUNT + 1))/$MAX_RETRIES...")" >&2
+            sleep 2  # Kurze Pause vor Retry
+        fi
+        
+        if timeout "$DOWNLOAD_TIMEOUT" yt-dlp "${YTDLP_ARGS[@]}"; then
+            DOWNLOAD_SUCCESS=1
+            break
+        fi
+        
+        ((RETRY_COUNT++)) || true
+    done
+    
+    if [ $DOWNLOAD_SUCCESS -eq 0 ]; then
         echo ""
         echo "❌ $(msg "error_download_failed")" >&2
+        echo "   $([ "$SCRIPT_LANG" = "de" ] && echo "Alle $MAX_RETRIES Versuche fehlgeschlagen" || echo "All $MAX_RETRIES attempts failed")" >&2
         notify "$(msg "notif_failed")" "$SOURCE ($DOWNLOAD_TYPE)"
         exit 1
     fi
@@ -862,8 +922,19 @@ if [ "$SKIP_YTDLP" -eq 0 ]; then
     fi
 fi
 
-# Erfolg
+# Erfolg - Validierung
 if [ -s "$FULLPATH" ]; then
+    # Prüfe Mindestgröße (1KB) um korrupte Downloads zu erkennen
+    FILE_SIZE_BYTES=$(stat -c %s "$FULLPATH" 2>/dev/null || echo 0)
+    if [ "$FILE_SIZE_BYTES" -lt 1024 ]; then
+        echo ""
+        echo "❌ $([ "$SCRIPT_LANG" = "de" ] && echo "Datei zu klein (${FILE_SIZE_BYTES} Bytes < 1KB) - möglicherweise korrupt" || echo "File too small (${FILE_SIZE_BYTES} bytes < 1KB) - possibly corrupt")" >&2
+        rm -f "$FULLPATH"
+        notify "$(msg "notif_corrupt")" "$SOURCE ($DOWNLOAD_TYPE)"
+        exit 1
+    fi
+    
+    cleanup_stale_locks
     {
         flock -x 200
         echo "$LINK" >> "$LOG_FILE"
