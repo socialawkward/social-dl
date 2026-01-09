@@ -131,6 +131,11 @@ if [ $LOCAL_INSTALLED -eq 1 ]; then
     rm -f "$HOME/.local/bin/$SCRIPT_NAME"
     rm -f "$HOME/.local/bin/.social-dl-lang"
     rm -f "$HOME/.local/share/applications/$SCRIPT_NAME.desktop"
+    
+    # Desktop-Database aktualisieren
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
+    fi
 fi
 
 # Systemweite Installation entfernen
@@ -143,6 +148,11 @@ if [ $SYSTEM_INSTALLED -eq 1 ]; then
             rm -f '/usr/local/bin/$SCRIPT_NAME'
             rm -f '/usr/local/bin/.social-dl-lang'
             rm -f '/usr/share/applications/$SCRIPT_NAME.desktop'
+            
+            # Desktop-Database aktualisieren
+            if command -v update-desktop-database >/dev/null 2>&1; then
+                update-desktop-database /usr/share/applications 2>/dev/null || true
+            fi
         " || exit 1
     else
         zenity --error \
