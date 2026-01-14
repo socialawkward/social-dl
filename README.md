@@ -10,36 +10,42 @@ Download videos and audio from Instagram, Twitter/X, YouTube, Reddit, and TikTok
 
 ## 🚀 Quick Install
 
-### 📱 Mobile App (All-in-One, NEW!)
+### 📱 Mobile App (All-in-One, Recommended!)
 
 **The easiest method - everything in one file:**
 
-1. **Download:** `social-dl-v2.4.6-app.sh` from [Releases](https://github.com/socialawkward/social-dl/releases)
-2. **Make executable:** `chmod +x social-dl-v2.4.6-app.sh`
-3. **Start:**
-   - **With icon:** Double-click `social-dl-v2.4.6-app.desktop`
-   - **Direct:** `./social-dl-v2.4.6-app.sh`
+1. **Download:** `social-dl-v2.8.0-app.sh` from [Releases](https://github.com/socialawkward/social-dl/releases)
+2. **Make executable:** `chmod +x social-dl-v2.8.0-app.sh`
+3. **Start:** `./social-dl-v2.8.0-app.sh`
 
 **Mobile App Features:**
-- 📱 Smartphone-inspired design
-- 🌍 DE/EN language switcher
+- 📱 Smartphone-inspired design (360x640)
+- 🎨 Modern YAD interface with separate windows
+- ⚙️ Persistent settings menu (stays open after actions)
+- 🌍 DE/EN language switcher (in both menus!)
 - 📥 Install/uninstall with one click
-- 📖 READMEs viewable directly in GUI
-- 🚀 Run directly (test mode)
+- 📖 READMEs & Changelog viewable in GUI
+- 🚀 Quick download mode
 
-### 🖱️ Graphical Installation (classic)
+**Requirements:**
+- **Recommended:** YAD (Yet Another Dialog) for enhanced UI
+  ```bash
+  sudo apt install yad          # Debian/Ubuntu
+  sudo pacman -S yad            # Arch/Manjaro
+  sudo dnf install yad          # Fedora
+  ```
+- **Fallback:** Zenity (auto-detected if YAD not available)
+  ```bash
+  sudo apt install zenity       # Debian/Ubuntu
+  sudo pacman -S zenity         # Arch/Manjaro
+  ```
 
-1. **Download** the complete package (`social-dl-v2.4.6.tar.gz`)
-2. **Extract:** `tar -xzf social-dl-v2.4.6.tar.gz`
+### 🖱️ Graphical Installation (from source)
+
+1. **Download** the complete package (`social-dl-v2.8.0.tar.gz`)
+2. **Extract:** `tar -xzf social-dl-v2.8.0.tar.gz && cd social-dl`
 3. **Double-click** on `social-dl-installer.desktop`
 4. **Done!** Use the program from your application menu
-
-**Note:** Requires `zenity` (usually pre-installed)
-```bash
-# If zenity is missing:
-sudo apt install zenity      # Debian/Ubuntu
-sudo pacman -S zenity        # Arch/Manjaro
-```
 
 ### 📟 Terminal Installation (alternative)
 
@@ -55,9 +61,12 @@ make install-local
 
 ## ✨ Features
 
-- 📱 **Mobile App** - All-in-One GUI with smartphone design (NEW in 2.4.6!)
-- ⚡ **Quick Mode** - 1 keystroke for best quality (NEW in 2.4.6!)
-- 🔄 **Back Function** - Return to main menu anytime (NEW in 2.4.6!)
+- 📱 **Modern YAD Interface** - Separate windows with smart navigation (NEW in v2.8.0!)
+- ⚙️ **Persistent Settings** - Settings menu stays open after actions (NEW in v2.8.0!)
+- 🎨 **Event-Driven Architecture** - Clean, modular action handlers (NEW in v2.8.0!)
+- 🚀 **Mobile App** - All-in-One GUI with smartphone design
+- ⚡ **Quick Mode** - 1 click for best quality download
+- 🔄 **Back Function** - Return to main menu anytime
 - 🎬 **Video Downloads** in selectable quality (Best/1080p/720p/480p)
 - 🎵 **Audio-Only Downloads** as MP3 **with embedded thumbnail** (cover art)
 - 📋 **Clipboard Integration** (automatic URL detection)
@@ -534,14 +543,18 @@ MIT License – see [LICENSE](LICENSE) file.
 
 ## 🙏 Credits
 
-Developed with ❤️:
-- **Grok** (Base & Features)
-- **Claude** (Security & Production-Ready)
-- **Perplexity** (Edge-Cases & Optimizations)
+**Development:**
+- **socialawkward** (Lead Developer & Architect)
+- **Grok (xAI)** (Foundation & Initial Features)
+- **Claude (Anthropic)** (v2.8.0 Architecture, Settings Handlers, YAD Integration)
+- **Claude (Anthropic)** (v2.7.0 Separate Windows UI, Smart Navigation)
+- **Claude (Anthropic)** (Security & Production-Ready)
+- **Perplexity** (Edge-Cases & Code Review)
 
 **Powered by:**
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) – Video downloader
-- [Zenity](https://wiki.gnome.org/Projects/Zenity) – GUI dialogs
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) – Video downloader engine
+- [YAD](https://github.com/v1cont/yad) – Modern GUI dialogs (primary)
+- [Zenity](https://wiki.gnome.org/Projects/Zenity) – GUI dialogs (fallback)
 
 ---
 
