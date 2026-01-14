@@ -20,7 +20,7 @@ show_main_menu() {
             --buttons-layout=center \
             --button="❌ Abbrechen:1" --button="✅ Ok:0" \
             --window-icon="applications-multimedia" \
-            --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
+            --text="\n<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>\n" \
             --column="ID:HD" \
             --column="Icon:IMG:60" \
             --column="Option:TXT:180" \
@@ -31,7 +31,7 @@ show_main_menu() {
             --separator="" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
-            "7" "🚀" "<big><b>AUSFÜHREN</b></big>     " "Direkt starten" \
+            "7" "🚀" "  <span size='large' weight='bold' foreground='#FFFFFF' background='#2E2E2E'>  DOWNLOAD  </span>  " "Direkt starten" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "1" "📥" "Installieren     " "System-Installation" \
@@ -40,8 +40,6 @@ show_main_menu() {
             "4" "📘" "README (EN)     " "English documentation" \
             "5" "📋" "Changelog     " "Versionshistorie" \
             "6" "ℹ️" "Info     " "Über Social-DL" \
-            "@disabled@" "" "" "" \
-            "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
@@ -61,7 +59,7 @@ show_main_menu() {
             --buttons-layout=center \
             --button="❌ Cancel:1" --button="✅ Ok:0" \
             --window-icon="applications-multimedia" \
-            --text="<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>" \
+            --text="\n<big><b>📱 Social-DL</b></big>\n<small>Instagram • Twitter/X • YouTube • Reddit • TikTok</small>\n" \
             --column="ID:HD" \
             --column="Icon:IMG:60" \
             --column="Option:TXT:180" \
@@ -72,7 +70,7 @@ show_main_menu() {
             --separator="" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
-            "7" "🚀" "<big><b>RUN NOW</b></big>     " "Start directly" \
+            "7" "🚀" "  <span size='large' weight='bold' foreground='#FFFFFF' background='#2E2E2E'>  RUN NOW  </span>  " "Start directly" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "1" "📥" "Install     " "System installation" \
@@ -81,8 +79,6 @@ show_main_menu() {
             "4" "📘" "README (EN)     " "English documentation" \
             "5" "📋" "Changelog     " "Version history" \
             "6" "ℹ️" "Info     " "About Social-DL" \
-            "@disabled@" "" "" "" \
-            "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
@@ -109,7 +105,7 @@ show_settings_menu() {
             --buttons-layout=center \
             --button="❌ Abbrechen:1" --button="✅ Ok:0" \
             --window-icon="applications-multimedia" \
-            --text="<big><b>⚙️ Einstellungen</b></big>\n<small>Konfiguration und Anpassungen</small>" \
+            --text="\n<big><b>⚙️ Einstellungen</b></big>\n<small>Konfiguration und Anpassungen</small>\n" \
             --column="ID:HD" \
             --column="Icon:IMG:60" \
             --column="Option:TXT:180" \
@@ -120,16 +116,14 @@ show_settings_menu() {
             --separator="" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
-            "@disabled@" "" "" "" \
+            "7" "🚀" "  <span size='large' weight='bold' foreground='#FFFFFF' background='#2E2E2E'>  DOWNLOAD  </span>  " "Direkt starten" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "101" "📝" "Config bearbeiten     " "Einstellungen anpassen" \
             "102" "📁" "Download-Ordner     " "Zielverzeichnis wählen" \
             "103" "🔄" "Retry-Anzahl     " "Wiederholungsversuche" \
             "104" "🌐" "GitHub Repo     " "Repository öffnen" \
-            "105" "🔧" "yt-dlp Update     " "Downloader aktualisieren" \
-            "@disabled@" "" "" "" \
-            "@disabled@" "" "" "" \
+            "105" "🔍" "System-Check      " "Versionen prüfen" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
@@ -150,7 +144,7 @@ show_settings_menu() {
             --buttons-layout=center \
             --button="❌ Cancel:1" --button="✅ Ok:0" \
             --window-icon="applications-multimedia" \
-            --text="<big><b>⚙️ Settings</b></big>\n<small>Configuration and customization</small>" \
+            --text="\n<big><b>⚙️ Settings</b></big>\n<small>Configuration and customization</small>\n" \
             --column="ID:HD" \
             --column="Icon:IMG:60" \
             --column="Option:TXT:180" \
@@ -161,16 +155,14 @@ show_settings_menu() {
             --separator="" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
-            "@disabled@" "" "" "" \
+            "7" "🚀" "  <span size='large' weight='bold' foreground='#FFFFFF' background='#2E2E2E'>  RUN NOW  </span>  " "Start directly" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "101" "📝" "Edit Config     " "Customize settings" \
             "102" "📁" "Download Folder     " "Choose target directory" \
             "103" "🔄" "Retry Count     " "Set retry attempts" \
             "104" "🌐" "GitHub Repo     " "Open repository" \
-            "105" "🔧" "Update yt-dlp     " "Update downloader" \
-            "@disabled@" "" "" "" \
-            "@disabled@" "" "" "" \
+            "105" "🔍" "System Check      " "Check versions" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
             "@disabled@" "" "" "" \
@@ -214,12 +206,12 @@ show_menu() {
                 choice=$(show_settings_menu "$lang" "$version")
                 local exit_code=$?
                 
-                # Exit settings if cancelled (ESC)
+                # Exit settings AND main app if cancelled with X button
                 if [ $exit_code -ne 0 ]; then
-                    break
+                    return 1  # Exit entire app
                 fi
                 
-                # Empty choice = Cancel button clicked
+                # Empty choice = Cancel button clicked → back to main menu
                 if [ -z "$choice" ]; then
                     break
                 fi
@@ -245,13 +237,44 @@ show_menu() {
                     continue
                 fi
                 
-                # Settings actions (101-105) are returned to main script for handling
-                # After handling, main script should call show_menu again
-                # This keeps the settings loop active
-                if [[ "$choice" =~ ^10[1-5]$ ]]; then
-                    # Return the choice for main script to handle
+                # If Download/Run button (7) clicked in settings, return to main loop
+                if [ "$choice" = "7" ]; then
+                    # Return the choice to main loop so it can handle the download
                     echo "$choice"
                     return 0
+                fi
+                
+                # Settings actions (101-105) - call handlers and stay in loop
+                if [ "$choice" = "101" ]; then
+                    # Config Editor
+                    if type handle_config_edit >/dev/null 2>&1; then
+                        handle_config_edit "$lang" "${TEMP_DIR:-/tmp}"
+                    fi
+                    continue
+                elif [ "$choice" = "102" ]; then
+                    # Download Folder
+                    if type handle_download_folder >/dev/null 2>&1; then
+                        handle_download_folder "$lang"
+                    fi
+                    continue
+                elif [ "$choice" = "103" ]; then
+                    # Retry Count
+                    if type handle_retry_count >/dev/null 2>&1; then
+                        handle_retry_count "$lang"
+                    fi
+                    continue
+                elif [ "$choice" = "104" ]; then
+                    # GitHub Repo
+                    if type handle_github_repo >/dev/null 2>&1; then
+                        handle_github_repo "$lang"
+                    fi
+                    continue
+                elif [ "$choice" = "105" ]; then
+                    # yt-dlp Update
+                    if type handle_ytdlp_update >/dev/null 2>&1; then
+                        handle_ytdlp_update "$lang"
+                    fi
+                    continue
                 fi
                 
                 # Unknown choice in settings - ignore and continue
