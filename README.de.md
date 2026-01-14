@@ -14,9 +14,9 @@ Lade Videos und Audio von Instagram, Twitter/X, YouTube, Reddit und TikTok mit e
 
 **Die einfachste Methode - alles in einer Datei:**
 
-1. **Download:** `social-dl-v2.8.0-app.sh` von [Releases](https://github.com/socialawkward/social-dl/releases)
-2. **Ausführbar machen:** `chmod +x social-dl-v2.8.0-app.sh`
-3. **Starten:** `./social-dl-v2.8.0-app.sh`
+1. **Download:** `social-dl-v2.8.1-app.sh` von [Releases](https://github.com/socialawkward/social-dl/releases)
+2. **Ausführbar machen:** `chmod +x social-dl-v2.8.1-app.sh`
+3. **Starten:** `./social-dl-v2.8.1-app.sh`
 
 **Features der Mobile App:**
 - 📱 Smartphone-inspiriertes Design (360x640)
@@ -42,8 +42,8 @@ Lade Videos und Audio von Instagram, Twitter/X, YouTube, Reddit und TikTok mit e
 
 ### 🖱️ Grafische Installation (aus Quellen)
 
-1. **Download** das komplette Paket (`social-dl-v2.8.0.tar.gz`)
-2. **Entpacken:** `tar -xzf social-dl-v2.8.0.tar.gz && cd social-dl`
+1. **Download** das komplette Paket (`social-dl-v2.8.1.tar.gz`)
+2. **Entpacken:** `tar -xzf social-dl-v2.8.1.tar.gz && cd social-dl`
 3. **Doppelklick** auf `social-dl-installer.desktop`
 4. **Fertig!** Nutze das Programm aus dem Anwendungsmenü
 
