@@ -1,8 +1,8 @@
 # Development Notes & Lessons Learned
 
-**Project:** Social-DL  
-**Version:** 2.4.6  
-**Date:** January 8, 2026  
+**Project:** Social-DL
+**Version:** 2.8.1
+**Date:** January 14, 2026  
 
 This document contains all problems encountered during development and their solutions. These notes are published to help other developers avoid the same pitfalls.
 
@@ -17,6 +17,9 @@ This document contains all problems encountered during development and their sol
 5. [GitHub API: SHA Extraction from JSON](#github-api-sha-extraction-from-json)
 6. [Bash: stdout vs stderr in Functions](#bash-stdout-vs-stderr-in-functions)
 7. [GitHub Releases: Updating Existing Assets](#github-releases-updating-existing-assets)
+8. [Security: Safe Config File Parsing](#security-safe-config-file-parsing)
+9. [Security: Hiding Tokens from Process List](#security-hiding-tokens-from-process-list)
+10. [Security: Secure Temporary Files](#security-secure-temporary-files)
 
 ---
 
@@ -688,6 +691,386 @@ curl -X POST .../assets?name=file.tar.gz
 
 ---
 
+## Security: Safe Config File Parsing
+
+### Problem Statement
+Using `source` to load config files is a **critical security vulnerability** that allows arbitrary code execution.
+
+### Symptoms
+```bash
+# Config file contains:
+DOWNLOAD_DIR="/home/user/Downloads"
+EVIL_COMMAND="$(rm -rf /)"  # Executed when sourced!
+
+# Script uses:
+source "$CONFIG_FILE"  # EXECUTES the rm -rf command!
+```
+
+### Context
+- Many bash scripts use `source` for simplicity
+- Seems harmless for "trusted" config files
+- But user-editable configs can be manipulated
+- Even accidental shell metacharacters cause problems
+
+### Why This Is Critical
+```bash
+# These all execute when sourced:
+VALUE="$(whoami)"           # Command substitution
+VALUE="`id`"                # Backticks
+VALUE="${HOME}/$(rm -rf)"   # Embedded command
+INJECTION="; cat /etc/passwd"  # Command chaining
+```
+
+### Failed Approach ❌
+```bash
+# "Trusting" the config file
+if [ -f "$CONFIG_FILE" ]; then
+    source "$CONFIG_FILE"  # NEVER safe!
+fi
+
+# Even checking ownership doesn't help
+if [ "$(stat -c %U "$CONFIG_FILE")" = "$USER" ]; then
+    source "$CONFIG_FILE"  # Still vulnerable!
+fi
+```
+
+### Solution ✅
+
+**Whitelist-based key validation with safe parsing:**
+
+```bash
+load_config() {
+    local config_file="$1"
+
+    [ ! -f "$config_file" ] && return 0
+
+    # Security: Reject symlinks (symlink attacks)
+    if [ -L "$config_file" ]; then
+        echo "ERROR: Config file cannot be a symlink!" >&2
+        return 1
+    fi
+
+    while IFS='=' read -r key value || [ -n "$key" ]; do
+        # Skip comments and empty lines
+        [[ -z "$key" || "$key" =~ ^[[:space:]]*# ]] && continue
+
+        # Remove leading/trailing whitespace
+        key=$(echo "$key" | xargs)
+        value=$(echo "$value" | xargs)
+
+        # Remove surrounding quotes
+        value="${value#\"}"
+        value="${value%\"}"
+        value="${value#\'}"
+        value="${value%\'}"
+
+        # WHITELIST validation - only known keys!
+        case "$key" in
+            DOWNLOAD_DIR|AUDIO_DIR|LOG_FILE)
+                # Path validation: expand ~ safely
+                value="${value/#\~/$HOME}"
+                # Only set if it looks like a valid path
+                if [[ "$value" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
+                    declare -g "$key=$value"
+                fi
+                ;;
+            MAX_RETRIES|DOWNLOAD_TIMEOUT|LOG_MAX_LINES)
+                # Numeric validation: only digits allowed
+                if [[ "$value" =~ ^[0-9]+$ ]]; then
+                    declare -g "$key=$value"
+                fi
+                ;;
+            # Unknown keys are SILENTLY IGNORED (secure default)
+        esac
+    done < "$config_file"
+}
+
+# Usage:
+load_config "$HOME/.config/myapp/config"
+```
+
+### Why This Works
+- **No `source`** = no code execution
+- **Whitelist** = unknown keys ignored (defense in depth)
+- **Type validation** = paths must match pattern, numbers must be digits
+- **Symlink check** = prevents path traversal attacks
+- **Fails closed** = invalid values don't break script
+
+### Key Takeaways
+1. **NEVER use `source` on user-editable files**
+2. **Use whitelist, not blacklist** for key validation
+3. **Validate value types** (path, number, enum)
+4. **Check for symlinks** before reading
+5. **Fail silently for unknown keys** (don't leak info)
+6. **Use `declare -g`** to set global variables from function
+
+### References
+- OWASP: OS Command Injection
+- ShellCheck: SC1090 (Can't follow non-constant source)
+- CWE-78: Improper Neutralization of Special Elements
+
+---
+
+## Security: Hiding Tokens from Process List
+
+### Problem Statement
+Passing API tokens as command-line arguments exposes them to all users via `ps aux`.
+
+### Symptoms
+```bash
+# This exposes your token:
+curl -H "Authorization: token ghp_xxxxxxxxxxxx" https://api.github.com/...
+
+# Anyone can see it:
+$ ps aux | grep curl
+user  12345  curl -H Authorization: token ghp_xxxxxxxxxxxx https://...
+```
+
+### Context
+- GitHub tokens, API keys, passwords
+- Passed to curl, wget, or other tools
+- Visible in `/proc/*/cmdline` and `ps aux`
+- Even short-lived processes can be captured
+
+### Why This Happens
+- Command-line arguments are stored in process table
+- `/proc/{pid}/cmdline` readable by all users
+- Tools like `ps`, `htop`, `pgrep` display them
+- Process remains visible until curl completes
+
+### Failed Approaches ❌
+
+```bash
+# Environment variable - still visible in /proc/*/environ!
+export GITHUB_TOKEN="ghp_xxx"
+curl -H "Authorization: token $GITHUB_TOKEN" ...
+
+# Inline variable - still expands before execution
+GITHUB_TOKEN="ghp_xxx" curl -H "Authorization: token $GITHUB_TOKEN" ...
+```
+
+### Solution ✅
+
+**Use stdin with heredoc or here-string:**
+
+```bash
+# Method 1: Here-string (preferred for single header)
+curl -s -X GET \
+    -H @- \
+    "https://api.github.com/repos/user/repo" \
+    <<< "Authorization: token $GITHUB_TOKEN"
+
+# Method 2: Heredoc (for multiple headers)
+curl -s -X POST \
+    -H @/dev/stdin \
+    "https://api.github.com/..." \
+    << EOF
+Authorization: token $GITHUB_TOKEN
+Content-Type: application/json
+EOF
+
+# Method 3: Wrapper function
+github_api() {
+    local method="$1"
+    local endpoint="$2"
+    local data="${3:-}"
+
+    if [ -n "$data" ]; then
+        curl -s -X "$method" \
+            -H @- \
+            -H "Content-Type: application/json" \
+            -d "$data" \
+            "${GITHUB_API}${endpoint}" \
+            <<< "Authorization: token $GITHUB_TOKEN"
+    else
+        curl -s -X "$method" \
+            -H @- \
+            "${GITHUB_API}${endpoint}" \
+            <<< "Authorization: token $GITHUB_TOKEN"
+    fi
+}
+
+# Usage:
+response=$(github_api GET "/repos/user/repo")
+response=$(github_api POST "/repos/user/repo/releases" "$json_data")
+```
+
+### Why This Works
+- **`-H @-`** tells curl to read header from stdin
+- **Heredoc/here-string** passes data via pipe, not cmdline
+- **`/proc/*/cmdline`** only shows `curl -H @-` (no token!)
+- **Works with any tool** that supports stdin input
+
+### Verification
+```bash
+# Start a long curl request in background:
+curl -H @- "https://httpbin.org/delay/10" <<< "Authorization: token secret123" &
+
+# Check process list - token NOT visible:
+ps aux | grep curl
+# Shows: curl -H @- https://httpbin.org/delay/10
+# NOT: curl -H Authorization: token secret123
+```
+
+### Key Takeaways
+1. **Never pass secrets as command-line arguments**
+2. **Use `-H @-` with heredoc** for curl headers
+3. **Use `--data-binary @-`** for curl body data
+4. **Create wrapper functions** to enforce secure patterns
+5. **This applies to ALL tools**: wget, httpie, etc.
+
+### References
+- `man curl` (see `-H @filename` and `@-` for stdin)
+- Linux `/proc` filesystem documentation
+- OWASP: Sensitive Data Exposure
+
+---
+
+## Security: Secure Temporary Files
+
+### Problem Statement
+Using predictable temporary file names allows attackers to pre-create files and intercept data (symlink attacks, race conditions).
+
+### Symptoms
+```bash
+# Predictable name:
+TEMP_FILE="/tmp/myapp-$$.json"  # $$ = Process ID
+
+# Attacker pre-creates symlink:
+ln -s /etc/passwd /tmp/myapp-12345.json
+
+# Your script writes to it... overwrites /etc/passwd!
+echo "$data" > "$TEMP_FILE"
+```
+
+### Context
+- Scripts creating temporary files in `/tmp`
+- Using predictable patterns: `$$`, `$USER`, timestamps
+- Shared `/tmp` directory (all users can write)
+- Race condition between check and use
+
+### Why This Is Dangerous
+```bash
+# Attacker waits for your script to run, predicts PID:
+for pid in $(seq 10000 20000); do
+    ln -sf /etc/cron.d/backdoor "/tmp/myapp-$pid.json"
+done
+
+# Your script runs with PID 15432
+# Writes to /tmp/myapp-15432.json → actually /etc/cron.d/backdoor
+# Attacker now has cron job running as your user
+```
+
+### Failed Approaches ❌
+
+```bash
+# Predictable patterns:
+TEMP="/tmp/myapp-$$.json"           # PID is guessable
+TEMP="/tmp/myapp-$USER.json"        # Username is known
+TEMP="/tmp/myapp-$(date +%s).json"  # Timestamp predictable
+
+# Check-then-use race condition:
+if [ ! -f "$TEMP" ]; then    # Attacker creates file HERE
+    echo "data" > "$TEMP"    # Too late - writing to attacker's file
+fi
+```
+
+### Solution ✅
+
+**Use `mktemp` with secure permissions:**
+
+```bash
+# Single file:
+create_secure_temp() {
+    local template="${1:-/tmp/myapp-XXXXXX}"
+    local tmpfile
+
+    tmpfile=$(mktemp "$template")
+    chmod 600 "$tmpfile"  # Owner read/write only
+    echo "$tmpfile"
+}
+
+# Directory:
+create_secure_temp_dir() {
+    local template="${1:-/tmp/myapp-XXXXXX}"
+    local tmpdir
+
+    tmpdir=$(mktemp -d "$template")
+    chmod 700 "$tmpdir"  # Owner only
+    echo "$tmpdir"
+}
+
+# Usage:
+TEMP_FILE=$(create_secure_temp)
+TEMP_DIR=$(create_secure_temp_dir)
+
+# ALWAYS cleanup with trap:
+trap 'rm -rf "$TEMP_FILE" "$TEMP_DIR"' EXIT
+```
+
+### Complete Pattern
+
+```bash
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+# Secure temp with guaranteed cleanup
+TEMP_DIR=""
+TEMP_FILE=""
+
+cleanup() {
+    [ -n "$TEMP_FILE" ] && rm -f "$TEMP_FILE"
+    [ -n "$TEMP_DIR" ] && rm -rf "$TEMP_DIR"
+}
+trap cleanup EXIT
+
+# Create secure temp file
+TEMP_FILE=$(mktemp /tmp/myapp-XXXXXX.json)
+chmod 600 "$TEMP_FILE"
+
+# Create secure temp directory
+TEMP_DIR=$(mktemp -d /tmp/myapp-XXXXXX)
+chmod 700 "$TEMP_DIR"
+
+# Use them safely
+echo '{"data": "secret"}' > "$TEMP_FILE"
+cp important.txt "$TEMP_DIR/"
+
+# Script exits → trap runs → cleanup happens
+```
+
+### Why `mktemp` Works
+- **Atomically creates file** with random name (no race condition)
+- **Fails if file exists** (no overwrite)
+- **6 random characters** = 62^6 = 56 billion combinations
+- **Creates with 600 permissions** by default
+
+### Key Takeaways
+1. **Always use `mktemp`** for temporary files
+2. **Never use predictable patterns** (`$$`, `$USER`, timestamps)
+3. **Set strict permissions** (600 for files, 700 for dirs)
+4. **Always use `trap ... EXIT`** for cleanup
+5. **Initialize variables** before trap to avoid errors
+6. **Use `-d` flag** for directories
+
+### Bonus: Detecting Insecure Patterns
+
+```bash
+# Find scripts with insecure temp files:
+grep -r '/tmp/.*\$\$' *.sh
+grep -r '/tmp/.*\$USER' *.sh
+grep -r 'TEMP.*=/tmp/' *.sh | grep -v mktemp
+```
+
+### References
+- `man mktemp`
+- CWE-377: Insecure Temporary File
+- CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition
+
+---
+
 ## Additional Notes
 
 ### Development Environment
@@ -741,7 +1124,7 @@ Found another pitfall or better solution? Please contribute:
 
 This document is part of the Social-DL project and is released under the MIT License.
 
-**Last Updated:** January 8, 2026  
+**Last Updated:** January 14, 2026
 **Contributors:** Development team & community
 
 ---

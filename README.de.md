@@ -509,16 +509,17 @@ social-dl/
 
 ## 📝 Versionshistorie
 
-**Aktuelle Version:** 2.7.0 (2026-01-09)
+**Aktuelle Version:** 2.8.1 (2026-01-14)
 
 Für detaillierte Release Notes und vollständige Versionshistorie, siehe **[CHANGELOG.md](CHANGELOG.md)** (Englisch).
 
 ### Aktuelle Highlights
 
+- **v2.8.1:** Security-Hardening (Config-Injection-Fix, Token-Schutz, sichere Temp-Dateien)
+- **v2.8.0:** Settings-Handler-Architektur, Event-Driven Einstellungsmenü, persistente Einstellungen
 - **v2.7.0:** YAD-Support (verbesserte GUI), separate Fenster, Einstellungs-Fenster, smarte Navigation
 - **v2.6.0:** Retry-Mechanismus, Konfigurationsdatei, verbesserte Robustheit
 - **v2.5.0:** English-First Ansatz, separater Changelog, verbesserte Mobile App
-- **v2.8.0:** Mobile App mit Smartphone-Design, Development Notes veröffentlicht
 
 ---
 
@@ -569,6 +570,6 @@ Dieses Tool ist für den **persönlichen, legalen Gebrauch** gedacht.
 
 ---
 
-**Version:** 2.8.0  
-**Letzte Aktualisierung:** 08. Januar 2026  
+**Version:** 2.8.1
+**Letzte Aktualisierung:** 14. Januar 2026  
 **Status:** Production-Ready 🎉

@@ -2,14 +2,14 @@
 
 # Improved Instagram/Twitter/YouTube/Reddit/TikTok Video/Audio Downloader
 # Features: Clipboard detection, duplicate check, atomic counter, optional Shotcut editing
-# Version: 2.7.0
+# Version: 2.8.1
 
 set -o errexit
 set -o nounset
 set -o pipefail
 
 # Version Info
-SCRIPT_VERSION="2.8.0"
+SCRIPT_VERSION="2.8.1"
 GITHUB_REPO="socialawkward/social-dl"
 
 # Language Detection

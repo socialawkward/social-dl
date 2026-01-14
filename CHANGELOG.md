@@ -7,6 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.8.1] - 2026-01-14
+
+### Security
+- **Critical: Config File Injection Fixed:** Replaced unsafe `source $CONFIG_FILE` with whitelist-based parsing
+  - Only known keys (DOWNLOAD_DIR, AUDIO_DIR, etc.) are accepted
+  - Values validated by type (paths, numbers)
+  - Symlink attacks prevented
+  - Command injection via config values no longer possible
+- **Token Exposure Fixed:** API tokens no longer visible in process list (`ps aux`)
+  - Uses `curl -H @-` with heredoc instead of command-line arguments
+  - New `github_api()` wrapper function enforces secure pattern
+- **Secure Temporary Files:** All temp files now use `mktemp` with proper permissions
+  - Predictable `/tmp/app-$$.json` patterns replaced
+  - Cleanup guaranteed via `trap ... EXIT`
+  - Permissions set to 600 (files) / 700 (directories)
+- **Debug Output Control:** Sensitive debug output now behind `DEBUG=1` flag
+
+### Added
+- **lib/common.sh:** Shared security functions for all scripts
+  - `create_secure_temp()` / `create_secure_temp_dir()`
+  - `check_file_permissions()` - world-writable detection
+  - `is_symlink()` - symlink attack prevention
+  - `validate_url()` - URL sanitization
+- **Development Notes:** 3 new security sections documenting vulnerabilities and solutions
+  - Safe Config File Parsing
+  - Hiding Tokens from Process List
+  - Secure Temporary Files
+
+### Changed
+- **All Scripts:** Added `set -o errexit/nounset/pipefail` safety flags
+- **install-gui.sh / uninstall-gui.sh:** Added input validation for language parameter
+- **settings-handlers.sh:** Safe config updates with backup/restore on failure
+- **upload-to-github.sh:** JSON escaping via `jq` to prevent injection
+
+### Fixed
+- **Config Parsing:** Invalid/malicious config values now safely ignored
+- **Path Expansion:** Tilde (`~`) expansion done safely without shell evaluation
+
+### Documentation
+- README.md / README.de.md: Version updated to 2.8.0, dates corrected
+- DEVELOPMENT-NOTES.md: Updated with 3 security best practices sections
+
+---
+
 ## [2.8.0] - 2026-01-10
 
 ### Added

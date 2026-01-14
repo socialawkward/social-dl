@@ -78,6 +78,8 @@ make install-local
 - 📁 **Automatic Log Rotation** (with 3 backups)
 - 🛡️ **Security-Hardened** (URL sanitization, timeouts)
 - 🐟 **Multi-Shell Support** (Bash, Zsh, Fish)
+- 🔄 **Version-Check** (`--check-update`)
+- 🧹 **Tracking Parameter Removal** (utm_source, fbclid, igsh, etc.)
 - 🌍 **Multilingual** (German/English)
 - 📦 **Reddit CDN Support** (direct download for preview.redd.it, v.redd.it, i.redd.it)
 - 🐦 **Twitter/X Optimized** (special handling for videos with/without audio)
@@ -508,16 +510,17 @@ social-dl/
 
 ## 📝 Version History
 
-**Current Version:** 2.7.0 (2026-01-09)
+**Current Version:** 2.8.1 (2026-01-14)
 
 For detailed release notes and version history, see **[CHANGELOG.md](CHANGELOG.md)**.
 
 ### Recent Highlights
 
+- **v2.8.1:** Security hardening (config injection fix, token protection, secure temp files)
+- **v2.8.0:** Settings handler architecture, event-driven settings menu, persistent settings
 - **v2.7.0:** YAD support (enhanced GUI), separate windows UI, settings window, smart navigation
 - **v2.6.0:** Retry mechanism, config file support, enhanced robustness
 - **v2.5.0:** English-first approach, separate changelog, enhanced mobile app
-- **v2.4.6:** Mobile app with smartphone design, development notes published
 
 ---
 
@@ -568,6 +571,6 @@ This tool is intended for **personal, legal use**.
 
 ---
 
-**Version:** 2.4.6  
-**Last Update:** January 08, 2026  
+**Version:** 2.8.1
+**Last Update:** January 14, 2026
 **Status:** Production-Ready 🎉
