@@ -10,36 +10,42 @@ Lade Videos und Audio von Instagram, Twitter/X, YouTube, Reddit und TikTok mit e
 
 ## 🚀 Quick Install
 
-### 📱 Mobile App (All-in-One, NEU!)
+### 📱 Mobile App (All-in-One, Empfohlen!)
 
 **Die einfachste Methode - alles in einer Datei:**
 
-1. **Download:** `social-dl-v2.4.6-app.sh` von [Releases](https://github.com/socialawkward/social-dl/releases)
-2. **Ausführbar machen:** `chmod +x social-dl-v2.4.6-app.sh`
-3. **Starten:**
-   - **Mit Icon:** Doppelklick auf `social-dl-v2.4.6-app.desktop`
-   - **Direkt:** `./social-dl-v2.4.6-app.sh`
+1. **Download:** `social-dl-v2.8.0-app.sh` von [Releases](https://github.com/socialawkward/social-dl/releases)
+2. **Ausführbar machen:** `chmod +x social-dl-v2.8.0-app.sh`
+3. **Starten:** `./social-dl-v2.8.0-app.sh`
 
 **Features der Mobile App:**
-- 📱 Smartphone-inspiriertes Design
-- 🌍 DE/EN Sprachumschaltung
+- 📱 Smartphone-inspiriertes Design (360x640)
+- 🎨 Modernes YAD-Interface mit separaten Fenstern
+- ⚙️ Persistente Einstellungen (bleiben nach Aktionen offen)
+- 🌍 DE/EN Sprachumschaltung (in beiden Menüs!)
 - 📥 Installation/Deinstallation per Klick
-- 📖 READMEs direkt anzeigbar
-- 🚀 Direkt ausführbar (Test-Modus)
+- 📖 READMEs & Changelog direkt anzeigbar
+- 🚀 Schneller Download-Modus
 
-### 🖱️ Grafische Installation (klassisch)
+**Voraussetzungen:**
+- **Empfohlen:** YAD (Yet Another Dialog) für verbesserte Oberfläche
+  ```bash
+  sudo apt install yad          # Debian/Ubuntu
+  sudo pacman -S yad            # Arch/Manjaro/CachyOS
+  sudo dnf install yad          # Fedora
+  ```
+- **Fallback:** Zenity (wird automatisch erkannt falls YAD fehlt)
+  ```bash
+  sudo apt install zenity       # Debian/Ubuntu
+  sudo pacman -S zenity         # Arch/Manjaro/CachyOS
+  ```
 
-1. **Download** das komplette Paket (`social-dl-v2.4.6.tar.gz`)
-2. **Entpacken:** `tar -xzf social-dl-v2.4.6.tar.gz`
+### 🖱️ Grafische Installation (aus Quellen)
+
+1. **Download** das komplette Paket (`social-dl-v2.8.0.tar.gz`)
+2. **Entpacken:** `tar -xzf social-dl-v2.8.0.tar.gz && cd social-dl`
 3. **Doppelklick** auf `social-dl-installer.desktop`
 4. **Fertig!** Nutze das Programm aus dem Anwendungsmenü
-
-**Hinweis:** Benötigt `zenity` (meist vorinstalliert)
-```bash
-# Falls zenity fehlt:
-sudo apt install zenity      # Debian/Ubuntu
-sudo pacman -S zenity        # Arch/Manjaro/CachyOS
-```
 
 ### 📟 Terminal-Installation (alternativ)
 
@@ -55,9 +61,12 @@ make install-local
 
 ## ✨ Features
 
-- 📱 **Mobile App** - All-in-One GUI mit Smartphone-Design (NEU in 2.4.6!)
-- ⚡ **Quick Mode** - 1 Tastendruck für beste Qualität (NEU in 2.4.6!)
-- 🔄 **Zurück-Funktion** - Jederzeit zum Hauptmenü zurück (NEU in 2.4.6!)
+- 📱 **Modernes YAD-Interface** - Separate Fenster mit smarter Navigation (NEU in v2.8.0!)
+- ⚙️ **Persistente Einstellungen** - Menü bleibt nach Aktionen offen (NEU in v2.8.0!)
+- 🎨 **Event-Driven Architektur** - Saubere, modulare Action-Handler (NEU in v2.8.0!)
+- 🚀 **Mobile App** - All-in-One GUI mit Smartphone-Design
+- ⚡ **Quick Mode** - 1 Klick für beste Qualität
+- 🔄 **Zurück-Funktion** - Jederzeit zum Hauptmenü zurück
 - 🎬 **Video-Downloads** in wählbarer Qualität (Best/1080p/720p/480p)
 - 🎵 **Audio-Only Downloads** als MP3 **mit eingebettetem Thumbnail** (Cover-Art)
 - 📋 **Clipboard-Integration** (automatische URL-Erkennung)
@@ -509,7 +518,7 @@ Für detaillierte Release Notes und vollständige Versionshistorie, siehe **[CHA
 - **v2.7.0:** YAD-Support (verbesserte GUI), separate Fenster, Einstellungs-Fenster, smarte Navigation
 - **v2.6.0:** Retry-Mechanismus, Konfigurationsdatei, verbesserte Robustheit
 - **v2.5.0:** English-First Ansatz, separater Changelog, verbesserte Mobile App
-- **v2.4.6:** Mobile App mit Smartphone-Design, Development Notes veröffentlicht
+- **v2.8.0:** Mobile App mit Smartphone-Design, Development Notes veröffentlicht
 
 ---
 
@@ -535,14 +544,18 @@ MIT License – siehe [LICENSE](LICENSE) Datei.
 
 ## 🙏 Credits
 
-Entwickelt mit ❤️:
-- **Grok** (Basis & Features)
-- **Claude** (Security & Production-Ready)  
-- **Perplexity** (Edge-Cases & Optimierungen)
+**Entwicklung:**
+- **socialawkward** (Lead Developer & Architekt)
+- **Grok (xAI)** (Fundament & Initiale Features)
+- **Claude (Anthropic)** (v2.8.0 Architektur, Settings Handler, YAD Integration)
+- **Claude (Anthropic)** (v2.7.0 Separate Windows UI, Smart Navigation)
+- **Claude (Anthropic)** (Security & Production-Ready)  
+- **Perplexity** (Edge-Cases & Code-Review)
 
 **Powered by:**
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) – Video-Downloader
-- [Zenity](https://wiki.gnome.org/Projects/Zenity) – GUI-Dialoge
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) – Video-Downloader-Engine
+- [YAD](https://github.com/v1cont/yad) – Moderne GUI-Dialoge (primär)
+- [Zenity](https://wiki.gnome.org/Projects/Zenity) – GUI-Dialoge (Fallback)
 
 ---
 
@@ -556,6 +569,6 @@ Dieses Tool ist für den **persönlichen, legalen Gebrauch** gedacht.
 
 ---
 
-**Version:** 2.4.6  
+**Version:** 2.8.0  
 **Letzte Aktualisierung:** 08. Januar 2026  
 **Status:** Production-Ready 🎉
