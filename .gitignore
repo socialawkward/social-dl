@@ -1,0 +1,21 @@
+# Development notes (local only)
+ANALYSE.md
+BUGFIX-SUMMARY-*.md
+GITHUB-RELEASE-DESCRIPTION.md
+RELEASE-NOTES-*.md
+YAD-EXPERIMENT.md
+_Context Promt/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Editor files
+*~
+.*.swp
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
