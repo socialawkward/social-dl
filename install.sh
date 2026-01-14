@@ -27,7 +27,22 @@ ICON_SPARKLES="✨"
 
 # Variablen
 SCRIPT_NAME="social-dl"
-TEMP_DIR="/tmp/social-dl-install-$$"
+# SICHER: mktemp statt vorhersagbarem PID-Pattern
+TEMP_DIR=""
+
+# Sichere Temp-Verzeichnis-Erstellung
+create_secure_temp() {
+    TEMP_DIR=$(mktemp -d /tmp/social-dl-install-XXXXXX)
+    chmod 700 "$TEMP_DIR"
+}
+
+# Cleanup bei Exit
+cleanup_temp() {
+    if [ -n "${TEMP_DIR:-}" ] && [ -d "$TEMP_DIR" ]; then
+        rm -rf "$TEMP_DIR"
+    fi
+}
+trap cleanup_temp EXIT
 
 # Helper-Funktionen
 print_header() {
@@ -430,8 +445,8 @@ main() {
         exit 1
     fi
 
-    # Temp-Verzeichnis erstellen
-    mkdir -p "$TEMP_DIR"
+    # Temp-Verzeichnis sicher erstellen
+    create_secure_temp
 
     # Script holen (aus aktuellem Verzeichnis)
     if [ -f "./social-dl.sh" ]; then

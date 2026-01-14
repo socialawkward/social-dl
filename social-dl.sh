@@ -248,13 +248,90 @@ DEFAULT_LOG_MAX_LINES=10000
 DEFAULT_DOWNLOAD_TIMEOUT=300
 DEFAULT_MAX_RETRIES=3
 
-# Config-Datei laden (falls vorhanden)
+# Config-Datei laden (falls vorhanden) - SICHER ohne source
 CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/social-dl/config"
 
+# Sichere Config-Parsing-Funktion (verhindert Code-Injection)
+load_config() {
+    local config_file="$1"
+    [ ! -f "$config_file" ] && return 0
+
+    # Sicherheitscheck: Keine Symlinks erlauben
+    if [ -L "$config_file" ]; then
+        echo "⚠️  $([ "${SCRIPT_LANG:-en}" = "de" ] && echo "Config-Datei darf kein Symlink sein!" || echo "Config file must not be a symlink!")" >&2
+        return 1
+    fi
+
+    # Sicherheitscheck: Nur vom User beschreibbar
+    local file_perms
+    file_perms=$(stat -c %a "$config_file" 2>/dev/null || echo "000")
+    if [[ "$file_perms" =~ [2367]$ ]]; then
+        echo "⚠️  $([ "${SCRIPT_LANG:-en}" = "de" ] && echo "Config-Datei hat unsichere Berechtigungen! Sollte nicht world-writable sein." || echo "Config file has insecure permissions! Should not be world-writable.")" >&2
+    fi
+
+    while IFS='=' read -r key value || [ -n "$key" ]; do
+        # Leerzeilen und Kommentare überspringen
+        [[ -z "$key" || "$key" =~ ^[[:space:]]*# ]] && continue
+
+        # Whitespace trimmen
+        key="${key#"${key%%[![:space:]]*}"}"
+        key="${key%"${key##*[![:space:]]}"}"
+        value="${value#"${value%%[![:space:]]*}"}"
+        value="${value%"${value##*[![:space:]]}"}"
+
+        # Quotes entfernen
+        value="${value%\"}"
+        value="${value#\"}"
+        value="${value%\'}"
+        value="${value#\'}"
+
+        # Nur erlaubte Keys akzeptieren (Whitelist)
+        case "$key" in
+            DOWNLOAD_DIR)
+                # Pfad-Validierung: keine gefährlichen Zeichen
+                if [[ "$value" =~ ^[a-zA-Z0-9_./-]+$ ]] || [[ "$value" =~ ^\$HOME ]] || [[ "$value" =~ ^~ ]]; then
+                    # Expandiere $HOME und ~
+                    value="${value/\$HOME/$HOME}"
+                    value="${value/#\~/$HOME}"
+                    DOWNLOAD_DIR="$value"
+                fi
+                ;;
+            AUDIO_DIR)
+                if [[ "$value" =~ ^[a-zA-Z0-9_./-]+$ ]] || [[ "$value" =~ ^\$HOME ]] || [[ "$value" =~ ^~ ]]; then
+                    value="${value/\$HOME/$HOME}"
+                    value="${value/#\~/$HOME}"
+                    AUDIO_DIR="$value"
+                fi
+                ;;
+            LOG_FILE)
+                if [[ "$value" =~ ^[a-zA-Z0-9_./-]+$ ]] || [[ "$value" =~ ^\$HOME ]] || [[ "$value" =~ ^~ ]]; then
+                    value="${value/\$HOME/$HOME}"
+                    value="${value/#\~/$HOME}"
+                    LOG_FILE="$value"
+                fi
+                ;;
+            MAX_RETRIES)
+                [[ "$value" =~ ^[0-9]+$ ]] && MAX_RETRIES="$value"
+                ;;
+            DOWNLOAD_TIMEOUT)
+                [[ "$value" =~ ^[0-9]+$ ]] && DOWNLOAD_TIMEOUT="$value"
+                ;;
+            LOG_MAX_LINES)
+                [[ "$value" =~ ^[0-9]+$ ]] && LOG_MAX_LINES="$value"
+                ;;
+            *)
+                # Unbekannte Keys werden ignoriert (keine Warnung um Spam zu vermeiden)
+                ;;
+        esac
+    done < "$config_file"
+
+    return 0
+}
+
 if [ -f "$CONFIG_FILE" ]; then
-    # shellcheck source=/dev/null
-    source "$CONFIG_FILE"
-    echo "✅ $([ "${SCRIPT_LANG:-en}" = "de" ] && echo "Konfiguration geladen:" || echo "Config loaded:") $CONFIG_FILE" >&2
+    if load_config "$CONFIG_FILE"; then
+        echo "✅ $([ "${SCRIPT_LANG:-en}" = "de" ] && echo "Konfiguration geladen:" || echo "Config loaded:") $CONFIG_FILE" >&2
+    fi
 fi
 
 # Setze finale Werte (Config überschreibt Defaults)

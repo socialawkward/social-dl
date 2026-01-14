@@ -2,11 +2,15 @@
 
 # Social-DL GUI Uninstaller (Multilingual)
 # Grafische Deinstallation mit Zenity (kein Terminal nötig)
-# Version: 1.1
+# Version: 1.2 (Security Fixes)
 
+set -o errexit
+set -o nounset
 set -o pipefail
 
-SCRIPT_NAME="social-dl"
+# Konstante
+readonly SCRIPT_NAME="social-dl"
+readonly VALID_LANGS="en de"
 
 # Language Selection
 select_language() {
@@ -23,6 +27,22 @@ select_language() {
 LANG_CHOICE=$(select_language)
 if [ -z "$LANG_CHOICE" ]; then
     exit 0
+fi
+
+# SICHERHEIT: Validiere Sprachwahl (Whitelist)
+validate_lang() {
+    local lang="$1"
+    for valid in $VALID_LANGS; do
+        if [ "$lang" = "$valid" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+if ! validate_lang "$LANG_CHOICE"; then
+    zenity --error --title="Error" --text="Invalid language selection!"
+    exit 1
 fi
 
 # Translations
