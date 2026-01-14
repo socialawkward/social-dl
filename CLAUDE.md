@@ -2,9 +2,9 @@
 
 This document provides comprehensive context for Claude instances working on Social-DL.
 
-**Last Updated:** 2026-01-10
-**Current Version:** v2.8.0
-**Status:** Production-ready, fully tested
+**Last Updated:** 2026-01-14
+**Current Version:** v2.7.0
+**Status:** Production-ready
 
 ---
 
@@ -24,7 +24,6 @@ This document provides comprehensive context for Claude instances working on Soc
 **Development:**
 - **socialawkward** (Lead Developer & Architect)
 - **Grok (xAI)** (Foundation & Initial Features)
-- **Claude (Anthropic)** (v2.8.0 Architecture, Settings Handlers, YAD Integration)
 - **Claude (Anthropic)** (v2.7.0 Separate Windows UI, Smart Navigation)
 - **Claude (Anthropic)** (Security & Production-Ready)
 - **Perplexity** (Edge-Cases & Code Review)
@@ -52,11 +51,6 @@ This document provides comprehensive context for Claude instances working on Soc
 
 # Testing the GUI
 ./ui/test-mobile-ui.sh            # Test mobile app UI standalone
-
-# Build and release
-./upload-to-github.sh             # Interactive menu
-./upload-to-github.sh --local     # Build only (fast testing)
-./upload-to-github.sh --upload    # Full release
 ```
 
 ---
@@ -67,30 +61,29 @@ This document provides comprehensive context for Claude instances working on Soc
 
 ```
 social-dl/
-├── social-dl.sh              # Main download script (yt-dlp wrapper)
-├── upload-to-github.sh       # Build & release automation
-├── settings-handlers.sh      # Event-driven settings actions
+├── social-dl.sh              # Main download script (~960 lines, yt-dlp wrapper)
 ├── install.sh                # CLI installer
 ├── install-gui.sh            # GUI installer (Zenity)
 ├── uninstall-gui.sh          # GUI uninstaller (Zenity)
 ├── config.example            # Configuration template
+├── Makefile                  # Build system
 ├── ui/
 │   ├── mobile-app-ui-yad-tabs.sh     # YAD UI module (primary)
 │   ├── mobile-app-ui-yad.sh          # Simple YAD version
 │   ├── mobile-app-ui-zenity.sh       # Zenity UI module (fallback)
 │   └── test-mobile-ui.sh             # Standalone UI tester
 ├── CHANGELOG.md
-├── README.md (English)
-├── README.de.md (German)
-├── DEVELOPMENT-NOTES.md
+├── README.md                 # English documentation
+├── README.de.md              # German documentation
+├── DEVELOPMENT-NOTES.md      # Lessons learned
 └── LICENSE
 ```
 
-### Generated Files
+### Generated/Release Files
 
 ```
 social-dl-v{VERSION}-app.sh   # Self-contained executable (all files embedded as Base64)
-social-dl-v{VERSION}.tar.gz   # Source package (includes app)
+social-dl-v{VERSION}.tar.gz   # Source package
 ```
 
 ---
@@ -135,84 +128,6 @@ SCRIPT_LANG="de"                        # Language: "de" or "en"
 | YouTube | Videos, Shorts (no playlists) |
 | Reddit | Posts, CDN links (v.redd.it, preview.redd.it) |
 | TikTok | Videos (often without watermark) |
-
----
-
-## v2.8.0 Major Changes (Current)
-
-### 1. Event-Driven Settings Architecture
-
-**File:** `settings-handlers.sh`
-
-Settings menu now stays open after executing actions. Clean separation of UI logic vs business logic.
-
-**Pattern:**
-```bash
-# Handler definition
-handle_config_edit() {
-    local lang_mode="$1"
-    local temp_dir="$2"
-    # ... implementation
-}
-export -f handle_config_edit
-
-# UI module calls it
-if [ "$choice" = "101" ]; then
-    handle_config_edit "$lang" "${TEMP_DIR:-/tmp}"
-    continue  # Stay in settings loop!
-fi
-```
-
-**Handlers:**
-- `handle_config_edit()` - Opens config in text editor
-- `handle_download_folder()` - YAD folder picker
-- `handle_retry_count()` - YAD entry dialog
-- `handle_github_repo()` - Opens browser
-- `handle_ytdlp_update()` - **System-Check** (shows versions, NO auto-update!)
-
-### 2. System-Check (NOT System-Update!)
-
-**IMPORTANT:** Does NOT auto-update! Only shows installed versions.
-
-**Detects package manager:**
-- pacman (Arch/Manjaro/CachyOS) → Shows `sudo pacman -Syu`
-- apt (Debian/Ubuntu) → Shows `sudo apt update && sudo apt upgrade`
-- dnf (Fedora) → Shows `sudo dnf upgrade`
-
-### 3. DOWNLOAD Button in Both Menus
-
-Visual highlight with dark background, present in BOTH main menu and settings menu.
-
----
-
-## Button ID Mappings
-
-### Main Menu (IDs 1-9):
-
-| ID | Icon | German | English | Action |
-|----|------|--------|---------|--------|
-| 7 | 🚀 | DOWNLOAD | RUN NOW | Start social-dl.sh in terminal |
-| 1 | 📥 | Installieren | Install | Run install-gui.sh |
-| 2 | 🗑️ | Deinstallieren | Uninstall | Run uninstall-gui.sh |
-| 3 | 📖 | README (DE) | README (DE) | Show README.de.md |
-| 4 | 📘 | README (EN) | README (EN) | Show README.md |
-| 5 | 📋 | Changelog | Changelog | Show CHANGELOG.md |
-| 6 | ℹ️ | Info | Info | Show about dialog |
-| 8 | ⚙️ | Einstellungen | Settings | Open settings window |
-| 9 | 🌐 | Sprache | Language | Toggle DE/EN |
-
-### Settings Menu (IDs 100-105, 7, 9):
-
-| ID | Icon | German | English | Action |
-|----|------|--------|---------|--------|
-| 7 | 🚀 | DOWNLOAD | RUN NOW | Return to main, start download |
-| 101 | 📝 | Config bearbeiten | Edit Config | Open config in editor |
-| 102 | 📁 | Download-Ordner | Download Folder | YAD folder picker |
-| 103 | 🔄 | Retry-Anzahl | Retry Count | YAD entry dialog |
-| 104 | 🌐 | GitHub Repo | GitHub Repo | Open in browser |
-| 105 | 🔍 | System-Check | System Check | Show versions |
-| 100 | ← | Zurück | Back | Return to main menu |
-| 9 | 🌐 | English/Deutsch | Deutsch/English | Toggle language |
 
 ---
 
@@ -269,30 +184,30 @@ YYYY-MM-DD_HH-MM-SS-PLATFORM-XXX.ext
 Example: 2026-01-08_14-30-15-YouTube-001.mp4
 ```
 
-### Smart Navigation Design
-```
-Main menu line 20: ⚙️ Einstellungen →
-Settings line 20: ← Zurück
-```
-When user clicks "Settings", mouse automatically lands on "Back" button - no mouse movement needed!
+---
+
+## Security Features
+
+The codebase implements several security hardening measures:
+
+### URL Sanitization (`sanitize_url()`)
+- Rejects non-printable characters
+- Blocks dangerous shell characters: `; | \` $ < > ( ) { }`
+- Allows `&` for valid URL query parameters
+
+### Safe File Operations
+- All variables properly quoted in `rm`, `mv`, `cp` operations
+- Temp files use PID-based naming (`$$`) for uniqueness
+- Cleanup via `trap cleanup EXIT`
+
+### No Dangerous Patterns
+- No `eval` usage
+- No backtick command substitution in user input paths
+- No hardcoded credentials
 
 ---
 
 ## Development Workflow
-
-### Quick Testing (Local Build)
-```bash
-./upload-to-github.sh --local
-./social-dl-v2.8.0-app.sh
-```
-
-### Full Release
-```bash
-./upload-to-github.sh --upload
-# OR interactively:
-./upload-to-github.sh
-# → Choose option 2
-```
 
 ### Testing UI Changes
 ```bash
@@ -332,6 +247,10 @@ After uninstallation, desktop shortcuts may persist due to DE caching:
 3. **Empty row highlighting in YAD** - Known limitation, handled gracefully
 4. **Cancel returns exit code 0** - Check empty string first, then exit code
 
+### Version Inconsistencies (README.md)
+- Some references to v2.4.6 remain in README.md (download examples)
+- Should be updated to current version
+
 ---
 
 ## Files to Update for New Version
@@ -341,20 +260,17 @@ When releasing a new version:
 2. `CHANGELOG.md` - Add new version entry
 3. `README.md` - Update version references, new features
 4. `README.de.md` - Same as above (German)
-5. `upload-to-github.sh` - Info dialog version (auto-replaced with `__VERSION__`)
 
 ---
 
 ## Tips for New Claude Instances
 
 1. **Always check CHANGELOG.md first** - Has the most recent changes
-2. **Read settings-handlers.sh** - Understanding this pattern is key
-3. **Test with --local flag** - Don't upload to GitHub while debugging
-4. **Check button IDs carefully** - They've been fixed in v2.8.0
-5. **YAD is optional** - Code must work with Zenity fallback
-6. **Read DEVELOPMENT-NOTES.md** - Contains important YAD limitations
-7. **No auto-updates!** - System-Check only SHOWS versions
-8. **Ask before major changes** - User prefers to be consulted first
+2. **Run `bash -n` on all scripts** - Catches syntax errors
+3. **YAD is optional** - Code must work with Zenity fallback
+4. **Read DEVELOPMENT-NOTES.md** - Contains important YAD limitations
+5. **Ask before major changes** - User prefers to be consulted first
+6. **Variables must be quoted** - Especially in file operations
 
 ---
 
@@ -373,12 +289,11 @@ When releasing a new version:
 
 | Version | Date | Highlights |
 |---------|------|------------|
-| v2.8.0 | 2026-01-10 | Event-driven settings, DOWNLOAD button in both menus, System-Check, X-button fix |
-| v2.7.0 | 2026-01-09 | Separate windows UI, YAD support, smart navigation |
+| v2.7.0 | 2026-01-09 | Separate windows UI, YAD support, smart navigation, settings window |
 | v2.6.0 | 2026-01-09 | Retry mechanism, configuration file support |
-| v2.5.0 | - | Mobile app packaging, embedded tarball |
-| v2.4.0 | - | GUI installer/uninstaller |
-| v2.3.0 | - | Bilingual support (DE/EN) |
+| v2.5.0 | 2026-01-09 | English-first approach, separate changelog |
+| v2.4.6 | 2026-01-08 | Mobile app with smartphone design |
+| v2.4.3 | 2026-01-08 | Reddit CDN support, Twitter fixes |
 
 ---
 
@@ -389,7 +304,7 @@ See `DEVELOPMENT-NOTES.md` for detailed lessons learned, including:
 - Bash arithmetic with `set -e`
 - Zenity icon sort order
 - Base64 self-contained scripts
-- YAD GUI limitations
+- YAD GUI limitations and best practices
 
 ---
 
