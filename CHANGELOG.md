@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.8.0] - 2026-01-10
+
+### Added
+- **Settings Handler Architecture:** New modular `settings-handlers.sh` for clean separation of UI and business logic
+- **Event-Driven Settings Menu:** Settings actions are now handled via exported functions
+- **Persistent Settings:** Settings menu stays open after executing actions (no more annoying jumps back to main menu)
+- **Enhanced Release Automation:** Upload script now uses CHANGELOG.md and release notes files for GitHub releases
+- **Version Check:** Script asks before updating existing releases
+
+### Changed
+- **YAD as Primary UI:** Main application now uses YAD by default with Zenity fallback
+- **Improved Dialog Sizing:** All dialogs sized to prevent GTK warnings
+- **Better Column Headers:** Checkbox icons (☑) instead of confusing single letters
+- **X-Button Behavior:** Closing dialogs with X no longer crashes the entire application
+- **Installer/Uninstaller:** Remain on Zenity for maximum compatibility
+
+### Fixed
+- **Button ID Mappings:** All button IDs now correctly mapped to their functions
+  - ID=7: Now correctly starts download (was: language switch)
+  - ID=9: Now correctly switches language (was: exit)
+  - ID=6: Now correctly shows info dialog (was: started download)
+  - Settings actions (101-105): All working correctly
+- **Desktop Shortcuts Removal:** Uninstaller now properly calls `update-desktop-database`
+- **Markup Errors:** Fixed `&` character encoding in success messages (`&amp;`)
+- **Window Sizes:** Increased dialog dimensions to eliminate GTK size warnings
+
+### Technical
+- Introduced `settings-handlers.sh` - reusable, testable action handlers
+- Handlers are exported and called by UI module to keep settings loop active
+- Main script no longer handles settings actions in case statement
+- Cleaner separation: UI logic in `mobile-app-ui-yad-tabs.sh`, business logic in handlers
+- Upload script enhanced with intelligent release notes generation (priority: specific release notes → CHANGELOG → git log)
+
+---
+
 ## [2.7.0] - 2026-01-09
 
 ### Added
