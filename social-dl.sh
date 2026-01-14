@@ -9,7 +9,7 @@ set -o nounset
 set -o pipefail
 
 # Version Info
-SCRIPT_VERSION="2.7.0"
+SCRIPT_VERSION="2.8.0"
 GITHUB_REPO="socialawkward/social-dl"
 
 # Language Detection
